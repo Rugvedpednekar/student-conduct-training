@@ -16,65 +16,201 @@
   <script>
     document.getElementById('page-title').textContent = 'Dashboard';
     document.getElementById('page-subtitle').textContent = 'Welcome to Student Conduct GA onboarding';
+
     document.getElementById('page-content').innerHTML = `
-      <!-- Dashboard hero -->
-      <section class="hero">
-        <h2>Welcome to the Office of Student Conduct</h2>
-        <p>This internal portal guides Graduate Assistants through systems training, hearing preparation, case management, sanctions tracking, parent letter workflows, and escalation protocol.</p>
-        <div style="margin-top:0.9rem;display:flex;gap:.5rem;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="training-flow.html">Start Training</a>
-          <a class="btn btn-soft" href="quick-reference.html">Open Quick Reference</a>
-        </div>
-      </section>
+      <section class="dashboard-page">
 
-      <!-- KPI + quick cards -->
-      <section class="grid" style="margin-top:1rem;">
-        <article class="card col-4">
-          <h3>Training Progress</h3>
-          <div class="kpi">35% complete</div>
-          <div class="progress"><span style="width:35%;"></span></div>
-          <p>Next unlock: Case Handling details and hearing packet checklist.</p>
-        </article>
-
-        <article class="card col-4">
-          <h3>Today’s Priority Tasks</h3>
-          <ul class="list-clean">
-            <li>Confirm hearing roster for Wednesday.</li>
-            <li>Update 3 open sanction records in Maxient.</li>
-            <li>Prepare one parent letter draft for review.</li>
-          </ul>
-        </article>
-
-        <article class="card col-4">
-          <h3>Quick Actions</h3>
-          <div class="chips">
-            <a class="chip" href="case-handling.html">Case Lifecycle</a>
-            <a class="chip" href="templates.html">Email Templates</a>
-            <a class="chip" href="sanctions.html">Hold Removal</a>
+        <!-- Hero -->
+        <section class="dashboard-hero">
+          <div class="dashboard-hero-main">
+            <div class="dashboard-breadcrumb">Admin Portal  ›  Dashboard</div>
+            <h1 class="dashboard-title">
+              Welcome to the <br />
+              <span>Student Conduct Team</span>
+            </h1>
+            <p class="dashboard-description">
+              This internal portal guides Graduate Assistants through systems training, hearing preparation,
+              case management, sanctions tracking, parent letter workflows, and escalation protocol.
+            </p>
           </div>
-          <p>Use these links for daily repeat workflows.</p>
-        </article>
 
-        <article class="card col-8">
-          <h3>Office Functions</h3>
-          <div class="grid" style="margin-top:0.8rem;">
-            <div class="card col-6"><h4>Case Management</h4><p>Receive reports, update records, and maintain clean case history documentation.</p></div>
-            <div class="card col-6"><h4>Hearing Preparation</h4><p>Coordinate hearing scheduling, prep packets, reminders, and attendance records.</p></div>
-            <div class="card col-6"><h4>Sanction Tracking</h4><p>Track UTI/GIPP/Fire Safety completion and confirm proof before hold review.</p></div>
-            <div class="card col-6"><h4>FERPA & Confidentiality</h4><p>Use minimum necessary information and route concerns to supervisors quickly.</p></div>
+          <aside class="dashboard-progress-card">
+            <div class="dashboard-progress-top">
+              <span>Training Progress</span>
+              <strong>35% Complete</strong>
+            </div>
+            <div class="progress">
+              <span style="width:35%;"></span>
+            </div>
+            <p>Complete the <strong>Office Overview</strong> module to unlock core responsibilities.</p>
+          </aside>
+        </section>
+
+        <!-- Quick action cards -->
+        <section class="dashboard-actions">
+          <a class="dashboard-action dashboard-action-primary" href="training-flow.html">
+            <div class="dashboard-action-icon">▶</div>
+            <div>
+              <h3>Start Training</h3>
+              <p>Resume your current module: Case Adjudication 101.</p>
+            </div>
+          </a>
+
+          <a class="dashboard-action" href="quick-reference.html">
+            <div class="dashboard-action-icon">◎</div>
+            <div>
+              <h3>Quick Reference</h3>
+              <p>Access policy handbooks, emergency contacts, and cheat sheets.</p>
+            </div>
+          </a>
+
+          <a class="dashboard-action" href="responsibilities.html">
+            <div class="dashboard-action-icon">✓</div>
+            <div>
+              <h3>Common Tasks</h3>
+              <p>Log hours, submit letters, and handle repeat workflows faster.</p>
+            </div>
+          </a>
+        </section>
+
+        <!-- Office functions -->
+        <section class="dashboard-section">
+          <div class="dashboard-section-head">
+            <h2>Office Functions & Systems</h2>
+            <a href="training-flow.html">View All Modules</a>
           </div>
-        </article>
 
-        <article class="card col-4">
-          <h3>Module Preview</h3>
-          <ul class="list-clean">
-            <li>Office Overview</li>
-            <li>Systems and Tools</li>
-            <li>Daily Responsibilities</li>
-            <li>Case Handling</li>
-            <li>Escalation Protocol</li>
-          </ul>
-        </article>
+          <div class="dashboard-functions-grid">
+            <a class="function-tile" href="office-overview.html">
+              <div class="function-icon">⌂</div>
+              <div>
+                <h4>Office Overview</h4>
+                <p>Mission, structure, and team expectations.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="systems.html">
+              <div class="function-icon">◉</div>
+              <div>
+                <h4>Maxient System</h4>
+                <p>Case records, intake workflow, and documentation basics.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="responsibilities.html">
+              <div class="function-icon">☰</div>
+              <div>
+                <h4>Daily Tasks</h4>
+                <p>Morning intake, scheduling, and student correspondence.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="office-overview.html">
+              <div class="function-icon">🔒</div>
+              <div>
+                <h4>FERPA & Privacy</h4>
+                <p>Handling sensitive student records correctly.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="parent-letters.html">
+              <div class="function-icon">✉</div>
+              <div>
+                <h4>Family Outreach</h4>
+                <p>Parent letters, address review, and communication cautions.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="templates.html">
+              <div class="function-icon">▣</div>
+              <div>
+                <h4>Templates</h4>
+                <p>Standardized email and case communication drafts.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="escalation.html">
+              <div class="function-icon">!</div>
+              <div>
+                <h4>Escalation</h4>
+                <p>When to loop in supervisors or urgent support.</p>
+              </div>
+            </a>
+
+            <a class="function-tile" href="sanctions.html">
+              <div class="function-icon">⚖</div>
+              <div>
+                <h4>Sanction Matrix</h4>
+                <p>Tracking, completion checks, and hold review logic.</p>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Lower split area -->
+        <section class="dashboard-lower-grid">
+          <article class="dashboard-feature-card">
+            <div class="dashboard-feature-badge">Onboarding Phase I</div>
+            <h3>Professionalism & Confidentiality</h3>
+            <p>
+              FERPA is non-negotiable. Every conversation, file, and student interaction must
+              remain strictly within office protocol.
+            </p>
+            <div class="dashboard-feature-quote">
+              “What you see here, stays here.”
+            </div>
+          </article>
+
+          <article class="dashboard-contacts-card">
+            <div class="dashboard-section-head">
+              <h3>Who We Work With</h3>
+              <a href="#">Full Directory</a>
+            </div>
+            <p class="dashboard-muted">Key inter-departmental contacts for collaboration.</p>
+
+            <div class="dashboard-contact-grid">
+              <div class="dashboard-contact">
+                <div class="dashboard-avatar"></div>
+                <h4>Dean of Students</h4>
+                <span>Strategic Lead</span>
+              </div>
+              <div class="dashboard-contact">
+                <div class="dashboard-avatar"></div>
+                <h4>General Counsel</h4>
+                <span>Legal Review</span>
+              </div>
+              <div class="dashboard-contact">
+                <div class="dashboard-avatar"></div>
+                <h4>Campus Police</h4>
+                <span>Safety Reports</span>
+              </div>
+              <div class="dashboard-contact">
+                <div class="dashboard-avatar"></div>
+                <h4>Counseling Center</h4>
+                <span>Student Support</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- CTA banner -->
+        <section class="dashboard-banner">
+          <div class="dashboard-banner-content">
+            <div>
+              <h3>Ready to contribute?</h3>
+              <p>
+                The 2024 Student Handbook has been updated. Review the changes before
+                proceeding with case adjudication.
+              </p>
+            </div>
+
+            <div class="dashboard-banner-actions">
+              <a class="btn btn-light" href="#">Update Handbook</a>
+              <a class="btn btn-outline-light" href="#">Dismiss</a>
+            </div>
+          </div>
+        </section>
+
       </section>
     `;
   </script>
