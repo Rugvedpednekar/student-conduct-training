@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA Training Portal | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="portal-shell" id="portal-shell"></div>
+  <script src="assets/js/nav.js"></script>
+  <script>
+    document.getElementById('page-title').textContent = 'Dashboard';
+    document.getElementById('page-content').innerHTML = `
+      <!-- Dashboard Hero -->
+      <section class="hero">
+        <h2>Welcome to Graduate Assistant Training</h2>
+        <p>You are onboarding into the Office of Student Conduct. Use this portal for hearing preparation, case management workflows, sanction tracking standards, and escalation protocol.</p>
+        <div class="cta"><a class="btn btn-primary" href="training-flow.html">Start Training</a></div>
+      </section>
+
+      <section class="grid" style="margin-top:1rem;">
+        <article class="card col-4">
+          <h3>Training Progress</h3>
+          <div class="metric">38%</div>
+          <div class="progress-wrap"><div class="progress-bar" style="width:38%"></div></div>
+          <p>4 of 11 modules completed.</p>
+        </article>
+        <article class="card col-4">
+          <h3>Quick Actions</h3>
+          <div class="chips">
+            <a class="chip" href="case-handling.html">Case Lifecycle</a>
+            <a class="chip" href="templates.html">Email Templates</a>
+            <a class="chip" href="quick-reference.html">Cheat Sheet</a>
+          </div>
+        </article>
+        <article class="card col-4">
+          <h3>Today’s Focus</h3>
+          <ul class="list-clean">
+            <li>Review hearing prep checklist</li>
+            <li>Update sanction tracking sheet</li>
+            <li>Confirm two parent letter addresses</li>
+          </ul>
+        </article>
+
+        <article class="card col-8">
+          <h3>Office Functions</h3>
+          <div class="grid" style="margin-top:0.7rem;">
+            <div class="col-6 card"><h4>Case Management</h4><p>Intake, review, scheduling, documentation, and closure in Maxient.</p></div>
+            <div class="col-6 card"><h4>Hearing Preparation</h4><p>Packet readiness, timelines, communication, and hearing logistics.</p></div>
+            <div class="col-6 card"><h4>Sanction Tracking</h4><p>Monitor completion records and verify proof prior to hold review.</p></div>
+            <div class="col-6 card"><h4>Communication Support</h4><p>Student, parent letter, and staff communication with FERPA awareness.</p></div>
+          </div>
+        </article>
+
+        <article class="card col-4">
+          <h3>Modules Preview</h3>
+          <ul class="list-clean">
+            <li>Office Overview</li>
+            <li>Systems & Tools</li>
+            <li>Daily Responsibilities</li>
+            <li>Case Handling</li>
+            <li>Escalation Protocol</li>
+          </ul>
+        </article>
+      </section>
+    `;
+  </script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
