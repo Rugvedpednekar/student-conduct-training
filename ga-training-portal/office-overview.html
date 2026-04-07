@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Office Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body><div class="portal-shell" id="portal-shell"></div>
+<script src="assets/js/nav.js"></script>
+<script>
+  document.getElementById('page-title').textContent = 'Office Overview';
+  document.getElementById('page-content').innerHTML = `
+    <section class="grid">
+      <article class="card col-8">
+        <h2>Mission of Student Conduct</h2>
+        <p>The Office of Student Conduct supports student growth and community accountability through fair, educational, and consistent conduct processes.</p>
+        <div class="notice" style="margin-top:.8rem;">
+          <strong>FERPA & Confidentiality Reminder</strong>
+          <p>Do not discuss identifiable case details outside approved workflows or with unauthorized individuals.</p>
+        </div>
+      </article>
+      <article class="card col-4">
+        <h3>GA Role Snapshot</h3>
+        <ul class="list-clean">
+          <li>Case documentation support in Maxient</li>
+          <li>Hearing prep logistics and reminders</li>
+          <li>Sanction tracking and completion verification</li>
+          <li>Draft communication for supervisor review</li>
+        </ul>
+      </article>
+      <article class="card col-6">
+        <h3>Who You Collaborate With</h3>
+        <ul class="list-clean">
+          <li>Director / Associate Director</li>
+          <li>Conduct officers and hearing staff</li>
+          <li>Administrative coordinator</li>
+          <li>Campus partners (Housing, Dean of Students, Registrar)</li>
+        </ul>
+      </article>
+      <article class="card col-6">
+        <h3>Professional Tone Expectations</h3>
+        <ul class="list-clean">
+          <li>Use neutral language and precise records.</li>
+          <li>Document same-day after hearings or calls.</li>
+          <li>Escalate uncertainty instead of guessing.</li>
+          <li>Confirm details before sending any case communication.</li>
+        </ul>
+      </article>
+    </section>`;
+</script><script src="assets/js/app.js"></script></body></html>

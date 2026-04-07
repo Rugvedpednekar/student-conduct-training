@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA Training Portal | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="portal-shell" id="portal-shell"></div>
+
+  <script src="assets/js/nav.js"></script>
+  <script>
+    document.getElementById('page-title').textContent = 'Dashboard';
+    document.getElementById('page-subtitle').textContent = 'Welcome to Student Conduct GA onboarding';
+    document.getElementById('page-content').innerHTML = `
+      <!-- Dashboard hero -->
+      <section class="hero">
+        <h2>Welcome to the Office of Student Conduct</h2>
+        <p>This internal portal guides Graduate Assistants through systems training, hearing preparation, case management, sanctions tracking, parent letter workflows, and escalation protocol.</p>
+        <div style="margin-top:0.9rem;display:flex;gap:.5rem;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="training-flow.html">Start Training</a>
+          <a class="btn btn-soft" href="quick-reference.html">Open Quick Reference</a>
+        </div>
+      </section>
+
+      <!-- KPI + quick cards -->
+      <section class="grid" style="margin-top:1rem;">
+        <article class="card col-4">
+          <h3>Training Progress</h3>
+          <div class="kpi">35% complete</div>
+          <div class="progress"><span style="width:35%;"></span></div>
+          <p>Next unlock: Case Handling details and hearing packet checklist.</p>
+        </article>
+
+        <article class="card col-4">
+          <h3>Today’s Priority Tasks</h3>
+          <ul class="list-clean">
+            <li>Confirm hearing roster for Wednesday.</li>
+            <li>Update 3 open sanction records in Maxient.</li>
+            <li>Prepare one parent letter draft for review.</li>
+          </ul>
+        </article>
+
+        <article class="card col-4">
+          <h3>Quick Actions</h3>
+          <div class="chips">
+            <a class="chip" href="case-handling.html">Case Lifecycle</a>
+            <a class="chip" href="templates.html">Email Templates</a>
+            <a class="chip" href="sanctions.html">Hold Removal</a>
+          </div>
+          <p>Use these links for daily repeat workflows.</p>
+        </article>
+
+        <article class="card col-8">
+          <h3>Office Functions</h3>
+          <div class="grid" style="margin-top:0.8rem;">
+            <div class="card col-6"><h4>Case Management</h4><p>Receive reports, update records, and maintain clean case history documentation.</p></div>
+            <div class="card col-6"><h4>Hearing Preparation</h4><p>Coordinate hearing scheduling, prep packets, reminders, and attendance records.</p></div>
+            <div class="card col-6"><h4>Sanction Tracking</h4><p>Track UTI/GIPP/Fire Safety completion and confirm proof before hold review.</p></div>
+            <div class="card col-6"><h4>FERPA & Confidentiality</h4><p>Use minimum necessary information and route concerns to supervisors quickly.</p></div>
+          </div>
+        </article>
+
+        <article class="card col-4">
+          <h3>Module Preview</h3>
+          <ul class="list-clean">
+            <li>Office Overview</li>
+            <li>Systems and Tools</li>
+            <li>Daily Responsibilities</li>
+            <li>Case Handling</li>
+            <li>Escalation Protocol</li>
+          </ul>
+        </article>
+      </section>
+    `;
+  </script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
