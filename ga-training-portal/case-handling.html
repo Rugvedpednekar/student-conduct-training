@@ -1,1 +1,209 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Case Handling</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="assets/css/styles.css"/></head><body><div class="portal-shell" id="portal-shell"></div><script src="assets/js/nav.js"></script><script>const steps=['Receive Report','Review Case','Schedule Hearing','Prepare Hearing Materials','Update Maxient','Follow Up','Close Case'];document.getElementById('page-title').textContent='Case Handling';document.getElementById('page-content').innerHTML=`<section class='card'><h2>Case Lifecycle</h2><p>Use this workflow for consistent case management from intake through closure.</p>${steps.map((s,i)=>`<article class='card' style='margin-top:.75rem;'><button class='collapse-toggle' data-collapse='step-${i}'>${i+1}. ${s}</button><div id='step-${i}' ${i?'hidden':''}><p style='margin-top:.45rem;'>Ensure timeline accuracy, clear documentation, and FERPA-safe communication at this stage.</p><div class='checklist'><label class='check-item' data-check><input type='checkbox'/> Required documentation complete</label><label class='check-item' data-check><input type='checkbox'/> Tracker and calendar updated</label><label class='check-item' data-check><input type='checkbox'/> Supervisor notes reviewed if needed</label></div></div></article>`).join('')}</section>`;</script><script src="assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Handling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=3" />
+</head>
+<body>
+  <div class="portal-shell" id="portal-shell"></div>
+
+  <script src="assets/js/nav.js"></script>
+  <script>
+    const steps = [
+      {
+        title: "Receive Report",
+        desc: "Review the report carefully and confirm whether the matter should move into Student Conduct workflow.",
+        tasks: [
+          "Read the incident report fully",
+          "Check if the student already has a related case in Maxient",
+          "Flag unclear or duplicate reports for supervisor review"
+        ]
+      },
+      {
+        title: "Review Case",
+        desc: "Review available information, identify what is missing, and determine next steps with supervisor guidance.",
+        tasks: [
+          "Compare report details with existing Maxient records",
+          "Check whether Public Safety or Housing information is attached",
+          "Identify any missing facts before outreach"
+        ]
+      },
+      {
+        title: "Schedule Hearing",
+        desc: "If the case is assigned to you, schedule the hearing with the student and send clear instructions.",
+        tasks: [
+          "Coordinate hearing date and time",
+          "Send hearing notice to student(s)",
+          "Update calendar and internal tracking"
+        ]
+      },
+      {
+        title: "Prepare Hearing Materials",
+        desc: "Make sure all relevant materials are ready before the hearing takes place.",
+        tasks: [
+          "Confirm documentation is complete",
+          "Organize notes and supporting materials",
+          "Double-check hearing logistics and student communication"
+        ]
+      },
+      {
+        title: "Update Maxient",
+        desc: "Keep Maxient accurate before and after the hearing with neutral and complete documentation.",
+        tasks: [
+          "Add or review case notes",
+          "Confirm hearing-related entries are complete",
+          "Update status fields if needed"
+        ]
+      },
+      {
+        title: "Follow Up",
+        desc: "After the hearing, complete documentation and communication steps promptly.",
+        tasks: [
+          "Complete the CRF after the hearing",
+          "Send hearing resolution if responsible or not responsible",
+          "Track sanctions or follow-up actions if assigned"
+        ]
+      },
+      {
+        title: "Close Case",
+        desc: "Close the case only after all required communication and tracking steps are complete.",
+        tasks: [
+          "Confirm all required documents are in the file",
+          "Verify follow-up items are recorded",
+          "Ensure closure is consistent with office process"
+        ]
+      }
+    ];
+
+    document.getElementById('page-title').textContent = 'Case Handling';
+    document.getElementById('page-subtitle').textContent = 'Hearing workflow, documentation, and follow-up process';
+
+    document.getElementById('page-content').innerHTML = `
+      <section class="dashboard-page">
+
+        <section class="dashboard-hero">
+          <div class="dashboard-hero-main">
+            <div class="dashboard-breadcrumb">Admin Portal › Case Handling</div>
+            <h1 class="dashboard-title">
+              Active Case <span>Management</span>
+            </h1>
+            <p class="dashboard-description">
+              Use this workflow for consistent case management from intake through closure.
+              Keep documentation accurate, timelines clear, and communication FERPA-safe at every stage.
+            </p>
+          </div>
+
+          <aside class="dashboard-progress-card">
+            <div class="dashboard-progress-top">
+              <span>Workflow Focus</span>
+              <strong>7 Core Stages</strong>
+            </div>
+            <div class="progress">
+              <span style="width:72%;"></span>
+            </div>
+            <p>
+              Complete each stage carefully before moving the case forward.
+            </p>
+          </aside>
+        </section>
+
+        <section class="grid">
+          <article class="card col-8">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+              <div>
+                <h2>Case Lifecycle</h2>
+                <p style="margin-top:.35rem;">Track the full process from report intake to final closure.</p>
+              </div>
+              <span class="badge info">Student Conduct Workflow</span>
+            </div>
+
+            <div class="case-stage-tracker" style="margin-top:1rem;">
+              ${steps.map((step, i) => `
+                <div class="case-stage ${i < 5 ? 'is-complete' : i === 5 ? 'is-active' : ''}">
+                  <div class="case-stage-icon">${i < 5 ? '✓' : i + 1}</div>
+                  <div class="case-stage-label">${step.title}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="margin-top:1rem;">
+              ${steps.map((step, i) => `
+                <article class="case-step-card ${i === 0 ? 'is-open' : ''}" style="margin-top:${i ? '.85rem' : '0'};">
+                  <button class="collapse-toggle case-step-toggle" data-collapse="step-${i}">
+                    <span>${i + 1}. ${step.title}</span>
+                    <span class="case-step-arrow">${i === 0 ? '−' : '+'}</span>
+                  </button>
+
+                  <div id="step-${i}" ${i ? 'hidden' : ''}>
+                    <p style="margin-top:.75rem;">${step.desc}</p>
+
+                    <div class="checklist" style="margin-top:.85rem;">
+                      ${step.tasks.map(task => `
+                        <label class="check-item" data-check>
+                          <input type="checkbox" />
+                          ${task}
+                        </label>
+                      `).join('')}
+                    </div>
+
+                    <div class="notice" style="margin-top:.85rem;">
+                      <strong>Reminder</strong>
+                      <p>
+                        Ensure timeline accuracy, clear documentation, and supervisor review when needed at this stage.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              `).join('')}
+            </div>
+          </article>
+
+          <aside class="card col-4">
+            <h3>Case Reminders</h3>
+
+            <div class="notice notice-danger" style="margin-top:1rem;">
+              <strong>Important</strong>
+              <p>
+                Do not guess on case direction. If anything is unclear, ask Dave before moving forward.
+              </p>
+            </div>
+
+            <div class="card" style="margin-top:1rem;background:#f8faff;">
+              <h4 style="margin-bottom:.6rem;">After the Hearing</h4>
+              <ul class="list-clean">
+                <li>Complete the CRF</li>
+                <li>Send hearing resolution</li>
+                <li>Update Maxient</li>
+                <li>Track sanctions if assigned</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:1rem;background:#f8faff;">
+              <h4 style="margin-bottom:.6rem;">Documentation Rule</h4>
+              <p>
+                If it is not documented clearly in the case workflow, it should not be treated as complete.
+              </p>
+            </div>
+
+            <div class="card" style="margin-top:1rem;background:#f8faff;">
+              <h4 style="margin-bottom:.6rem;">Quick Documents</h4>
+              <ul class="list-clean">
+                <li>Hearing Notice Template</li>
+                <li>CRF Completion Guide</li>
+                <li>Resolution Email Template</li>
+              </ul>
+            </div>
+          </aside>
+        </section>
+
+      </section>
+    `;
+  </script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
