@@ -1,0 +1,8 @@
+.login-body { min-height: 100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#e8eef9,#f5f8ff); font-family:Inter,sans-serif; }
+.login-card { background:#fff; padding:2rem; border-radius:16px; box-shadow:0 12px 30px rgba(31,60,120,.15); width:min(420px,92vw); }
+.login-form { display:flex; flex-direction:column; gap:.8rem; }
+.login-form input, .admin-editor input, .admin-editor textarea { width:100%; padding:.7rem; border:1px solid #c9d5ea; border-radius:10px; font-family:Inter,sans-serif; }
+.error { color:#ad1c1c; font-weight:600; }
+.admin-banner { border-left:4px solid #334a85; }
+.admin-buttons { display:flex; gap:.75rem; margin-top:.8rem; }
+.module-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-bottom:1rem; }

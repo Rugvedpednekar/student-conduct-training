@@ -1,2 +1,82 @@
-# student-conduct-training
-Internal training portal prototype for Student Conduct Graduate Assistant/Team
+# GA Training Portal (FastAPI + PostgreSQL)
+
+Production-ready role-based Student Conduct training portal with editable content, secure login, and Railway deployment support.
+
+## Features
+- FastAPI server-rendered portal (Jinja2).
+- Roles: **admin** (edit + view) and **user** (view-only).
+- Session-based auth with server-side role checks.
+- Bcrypt password hashing (`passlib[bcrypt]`).
+- CSRF token validation on login/logout/admin update forms.
+- SQLAlchemy ORM models: `User`, `Role`, `EditableContent`.
+- Alembic migration included.
+- Seed logic for initial roles/users/default content.
+- Railway-ready config with `DATABASE_URL` and `Procfile`.
+
+## Project Structure
+- `app/main.py` - app startup, middleware, routers.
+- `app/routes/auth.py` - `/login`, `/logout`.
+- `app/routes/portal.py` - protected content pages.
+- `app/routes/admin.py` - admin-only editor routes.
+- `app/models.py` - SQLAlchemy models.
+- `app/seed.py` - idempotent seed function.
+- `scripts/seed.py` - executable seed script.
+- `alembic/versions/20260408_01_init.py` - sample migration.
+
+## Environment Variables
+Create `.env` locally:
+
+```env
+SECRET_KEY=replace-with-long-random-secret
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ga_training
+SECURE_COOKIES=false
+```
+
+> On Railway, use Railway Variables UI to set `SECRET_KEY` and let Railway PostgreSQL provide `DATABASE_URL`.
+
+## Local Run
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run migration:
+   ```bash
+   alembic upgrade head
+   ```
+3. Seed users/content:
+   ```bash
+   python scripts/seed.py
+   ```
+4. Start app:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+5. Open `http://127.0.0.1:8000`.
+
+## Seeded Users
+- Admin username: `DAVE`
+- User username: `Stconduct`
+
+Passwords are stored hashed only; credentials are seeded server-side, never in frontend code.
+
+## Railway Deployment
+1. Push this repo to GitHub.
+2. In Railway: **New Project → Deploy from GitHub Repo**.
+3. Add a PostgreSQL service in the same Railway project.
+4. Ensure variables:
+   - `DATABASE_URL` (from Railway PostgreSQL)
+   - `SECRET_KEY` (set manually)
+   - `SECURE_COOKIES=true`
+5. Railway will install from `requirements.txt`.
+6. Start command (or Procfile):
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port $PORT
+   ```
+7. Run migration/seed (Railway shell or release step):
+   ```bash
+   alembic upgrade head && python scripts/seed.py
+   ```
+
+## Example: DB-backed render + admin edit
+- DB-backed page render example: `app/routes/portal.py` uses `get_page_content()` then renders `app/templates/page.html`.
+- Admin edit form example: `app/templates/admin_page_edit.html` posts to `app/routes/admin.py` route `/admin/content/{page_name}/{section_key}`.
