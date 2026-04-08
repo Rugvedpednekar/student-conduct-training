@@ -6,7 +6,7 @@ Production-ready role-based Student Conduct training portal with editable conten
 - FastAPI server-rendered portal (Jinja2).
 - Roles: **admin** (edit + view) and **user** (view-only).
 - Session-based auth with server-side role checks.
-- Bcrypt password hashing (`passlib[bcrypt]`).
+- Bcrypt password hashing via Passlib (`bcrypt_sha256` with bcrypt backend for better long-password safety).
 - CSRF token validation on login/logout/admin update forms.
 - SQLAlchemy ORM models: `User`, `Role`, `EditableContent`.
 - Alembic migration included.
