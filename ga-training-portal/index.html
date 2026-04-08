@@ -1,223 +1,503 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>GA Training Portal | Dashboard</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=4" />
-</head>
-<body>
-  <div class="portal-shell" id="portal-shell"></div>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
-  <script src="assets/js/nav.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script>
-    document.getElementById('page-title').textContent = 'Dashboard';
-    document.getElementById('page-subtitle').textContent = 'Welcome to Student Conduct GA onboarding';
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#465f88",
+            "primary-dim": "#39527b",
+            "primary-soft": "#d6e3ff",
+            surface: "#f7f9fb",
+            "surface-2": "#eef3f7",
+            "surface-3": "#e1e9ee",
+            ink: "#2a3439",
+            "ink-soft": "#5d6970",
+            outline: "#cfd8de",
+            success: "#1f8f5f",
+            tertiary: "#5d5c78",
+          },
+          fontFamily: {
+            headline: ["Manrope", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+          },
+          boxShadow: {
+            soft: "0 12px 40px rgba(70, 95, 136, 0.10)",
+            card: "0 8px 24px rgba(16, 24, 40, 0.06)",
+          },
+          borderRadius: {
+            xl2: "1.25rem",
+          },
+        },
+      },
+    };
+  </script>
 
-    document.getElementById('page-content').innerHTML = `
-      <section class="dashboard-page">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+      font-size: 20px;
+      line-height: 1;
+    }
 
-        <section class="dashboard-hero">
-          <div class="dashboard-hero-main">
-            <div class="dashboard-breadcrumb">Admin Portal › Dashboard</div>
-            <h1 class="dashboard-title">
-              Welcome to the <br />
-              <span>Student Conduct Team</span>
-            </h1>
-            <p class="dashboard-description">
-              This internal portal helps Graduate Assistants learn systems training, hearing preparation,
-              case management, sanctions tracking, parent letter workflows, and escalation protocol.
-            </p>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .hero-gradient {
+      background:
+        radial-gradient(circle at top right, rgba(214, 227, 255, 0.95), transparent 35%),
+        linear-gradient(135deg, #ffffff 0%, #f7f9fb 65%, #eef3f7 100%);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+<body class="bg-surface text-ink">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex lg:w-72 xl:w-80 flex-col border-r border-outline bg-white/90 backdrop-blur sticky top-0 h-screen">
+      <div class="px-8 pt-8 pb-6">
+        <div class="flex items-center gap-3">
+          <div class="h-11 w-11 rounded-2xl bg-primary text-white flex items-center justify-center shadow-soft">
+            <span class="material-symbols-outlined">school</span>
+          </div>
+          <div>
+            <h1 class="font-headline text-lg font-extrabold text-primary">GA Training Portal</h1>
+            <p class="text-xs text-ink-soft">Student Conduct Admin</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="px-4 space-y-1 overflow-y-auto flex-1">
+        <a href="index.html" class="flex items-center gap-3 rounded-xl px-4 py-3 bg-primary text-white shadow-card">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span class="font-semibold">Dashboard</span>
+        </a>
+
+        <a href="office-overview.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">info</span>
+          <span>Office Overview</span>
+        </a>
+
+        <a href="training-flow.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">auto_stories</span>
+          <span>Training Flow</span>
+        </a>
+
+        <a href="systems.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">computer</span>
+          <span>Systems</span>
+        </a>
+
+        <a href="responsibilities.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">assignment</span>
+          <span>Responsibilities</span>
+        </a>
+
+        <a href="case-handling.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">cases</span>
+          <span>Case Handling</span>
+        </a>
+
+        <a href="sanctions.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Sanctions</span>
+        </a>
+
+        <a href="parent-letters.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">mail</span>
+          <span>Parent Letters</span>
+        </a>
+
+        <a href="templates.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">description</span>
+          <span>Templates</span>
+        </a>
+
+        <a href="escalation.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">priority_high</span>
+          <span>Escalation</span>
+        </a>
+
+        <a href="quick-reference.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-ink-soft hover:bg-surface-2 transition">
+          <span class="material-symbols-outlined">quick_reference</span>
+          <span>Quick Reference</span>
+        </a>
+      </nav>
+
+      <div class="p-6">
+        <div class="rounded-2xl bg-surface-2 border border-outline p-4">
+          <div class="flex items-center gap-3">
+            <div class="h-11 w-11 rounded-full bg-primary-soft flex items-center justify-center text-primary font-bold">
+              GA
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-primary">Onboarding Status</p>
+              <p class="text-xs text-ink-soft">Continue your dashboard training path</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 min-w-0">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-40 border-b border-outline bg-white/85 backdrop-blur">
+        <div class="px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="lg:hidden h-10 w-10 rounded-xl bg-primary text-white flex items-center justify-center">
+              <span class="material-symbols-outlined">menu</span>
+            </div>
+            <div>
+              <h2 class="font-headline text-xl font-extrabold text-primary">Dashboard</h2>
+              <p class="text-xs text-ink-soft">Welcome to Student Conduct GA onboarding</p>
+            </div>
           </div>
 
-          <aside class="dashboard-progress-card">
-            <div class="dashboard-progress-top">
-              <span>Training Progress</span>
-              <strong>35% Complete</strong>
+          <div class="hidden md:flex items-center gap-3">
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft">search</span>
+              <input
+                type="text"
+                placeholder="Search resources..."
+                class="w-64 rounded-full border border-outline bg-surface px-10 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+              />
             </div>
-            <div class="progress">
-              <span style="width:35%;"></span>
-            </div>
-            <p>
-              Complete the <strong>Office Overview</strong> section to continue building your
-              Student Conduct workflow foundation.
-            </p>
-          </aside>
-        </section>
-
-        <section class="dashboard-actions">
-          <a class="dashboard-action dashboard-action-primary" href="training-flow.html">
-            <div class="dashboard-action-icon">▶</div>
-            <div>
-              <h3>Start Training</h3>
-              <p>Continue your onboarding modules and review practical GA workflows.</p>
-            </div>
-          </a>
-
-          <a class="dashboard-action" href="quick-reference.html">
-            <div class="dashboard-action-icon">◎</div>
-            <div>
-              <h3>Quick Reference</h3>
-              <p>Open fast-access guidance for common procedures, reminders, and internal checks.</p>
-            </div>
-          </a>
-
-          <a class="dashboard-action" href="responsibilities.html">
-            <div class="dashboard-action-icon">✓</div>
-            <div>
-              <h3>Common Tasks</h3>
-              <p>Review recurring daily and weekly responsibilities across Student Conduct operations.</p>
-            </div>
-          </a>
-        </section>
-
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Office Functions & Systems</h2>
-            <a href="training-flow.html">View All Modules</a>
+            <button class="h-10 w-10 rounded-full border border-outline bg-white text-ink-soft hover:text-primary transition">
+              <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button class="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-card hover:bg-primary-dim transition">
+              Checklist
+            </button>
           </div>
+        </div>
+      </header>
 
-          <div class="dashboard-functions-grid">
-            <a class="function-tile" href="office-overview.html">
-              <div class="function-icon">⌂</div>
-              <div>
-                <h4>Office Overview</h4>
-                <p>Mission, structure, collaborations, and key residential contacts.</p>
+      <div class="px-6 py-8 lg:px-10 lg:py-10 space-y-8">
+        <!-- Hero -->
+        <section class="hero-gradient rounded-[28px] border border-outline overflow-hidden shadow-soft">
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 p-8 lg:p-10">
+            <div class="xl:col-span-8">
+              <div class="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-xs font-medium text-ink-soft border border-white/60">
+                <span>Admin Portal</span>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <span class="text-primary font-semibold">Dashboard</span>
               </div>
-            </a>
 
-            <a class="function-tile" href="systems.html">
-              <div class="function-icon">◉</div>
-              <div>
-                <h4>Maxient System</h4>
-                <p>Case records, intake workflow, documentation, and hearing-related support.</p>
-              </div>
-            </a>
+              <h1 class="mt-5 font-headline text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-ink">
+                Welcome to the
+                <span class="block text-primary">Student Conduct Team</span>
+              </h1>
 
-            <a class="function-tile" href="responsibilities.html">
-              <div class="function-icon">☰</div>
-              <div>
-                <h4>Daily Tasks</h4>
-                <p>Inbox review, case support, follow-up, and recurring office workflow checks.</p>
-              </div>
-            </a>
+              <p class="mt-5 max-w-3xl text-base md:text-lg leading-8 text-ink-soft">
+                This internal portal helps Graduate Assistants learn systems training, hearing preparation,
+                case management, sanctions tracking, parent letter workflows, and escalation protocol.
+              </p>
 
-            <a class="function-tile" href="office-overview.html">
-              <div class="function-icon">🔒</div>
-              <div>
-                <h4>FERPA & Privacy</h4>
-                <p>Handling sensitive student information correctly and professionally.</p>
-              </div>
-            </a>
+              <div class="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="training-flow.html"
+                  class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-card hover:bg-primary-dim transition"
+                >
+                  <span class="material-symbols-outlined">play_circle</span>
+                  Start Training
+                </a>
 
-            <a class="function-tile" href="parent-letters.html">
-              <div class="function-icon">✉</div>
-              <div>
-                <h4>Family Outreach</h4>
-                <p>Parent letters, address checks, and communication process reminders.</p>
+                <a
+                  href="quick-reference.html"
+                  class="inline-flex items-center gap-2 rounded-full border border-outline bg-white px-6 py-3 text-sm font-semibold text-ink hover:border-primary hover:text-primary transition"
+                >
+                  <span class="material-symbols-outlined">quick_reference</span>
+                  Open Quick Reference
+                </a>
               </div>
-            </a>
+            </div>
 
-            <a class="function-tile" href="templates.html">
-              <div class="function-icon">▣</div>
-              <div>
-                <h4>Templates</h4>
-                <p>Standard email, resolution, and conduct communication references.</p>
-              </div>
-            </a>
+            <div class="xl:col-span-4">
+              <div class="glass-card rounded-[24px] border border-white/60 p-6 shadow-card">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-semibold text-ink-soft">Training Progress</span>
+                  <span class="text-lg font-bold text-primary">35%</span>
+                </div>
 
-            <a class="function-tile" href="escalation.html">
-              <div class="function-icon">!</div>
-              <div>
-                <h4>Escalation</h4>
-                <p>Know when to loop in supervisors and how to respond to higher-risk situations.</p>
-              </div>
-            </a>
+                <div class="mt-5 h-3 w-full rounded-full bg-surface-3 overflow-hidden">
+                  <div class="h-full w-[35%] rounded-full bg-gradient-to-r from-primary to-primary-dim"></div>
+                </div>
 
-            <a class="function-tile" href="sanctions.html">
-              <div class="function-icon">⚖</div>
-              <div>
-                <h4>Sanction Matrix</h4>
-                <p>Tracking, completion checks, minimum sanctions, and hold-related review logic.</p>
+                <p class="mt-5 text-sm leading-6 text-ink-soft">
+                  Complete the <span class="font-semibold text-primary">Office Overview</span> section to continue
+                  building your Student Conduct workflow foundation.
+                </p>
+
+                <div class="mt-6 rounded-2xl bg-white border border-outline p-4">
+                  <div class="flex items-start gap-3">
+                    <div class="mt-1 h-9 w-9 rounded-xl bg-primary-soft text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined">tips_and_updates</span>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-ink">Next recommended step</h3>
+                      <p class="mt-1 text-sm text-ink-soft">Review the Office Overview module before moving to systems and case workflows.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </a>
+            </div>
           </div>
         </section>
 
-        <section class="dashboard-lower-grid">
-          <article class="dashboard-feature-card">
-            <div class="dashboard-feature-badge">Onboarding Phase I</div>
-            <h3>Professionalism & Confidentiality</h3>
-            <p>
-              FERPA is non-negotiable. Every conversation, file, and student interaction must
-              remain strictly within office protocol.
+        <!-- Quick actions -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="training-flow.html" class="group rounded-[24px] bg-primary text-white p-7 shadow-card hover:-translate-y-1 transition">
+            <div class="flex items-start justify-between">
+              <div class="h-14 w-14 rounded-2xl bg-white/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl">play_circle</span>
+              </div>
+              <span class="material-symbols-outlined text-white/70 group-hover:text-white">north_east</span>
+            </div>
+            <h3 class="mt-10 font-headline text-2xl font-bold">Start Training</h3>
+            <p class="mt-3 text-sm leading-6 text-white/85">
+              Continue your onboarding modules and review practical GA workflows.
             </p>
-            <div class="dashboard-feature-quote">
+          </a>
+
+          <a href="quick-reference.html" class="group rounded-[24px] bg-white border border-outline p-7 shadow-card hover:-translate-y-1 transition">
+            <div class="flex items-start justify-between">
+              <div class="h-14 w-14 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl">quick_reference</span>
+              </div>
+              <span class="material-symbols-outlined text-ink-soft group-hover:text-primary">north_east</span>
+            </div>
+            <h3 class="mt-10 font-headline text-2xl font-bold text-ink">Quick Reference</h3>
+            <p class="mt-3 text-sm leading-6 text-ink-soft">
+              Open fast-access guidance for common procedures, reminders, and internal checks.
+            </p>
+          </a>
+
+          <a href="responsibilities.html" class="group rounded-[24px] bg-surface-2 border border-outline p-7 shadow-card hover:-translate-y-1 transition">
+            <div class="flex items-start justify-between">
+              <div class="h-14 w-14 rounded-2xl bg-white text-tertiary flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl">task_alt</span>
+              </div>
+              <span class="material-symbols-outlined text-ink-soft group-hover:text-tertiary">north_east</span>
+            </div>
+            <h3 class="mt-10 font-headline text-2xl font-bold text-ink">Common Tasks</h3>
+            <p class="mt-3 text-sm leading-6 text-ink-soft">
+              Review recurring daily and weekly responsibilities across Student Conduct operations.
+            </p>
+          </a>
+        </section>
+
+        <!-- Functions -->
+        <section>
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-3">
+              <span class="h-7 w-1.5 rounded-full bg-primary"></span>
+              <h2 class="font-headline text-2xl font-extrabold text-ink">Office Functions & Systems</h2>
+            </div>
+            <a href="training-flow.html" class="text-sm font-semibold text-primary hover:underline">View All Modules</a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+            <a href="office-overview.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">corporate_fare</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Office Overview</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Mission, structure, collaborations, and key residential contacts.</p>
+            </a>
+
+            <a href="systems.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">database</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Maxient System</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Case records, intake workflow, documentation, and hearing-related support.</p>
+            </a>
+
+            <a href="responsibilities.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">event_note</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Daily Tasks</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Inbox review, case support, follow-up, and recurring office workflow checks.</p>
+            </a>
+
+            <a href="office-overview.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">policy</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">FERPA & Privacy</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Handling sensitive student information correctly and professionally.</p>
+            </a>
+
+            <a href="parent-letters.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">mail</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Family Outreach</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Parent letters, address checks, and communication process reminders.</p>
+            </a>
+
+            <a href="templates.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">description</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Templates</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Standard email, resolution, and conduct communication references.</p>
+            </a>
+
+            <a href="escalation.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">warning</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Escalation</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Know when to loop in supervisors and how to respond to higher-risk situations.</p>
+            </a>
+
+            <a href="sanctions.html" class="group rounded-3xl border border-outline bg-white p-5 shadow-card hover:border-primary/30 hover:-translate-y-1 transition">
+              <div class="h-12 w-12 rounded-2xl bg-primary-soft text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">gavel</span>
+              </div>
+              <h3 class="mt-4 font-headline text-lg font-bold group-hover:text-primary">Sanction Matrix</h3>
+              <p class="mt-2 text-sm leading-6 text-ink-soft">Tracking, completion checks, minimum sanctions, and hold-related review logic.</p>
+            </a>
+          </div>
+        </section>
+
+        <!-- Lower grid -->
+        <section class="grid grid-cols-1 xl:grid-cols-5 gap-6">
+          <article class="xl:col-span-2 rounded-[28px] bg-primary text-white p-8 shadow-soft">
+            <div class="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-semibold tracking-wide uppercase">
+              Onboarding Phase I
+            </div>
+            <h3 class="mt-5 font-headline text-3xl font-extrabold">Professionalism & Confidentiality</h3>
+            <p class="mt-4 text-sm leading-7 text-white/85">
+              FERPA is non-negotiable. Every conversation, file, and student interaction must remain strictly within office protocol.
+            </p>
+            <div class="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 text-base italic">
               “What you see here, stays here.”
             </div>
           </article>
 
-          <article class="dashboard-contacts-card">
-            <div class="dashboard-section-head">
-              <h3>Who We Work With</h3>
-              <a href="#">Full Directory</a>
+          <article class="xl:col-span-3 rounded-[28px] bg-white border border-outline p-8 shadow-card">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-headline text-2xl font-extrabold text-ink">Who We Work With</h3>
+                <p class="mt-2 text-sm text-ink-soft">Key inter-departmental contacts for collaboration.</p>
+              </div>
+              <a href="#" class="text-sm font-semibold text-primary hover:underline">Full Directory</a>
             </div>
-            <p class="dashboard-muted">Key inter-departmental contacts for collaboration.</p>
 
-            <div class="dashboard-contact-grid">
-              <div class="dashboard-contact">
-                <div class="dashboard-avatar"></div>
-                <h4>Executive Director of Student Conduct</h4>
-                <span>Dave Stender</span>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="rounded-2xl bg-surface-2 border border-outline p-4">
+                <div class="flex items-center gap-3">
+                  <div class="h-11 w-11 rounded-full bg-primary-soft"></div>
+                  <div>
+                    <h4 class="font-semibold text-ink">Executive Director of Student Conduct</h4>
+                    <p class="text-sm text-ink-soft">Dave Stender</p>
+                  </div>
+                </div>
               </div>
-              <div class="dashboard-contact">
-                <div class="dashboard-avatar"></div>
-                <h4>GIPP Grad</h4>
-                <span>Program Support</span>
+
+              <div class="rounded-2xl bg-surface-2 border border-outline p-4">
+                <div class="flex items-center gap-3">
+                  <div class="h-11 w-11 rounded-full bg-primary-soft"></div>
+                  <div>
+                    <h4 class="font-semibold text-ink">GIPP Grad</h4>
+                    <p class="text-sm text-ink-soft">Program Support</p>
+                  </div>
+                </div>
               </div>
-              <div class="dashboard-contact">
-                <div class="dashboard-avatar"></div>
-                <h4>Public Safety Officer</h4>
-                <span>Tim Humiston</span>
+
+              <div class="rounded-2xl bg-surface-2 border border-outline p-4">
+                <div class="flex items-center gap-3">
+                  <div class="h-11 w-11 rounded-full bg-primary-soft"></div>
+                  <div>
+                    <h4 class="font-semibold text-ink">Public Safety Officer</h4>
+                    <p class="text-sm text-ink-soft">Tim Humiston</p>
+                  </div>
+                </div>
               </div>
-              <div class="dashboard-contact">
-                <div class="dashboard-avatar"></div>
-                <h4>Health and Wellness</h4>
-                <span>Jack Bushnell</span>
+
+              <div class="rounded-2xl bg-surface-2 border border-outline p-4">
+                <div class="flex items-center gap-3">
+                  <div class="h-11 w-11 rounded-full bg-primary-soft"></div>
+                  <div>
+                    <h4 class="font-semibold text-ink">Health and Wellness</h4>
+                    <p class="text-sm text-ink-soft">Jack Bushnell</p>
+                  </div>
+                </div>
               </div>
             </div>
           </article>
         </section>
 
-        <section class="dashboard-banner">
-          <div class="dashboard-banner-content">
-            <div>
-              <h3>Go Through Handbook</h3>
-              <p>
-                Review the current Student Handbook before moving forward with hearings,
-                sanctions, and Student Conduct workflows.
+        <!-- Handbook banner -->
+        <section class="relative overflow-hidden rounded-[30px] bg-primary shadow-soft">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-black/10"></div>
+          <div class="relative px-8 py-8 md:px-10 md:py-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white/90">
+                <span class="material-symbols-outlined text-sm">menu_book</span>
+                Required Reading
+              </div>
+              <h3 class="mt-4 font-headline text-3xl font-extrabold text-white">Go Through Handbook</h3>
+              <p class="mt-3 text-sm md:text-base leading-7 text-white/85">
+                Review the current Student Handbook before moving forward with hearings, sanctions, and Student Conduct workflows.
               </p>
             </div>
 
-            <div class="dashboard-banner-actions">
+            <div class="flex flex-wrap gap-3">
               <a
-                class="btn-light"
+                class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-slate-100 transition"
                 href="https://www.hartford.edu/current-students/_files/6.5_current_students_student_handbook.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <span class="material-symbols-outlined">open_in_new</span>
                 Open Handbook
               </a>
             </div>
           </div>
         </section>
 
-      </section>
-    `;
-  </script>
-  <script src="assets/js/app.js"></script>
+        <!-- Footer -->
+        <footer class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-outline pt-6 text-xs text-ink-soft">
+          <div class="flex flex-wrap items-center gap-5">
+            <span>© 2026 University of Hartford Student Conduct</span>
+            <a href="#" class="hover:text-primary transition">Privacy Policy</a>
+            <a href="#" class="hover:text-primary transition">Accessibility</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
+            <span class="font-semibold text-success uppercase tracking-wide">System Status: Optimal</span>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
