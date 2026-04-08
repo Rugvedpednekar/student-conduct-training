@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.auth import clear_user_session, enforce_csrf, get_csrf_token, set_user_session, verify_password
@@ -31,7 +31,8 @@ def login_submit(
     db: Session = Depends(get_db),
 ):
     enforce_csrf(request, csrf_token)
-    user = db.scalar(select(User).where(User.username == username))
+    normalized_username = username.strip()
+    user = db.scalar(select(User).where(func.lower(User.username) == normalized_username.lower()))
     if not user or not verify_password(password, user.password_hash):
         templates = get_templates(request)
         return templates.TemplateResponse(
