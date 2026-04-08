@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-page">
+  <article class="dashboard-feature-card">
+    <h3>Admin Content Manager</h3>
+    <p>Choose a page to edit sections and publish updates to all users.</p>
+    <div class="dashboard-functions-grid">
+      {% for slug, details in all_pages.items() %}
+      <a class="function-tile" href="/admin/content/{{ slug }}"><div><h4>{{ details.label }}</h4><p>Edit section titles, text, and metadata JSON.</p></div></a>
+      {% endfor %}
+    </div>
+  </article>
+</section>
+{% endblock %}

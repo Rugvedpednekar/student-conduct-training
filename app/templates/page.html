@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-page">
+  {% if page_name == 'training-flow' %}
+  <div class="module-grid">
+    {% for section in sections %}
+    <a class="function-tile" href="#{{ section.section_key }}">
+      <div><h4>Phase {{ section.metadata_json.phase if section.metadata_json and section.metadata_json.phase else loop.index }}: {{ section.title }}</h4><p>{{ section.body }}</p></div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% for section in sections %}
+  <article id="{{ section.section_key }}" class="dashboard-feature-card">
+    <h3>{{ section.title }}</h3>
+    {% if section.metadata_json and section.metadata_json.layout == 'list' %}
+      <ul>{% for line in section.body.split('\n') if line.strip() %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p style="white-space: pre-line">{{ section.body }}</p>
+    {% endif %}
+    {% if section.metadata_json and section.metadata_json.link %}
+      <p><a class="btn-light" href="{{ section.metadata_json.link }}" target="_blank" rel="noopener noreferrer">{{ section.metadata_json.link_label if section.metadata_json.link_label else 'Open Link' }}</a></p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
