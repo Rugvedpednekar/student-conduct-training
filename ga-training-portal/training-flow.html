@@ -1,1 +1,277 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Training Flow</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="assets/css/styles.css"/></head><body><div class="portal-shell" id="portal-shell"></div><script src="assets/js/nav.js"></script><script>document.getElementById('page-title').textContent='Training Flow';document.getElementById('page-content').innerHTML=`<section class="card"><h2>Multi-Phase Training Roadmap</h2><p>Progression is competency-based with supervisor sign-off before independent case support.</p><div class="roadmap"><div class="step complete"><div class="dot">✓</div><div><strong>Orientation</strong><p>Office structure, communication expectations, FERPA basics.</p></div></div><div class="step active"><div class="dot">2</div><div><strong>Systems</strong><p>Maxient, Outlook, Zoom, and tracking tools.</p></div></div><div class="step locked"><div class="dot">3</div><div><strong>Daily Responsibilities</strong></div></div><div class="step locked"><div class="dot">4</div><div><strong>Case Handling</strong></div></div><div class="step locked"><div class="dot">5</div><div><strong>Communication</strong></div></div><div class="step locked"><div class="dot">6</div><div><strong>Sanctions</strong></div></div><div class="step locked"><div class="dot">7</div><div><strong>Independent Readiness</strong></div></div></div></section>`;</script><script src="assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=2" />
+</head>
+<body>
+  <div class="portal-shell" id="portal-shell"></div>
+
+  <script src="assets/js/nav.js"></script>
+  <script>
+    document.getElementById('page-title').textContent = 'Training Flow';
+    document.getElementById('page-subtitle').textContent = 'GA onboarding roadmap and learning modules';
+
+    document.getElementById('page-content').innerHTML = `
+      <section class="dashboard-page">
+        <section class="dashboard-hero">
+          <div class="dashboard-hero-main">
+            <div class="dashboard-breadcrumb">Admin Portal › Training Flow</div>
+            <h1 class="dashboard-title">
+              Multi-Phase <span>Training Roadmap</span>
+            </h1>
+            <p class="dashboard-description">
+              Progression is competency-based with supervisor guidance before independent case support.
+              Click any phase below to view details.
+            </p>
+          </div>
+
+          <aside class="dashboard-progress-card">
+            <div class="dashboard-progress-top">
+              <span>Overall Progress</span>
+              <strong>2 / 7</strong>
+            </div>
+            <div class="progress">
+              <span style="width:28%;"></span>
+            </div>
+            <p>Current focus: Systems and Tools</p>
+          </aside>
+        </section>
+
+        <section class="card">
+          <h2 style="margin-bottom: .6rem;">Training Phases</h2>
+          <p style="margin-bottom: 1rem;">Click a phase to expand the learning goals and daily expectations.</p>
+
+          <div class="roadmap" id="training-roadmap">
+            <div class="step complete training-step" data-step="orientation">
+              <div class="dot">✓</div>
+              <div>
+                <strong>Orientation</strong>
+                <p>Student Conduct overview, office purpose, and GA expectations.</p>
+              </div>
+            </div>
+
+            <div class="step active training-step" data-step="systems">
+              <div class="dot">2</div>
+              <div>
+                <strong>Systems</strong>
+                <p>Maxient, Outlook, 3rd Millennium, and sanctions-related tracking.</p>
+              </div>
+            </div>
+
+            <div class="step training-step" data-step="daily">
+              <div class="dot">3</div>
+              <div>
+                <strong>Daily Responsibilities</strong>
+                <p>Inbox review, incoming reports, PS comparisons, and follow-up tasks.</p>
+              </div>
+            </div>
+
+            <div class="step training-step" data-step="casehandling">
+              <div class="dot">4</div>
+              <div>
+                <strong>Case Handling</strong>
+                <p>Scheduling hearings, post-hearing work, CRFs, and resolutions.</p>
+              </div>
+            </div>
+
+            <div class="step training-step" data-step="communication">
+              <div class="dot">5</div>
+              <div>
+                <strong>Communication</strong>
+                <p>Student replies, parent letters, and office messaging tone.</p>
+              </div>
+            </div>
+
+            <div class="step training-step" data-step="sanctions">
+              <div class="dot">6</div>
+              <div>
+                <strong>Sanctions</strong>
+                <p>Tracking completion, overdue items, fees, and manual verification.</p>
+              </div>
+            </div>
+
+            <div class="step training-step" data-step="independent">
+              <div class="dot">7</div>
+              <div>
+                <strong>Independent Readiness</strong>
+                <p>Working more confidently with supervisor oversight where needed.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="training-detail-card" style="margin-top:1rem;">
+          <h2 id="training-detail-title">Orientation</h2>
+          <div id="training-detail-body" style="margin-top:.8rem;"></div>
+        </section>
+      </section>
+    `;
+
+    const trainingContent = {
+      orientation: {
+        title: "Orientation",
+        body: `
+          <p>The first phase is understanding what the Office of Student Conduct does and what is expected from a Graduate Assistant.</p>
+
+          <div class="checklist">
+            <div class="check-item">
+              <div>Learn what Student Conduct is, why the office exists, and how it supports fairness, accountability, and student development.</div>
+            </div>
+            <div class="check-item">
+              <div>Understand the role of the GA in supporting case flow, communication, documentation, and follow-up tasks.</div>
+            </div>
+            <div class="check-item">
+              <div>Learn expectations around confidentiality, FERPA, professionalism, and neutral communication.</div>
+            </div>
+            <div class="check-item">
+              <div>Understand when to ask Dave before taking action independently.</div>
+            </div>
+          </div>
+        `
+      },
+
+      systems: {
+        title: "Systems",
+        body: `
+          <p>This phase focuses on the tools used most often in the office.</p>
+
+          <h3 style="margin-top:1rem;">Maxient</h3>
+          <ul class="list-clean">
+            <li>Maxient is the major platform used in the office.</li>
+            <li>Learn how to use Maxient confidently for case review, case creation support, notes, sanctions, and letters.</li>
+            <li>Add any Maxient training videos or walkthrough links here later.</li>
+          </ul>
+
+          <h3 style="margin-top:1rem;">Outlook</h3>
+          <ul class="list-clean">
+            <li>Learn basic Outlook use for office communication, student replies, and report monitoring.</li>
+            <li>Use Outlook to identify new reports, questions, and cases needing follow-up.</li>
+          </ul>
+
+          <h3 style="margin-top:1rem;">3rd Millennium</h3>
+          <ul class="list-clean">
+            <li>Used for sanctions like UTI, Marijuana 101, and other online educational courses.</li>
+            <li>Learn how sanction completion is tracked.</li>
+            <li>Sometimes students complete sanctions from a personal email and it does not reflect automatically, so manual checking may be needed.</li>
+          </ul>
+        `
+      },
+
+      daily: {
+        title: "Daily Responsibilities",
+        body: `
+          <p>Daily work is mostly driven by Outlook, new reports, follow-up, and supervisor guidance.</p>
+
+          <h3 style="margin-top:1rem;">Daily Responsibilities</h3>
+          <ul class="list-clean">
+            <li>Check Outlook and reply to students with their questions and doubts professionally.</li>
+            <li>Create cases when needed, based on Dave’s guidance and direction from Outlook communications.</li>
+            <li>Check Public Safety reports on Outlook and compare them with Maxient to see if a similar case already exists.</li>
+            <li>If you find something similar or something unclear, tell Dave and he will guide next steps.</li>
+            <li>Check incoming reports and email Dave if a case may need to be created.</li>
+          </ul>
+
+          <h3 style="margin-top:1rem;">Weekly Responsibilities</h3>
+          <ul class="list-clean">
+            <li>Parent letters</li>
+            <li>Overdue sanctions review</li>
+            <li>Sanction fee and cost updates</li>
+            <li>Post on the official Student Conduct page to spread awareness</li>
+          </ul>
+        `
+      },
+
+      casehandling: {
+        title: "Case Handling",
+        body: `
+          <p>This phase covers what happens when a case is assigned to you.</p>
+
+          <ul class="list-clean">
+            <li>If a case is assigned to you, schedule a hearing with the student.</li>
+            <li>Prepare the hearing logistics and make sure the student receives the correct information.</li>
+            <li>After the hearing with the student or students, complete the CRF.</li>
+            <li>Then send out the hearing resolution whether the student is found responsible or not responsible.</li>
+            <li>Make sure all documentation is entered clearly and accurately.</li>
+          </ul>
+        `
+      },
+
+      communication: {
+        title: "Communication",
+        body: `
+          <p>This phase focuses on communication standards used in the office.</p>
+
+          <ul class="list-clean">
+            <li>Reply to students clearly, politely, and professionally.</li>
+            <li>Draft parent letters when needed.</li>
+            <li>Use neutral language in conduct-related communication.</li>
+            <li>Confirm case details before sending anything final.</li>
+            <li>Ask for supervisor review whenever needed.</li>
+          </ul>
+        `
+      },
+
+      sanctions: {
+        title: "Sanctions",
+        body: `
+          <p>This phase focuses on sanction tracking and verification.</p>
+
+          <ul class="list-clean">
+            <li>Monitor sanction completion status.</li>
+            <li>Check overdue sanctions regularly.</li>
+            <li>Track sanction fees and costs when applicable.</li>
+            <li>Use 3rd Millennium and other systems to confirm completion.</li>
+            <li>If a student completed a sanction using a personal email and it does not reflect, verify manually before updating records.</li>
+          </ul>
+        `
+      },
+
+      independent: {
+        title: "Independent Readiness",
+        body: `
+          <p>This final phase is about building confidence in regular workflows while still checking with Dave when needed.</p>
+
+          <ul class="list-clean">
+            <li>Handle routine Outlook follow-up more confidently.</li>
+            <li>Identify when a case may need creation or escalation.</li>
+            <li>Support hearing logistics and post-hearing updates accurately.</li>
+            <li>Know when to ask for supervisor guidance instead of guessing.</li>
+          </ul>
+        `
+      }
+    };
+
+    const detailTitle = document.getElementById("training-detail-title");
+    const detailBody = document.getElementById("training-detail-body");
+    const stepEls = document.querySelectorAll(".training-step");
+
+    function setTrainingStep(stepKey) {
+      const item = trainingContent[stepKey];
+      if (!item) return;
+
+      detailTitle.textContent = item.title;
+      detailBody.innerHTML = item.body;
+
+      stepEls.forEach(el => el.classList.remove("active"));
+      const activeEl = document.querySelector('[data-step="' + stepKey + '"]');
+      if (activeEl) activeEl.classList.add("active");
+    }
+
+    stepEls.forEach(el => {
+      el.style.cursor = "pointer";
+      el.addEventListener("click", () => {
+        setTrainingStep(el.dataset.step);
+      });
+    });
+
+    setTrainingStep("orientation");
+  </script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
