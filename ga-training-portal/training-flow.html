@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=2" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=3" />
 </head>
 <body>
   <div class="portal-shell" id="portal-shell"></div>
@@ -15,197 +15,257 @@
   <script src="assets/js/nav.js"></script>
   <script>
     document.getElementById('page-title').textContent = 'Training Flow';
-    document.getElementById('page-subtitle').textContent = 'GA onboarding roadmap and learning modules';
+    document.getElementById('page-subtitle').textContent = 'Student Conduct GA onboarding course';
 
     document.getElementById('page-content').innerHTML = `
       <section class="dashboard-page">
+
         <section class="dashboard-hero">
           <div class="dashboard-hero-main">
             <div class="dashboard-breadcrumb">Admin Portal › Training Flow</div>
             <h1 class="dashboard-title">
-              Multi-Phase <span>Training Roadmap</span>
+              Student Conduct <span>GA Onboarding Program</span>
             </h1>
             <p class="dashboard-description">
-              Progression is competency-based with supervisor guidance before independent case support.
-              Click any phase below to view details.
+              Learn the systems, workflows, documentation standards, hearing preparation process,
+              sanctions tracking, and communication expectations used in the Office of Student Conduct.
             </p>
           </div>
 
           <aside class="dashboard-progress-card">
             <div class="dashboard-progress-top">
-              <span>Overall Progress</span>
-              <strong>2 / 7</strong>
+              <span>Course Progress</span>
+              <strong id="course-progress-text">0%</strong>
             </div>
             <div class="progress">
-              <span style="width:28%;"></span>
+              <span id="course-progress-bar" style="width:0%;"></span>
             </div>
-            <p>Current focus: Systems and Tools</p>
+            <p id="course-progress-note">Complete modules to track progress and unlock the next section.</p>
           </aside>
         </section>
 
-        <section class="card">
-          <h2 style="margin-bottom: .6rem;">Training Phases</h2>
-          <p style="margin-bottom: 1rem;">Click a phase to expand the learning goals and daily expectations.</p>
+        <section class="grid">
+          <article class="card col-4">
+            <h2 style="margin-bottom:.75rem;">Course Modules</h2>
+            <p style="margin-bottom:1rem;">Click a section to begin or continue learning.</p>
 
-          <div class="roadmap" id="training-roadmap">
-            <div class="step complete training-step" data-step="orientation">
-              <div class="dot">✓</div>
-              <div>
-                <strong>Orientation</strong>
-                <p>Student Conduct overview, office purpose, and GA expectations.</p>
+            <div class="roadmap" id="training-roadmap"></div>
+
+            <div class="notice" style="margin-top:1rem;">
+              <strong>Student Handbook Reference</strong>
+              <p style="margin-top:.35rem;">
+                Use the handbook as a reference while learning office workflows and policy context.
+              </p>
+              <div style="margin-top:.75rem;">
+                <a class="btn btn-soft" href="https://www.hartford.edu/current-students/_files/6.5_current_students_student_handbook.pdf" target="_blank" rel="noopener noreferrer">
+                  Open Handbook
+                </a>
               </div>
             </div>
+          </article>
 
-            <div class="step active training-step" data-step="systems">
-              <div class="dot">2</div>
+          <article class="card col-8" id="training-detail-card">
+            <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;flex-wrap:wrap;">
               <div>
-                <strong>Systems</strong>
-                <p>Maxient, Outlook, 3rd Millennium, and sanctions-related tracking.</p>
+                <h2 id="training-detail-title">Orientation</h2>
+                <p id="training-detail-meta" style="margin-top:.35rem;">Module overview</p>
               </div>
+              <span class="badge info" id="training-status-badge">In Progress</span>
             </div>
 
-            <div class="step training-step" data-step="daily">
-              <div class="dot">3</div>
-              <div>
-                <strong>Daily Responsibilities</strong>
-                <p>Inbox review, incoming reports, PS comparisons, and follow-up tasks.</p>
-              </div>
+            <div id="training-detail-body" style="margin-top:1rem;"></div>
+
+            <div class="card" style="margin-top:1rem;background:#f8faff;">
+              <h3 id="quiz-title">Mini Quiz</h3>
+              <div id="quiz-body" style="margin-top:.75rem;"></div>
+              <div id="quiz-result" style="margin-top:1rem;"></div>
             </div>
 
-            <div class="step training-step" data-step="casehandling">
-              <div class="dot">4</div>
-              <div>
-                <strong>Case Handling</strong>
-                <p>Scheduling hearings, post-hearing work, CRFs, and resolutions.</p>
-              </div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;">
+              <button class="btn btn-primary" id="mark-complete-btn">Mark Complete</button>
+              <button class="btn btn-soft" id="next-module-btn">Next Module</button>
+              <button class="btn btn-soft" id="retry-quiz-btn" style="display:none;">Retry Quiz</button>
             </div>
-
-            <div class="step training-step" data-step="communication">
-              <div class="dot">5</div>
-              <div>
-                <strong>Communication</strong>
-                <p>Student replies, parent letters, and office messaging tone.</p>
-              </div>
-            </div>
-
-            <div class="step training-step" data-step="sanctions">
-              <div class="dot">6</div>
-              <div>
-                <strong>Sanctions</strong>
-                <p>Tracking completion, overdue items, fees, and manual verification.</p>
-              </div>
-            </div>
-
-            <div class="step training-step" data-step="independent">
-              <div class="dot">7</div>
-              <div>
-                <strong>Independent Readiness</strong>
-                <p>Working more confidently with supervisor oversight where needed.</p>
-              </div>
-            </div>
-          </div>
+          </article>
         </section>
 
-        <section class="card" id="training-detail-card" style="margin-top:1rem;">
-          <h2 id="training-detail-title">Orientation</h2>
-          <div id="training-detail-body" style="margin-top:.8rem;"></div>
-        </section>
       </section>
     `;
 
-    const trainingContent = {
-      orientation: {
+    const courseModules = [
+      {
+        key: "orientation",
         title: "Orientation",
+        short: "Student Conduct overview, office purpose, and GA expectations.",
+        meta: "Module 1 • Office purpose and role expectations",
         body: `
           <p>The first phase is understanding what the Office of Student Conduct does and what is expected from a Graduate Assistant.</p>
 
           <div class="checklist">
-            <div class="check-item">
-              <div>Learn what Student Conduct is, why the office exists, and how it supports fairness, accountability, and student development.</div>
-            </div>
-            <div class="check-item">
-              <div>Understand the role of the GA in supporting case flow, communication, documentation, and follow-up tasks.</div>
-            </div>
-            <div class="check-item">
-              <div>Learn expectations around confidentiality, FERPA, professionalism, and neutral communication.</div>
-            </div>
-            <div class="check-item">
-              <div>Understand when to ask Dave before taking action independently.</div>
-            </div>
+            <div class="check-item"><div>Learn what Student Conduct is and how the office supports fairness, accountability, and student development.</div></div>
+            <div class="check-item"><div>Understand the role of the GA in supporting case flow, communication, documentation, and follow-up tasks.</div></div>
+            <div class="check-item"><div>Learn expectations around professionalism, confidentiality, and asking Dave for guidance when needed.</div></div>
+            <div class="check-item"><div>Understand that your role supports office operations; major decisions still go through supervisor guidance.</div></div>
           </div>
-        `
+        `,
+        quiz: [
+          {
+            q: "What is one main purpose of the Office of Student Conduct?",
+            options: [
+              "Only to punish students",
+              "To support fair and educational accountability processes",
+              "To manage student housing assignments",
+              "To replace Public Safety"
+            ],
+            answer: 1
+          },
+          {
+            q: "What should a GA do when unsure about a case-related next step?",
+            options: [
+              "Guess and continue",
+              "Wait several days",
+              "Ask Dave for guidance",
+              "Ignore the issue"
+            ],
+            answer: 2
+          }
+        ]
       },
-
-      systems: {
+      {
+        key: "systems",
         title: "Systems",
+        short: "Maxient, Outlook, 3rd Millennium, and sanctions-related tracking.",
+        meta: "Module 2 • Systems and tools used in the office",
         body: `
-          <p>This phase focuses on the tools used most often in the office.</p>
+          <p>This section focuses on the major tools used in Student Conduct operations.</p>
 
           <h3 style="margin-top:1rem;">Maxient</h3>
           <ul class="list-clean">
             <li>Maxient is the major platform used in the office.</li>
-            <li>Learn how to use Maxient confidently for case review, case creation support, notes, sanctions, and letters.</li>
-            <li>Add any Maxient training videos or walkthrough links here later.</li>
+            <li>Learn how to use Maxient confidently for case review, notes, sanctions, letters, and case support.</li>
+            <li>Over time, this section can include Maxient videos and internal walkthroughs.</li>
           </ul>
 
           <h3 style="margin-top:1rem;">Outlook</h3>
           <ul class="list-clean">
-            <li>Learn basic Outlook use for office communication, student replies, and report monitoring.</li>
-            <li>Use Outlook to identify new reports, questions, and cases needing follow-up.</li>
+            <li>Outlook is used daily for incoming reports, student emails, PS reports, and internal office communication.</li>
+            <li>Many daily tasks begin with checking Outlook carefully.</li>
           </ul>
 
           <h3 style="margin-top:1rem;">3rd Millennium</h3>
           <ul class="list-clean">
-            <li>Used for sanctions like UTI, Marijuana 101, and other online educational courses.</li>
-            <li>Learn how sanction completion is tracked.</li>
-            <li>Sometimes students complete sanctions from a personal email and it does not reflect automatically, so manual checking may be needed.</li>
+            <li>Used for sanctions like UTI, Marijuana 101, and similar online courses.</li>
+            <li>Sometimes students complete sanctions from a personal email and it does not reflect automatically.</li>
+            <li>When that happens, the completion may need to be checked manually before updates are made.</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "What is the major platform used in the office for conduct-related case support?",
+            options: ["Outlook", "Maxient", "Canvas", "Banner"],
+            answer: 1
+          },
+          {
+            q: "What should you do if a student completes a sanction from a personal email and it does not reflect?",
+            options: [
+              "Ignore it",
+              "Mark it complete immediately",
+              "Check manually and verify completion",
+              "Delete the sanction"
+            ],
+            answer: 2
+          }
+        ]
       },
-
-      daily: {
+      {
+        key: "daily",
         title: "Daily Responsibilities",
+        short: "Inbox review, incoming reports, PS comparisons, and follow-up tasks.",
+        meta: "Module 3 • Daily and weekly workflow",
         body: `
-          <p>Daily work is mostly driven by Outlook, new reports, follow-up, and supervisor guidance.</p>
+          <p>Daily work is mostly driven by Outlook, new reports, and supervisor-guided follow-up.</p>
 
           <h3 style="margin-top:1rem;">Daily Responsibilities</h3>
           <ul class="list-clean">
-            <li>Check Outlook and reply to students with their questions and doubts professionally.</li>
-            <li>Create cases when needed, based on Dave’s guidance and direction from Outlook communications.</li>
-            <li>Check Public Safety reports on Outlook and compare them with Maxient to see if a similar case already exists.</li>
-            <li>If you find something similar or something unclear, tell Dave and he will guide next steps.</li>
-            <li>Check incoming reports and email Dave if a case may need to be created.</li>
+            <li>Check Outlook and reply to student questions professionally.</li>
+            <li>Create cases when needed, based on Dave’s guidance and office email instructions.</li>
+            <li>Review Public Safety reports on Outlook and compare them to Maxient if a similar case might already exist.</li>
+            <li>If you find something similar or unclear, tell Dave and follow his guidance.</li>
+            <li>Check for incoming reports and email Dave if a case may need to be created.</li>
           </ul>
 
           <h3 style="margin-top:1rem;">Weekly Responsibilities</h3>
           <ul class="list-clean">
             <li>Parent letters</li>
             <li>Overdue sanctions review</li>
-            <li>Sanction fee and cost updates</li>
-            <li>Post on the official Student Conduct page to spread awareness</li>
+            <li>Sanctions fee / cost updates</li>
+            <li>Posting on the official Student Conduct page to spread awareness</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "What should you do if a PS report may match a similar case in Maxient?",
+            options: [
+              "Close the report yourself",
+              "Tell Dave and follow guidance",
+              "Ignore it",
+              "Email the student first"
+            ],
+            answer: 1
+          },
+          {
+            q: "Which of the following is a weekly responsibility?",
+            options: [
+              "Parent letters",
+              "Replacing office computers",
+              "Managing financial aid",
+              "Teaching classes"
+            ],
+            answer: 0
+          }
+        ]
       },
-
-      casehandling: {
+      {
+        key: "casehandling",
         title: "Case Handling",
+        short: "Scheduling hearings, post-hearing work, CRFs, and resolutions.",
+        meta: "Module 4 • Assigned case workflow",
         body: `
-          <p>This phase covers what happens when a case is assigned to you.</p>
+          <p>This section covers what happens when a case is assigned to you.</p>
 
           <ul class="list-clean">
             <li>If a case is assigned to you, schedule a hearing with the student.</li>
-            <li>Prepare the hearing logistics and make sure the student receives the correct information.</li>
+            <li>Prepare hearing logistics and make sure the student receives the correct information.</li>
             <li>After the hearing with the student or students, complete the CRF.</li>
             <li>Then send out the hearing resolution whether the student is found responsible or not responsible.</li>
-            <li>Make sure all documentation is entered clearly and accurately.</li>
+            <li>Make sure all records are accurate, neutral, and complete.</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "What should be completed after the hearing?",
+            options: ["Housing reassignment", "CRF", "Student bill", "Parking appeal"],
+            answer: 1
+          },
+          {
+            q: "When is the hearing resolution sent?",
+            options: [
+              "Before the hearing",
+              "After the hearing process and documentation",
+              "Only if the student is not responsible",
+              "Only once per semester"
+            ],
+            answer: 1
+          }
+        ]
       },
-
-      communication: {
+      {
+        key: "communication",
         title: "Communication",
+        short: "Student replies, parent letters, and office messaging tone.",
+        meta: "Module 5 • Professional communication expectations",
         body: `
-          <p>This phase focuses on communication standards used in the office.</p>
+          <p>This section focuses on communication standards used in the office.</p>
 
           <ul class="list-clean">
             <li>Reply to students clearly, politely, and professionally.</li>
@@ -214,28 +274,67 @@
             <li>Confirm case details before sending anything final.</li>
             <li>Ask for supervisor review whenever needed.</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "What tone should be used in Student Conduct communications?",
+            options: ["Aggressive", "Neutral and professional", "Casual", "Personal"],
+            answer: 1
+          },
+          {
+            q: "What should you do before sending final case communication?",
+            options: [
+              "Send it immediately",
+              "Confirm details",
+              "Skip the subject line",
+              "Use personal opinions"
+            ],
+            answer: 1
+          }
+        ]
       },
-
-      sanctions: {
+      {
+        key: "sanctions",
         title: "Sanctions",
+        short: "Tracking completion, overdue items, fees, and manual verification.",
+        meta: "Module 6 • Sanctions and completion tracking",
         body: `
-          <p>This phase focuses on sanction tracking and verification.</p>
+          <p>This section focuses on sanction tracking and verification.</p>
 
           <ul class="list-clean">
-            <li>Monitor sanction completion status.</li>
+            <li>Monitor sanction completion status carefully.</li>
             <li>Check overdue sanctions regularly.</li>
             <li>Track sanction fees and costs when applicable.</li>
             <li>Use 3rd Millennium and other systems to confirm completion.</li>
-            <li>If a student completed a sanction using a personal email and it does not reflect, verify manually before updating records.</li>
+            <li>If a sanction does not reflect automatically, verify manually before updating records.</li>
+            <li>Remember that hold removal and major sanction decisions are supervisor-controlled.</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "Can a GA independently remove a hold?",
+            options: ["Yes", "No"],
+            answer: 1
+          },
+          {
+            q: "What should be checked before updating a sanction as complete?",
+            options: [
+              "Only the student’s word",
+              "Manual or system verification",
+              "Housing assignment",
+              "Meal plan balance"
+            ],
+            answer: 1
+          }
+        ]
       },
-
-      independent: {
+      {
+        key: "independent",
         title: "Independent Readiness",
+        short: "Working more confidently with supervisor oversight where needed.",
+        meta: "Module 7 • Final readiness and confidence-building",
         body: `
-          <p>This final phase is about building confidence in regular workflows while still checking with Dave when needed.</p>
+          <p>This final section is about building confidence in regular workflows while still checking with Dave when needed.</p>
 
           <ul class="list-clean">
             <li>Handle routine Outlook follow-up more confidently.</li>
@@ -243,34 +342,219 @@
             <li>Support hearing logistics and post-hearing updates accurately.</li>
             <li>Know when to ask for supervisor guidance instead of guessing.</li>
           </ul>
-        `
+        `,
+        quiz: [
+          {
+            q: "Independent readiness means:",
+            options: [
+              "Doing everything without guidance",
+              "Handling routine work confidently while knowing when to ask for help",
+              "Avoiding email work",
+              "Making sanction decisions alone"
+            ],
+            answer: 1
+          }
+        ]
       }
-    };
+    ];
 
-    const detailTitle = document.getElementById("training-detail-title");
-    const detailBody = document.getElementById("training-detail-body");
-    const stepEls = document.querySelectorAll(".training-step");
+    const STORAGE_KEY = "ga_training_progress_v1";
+    const passingScore = 70;
 
-    function setTrainingStep(stepKey) {
-      const item = trainingContent[stepKey];
-      if (!item) return;
-
-      detailTitle.textContent = item.title;
-      detailBody.innerHTML = item.body;
-
-      stepEls.forEach(el => el.classList.remove("active"));
-      const activeEl = document.querySelector('[data-step="' + stepKey + '"]');
-      if (activeEl) activeEl.classList.add("active");
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+          completed: {},
+          scores: {},
+          current: "orientation"
+        };
+      } catch {
+        return { completed: {}, scores: {}, current: "orientation" };
+      }
     }
 
-    stepEls.forEach(el => {
-      el.style.cursor = "pointer";
-      el.addEventListener("click", () => {
-        setTrainingStep(el.dataset.step);
+    function saveProgress(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    let progressData = loadProgress();
+    let currentModuleKey = progressData.current || "orientation";
+
+    const roadmapEl = document.getElementById("training-roadmap");
+    const detailTitle = document.getElementById("training-detail-title");
+    const detailMeta = document.getElementById("training-detail-meta");
+    const detailBody = document.getElementById("training-detail-body");
+    const quizBody = document.getElementById("quiz-body");
+    const quizResult = document.getElementById("quiz-result");
+    const statusBadge = document.getElementById("training-status-badge");
+    const markCompleteBtn = document.getElementById("mark-complete-btn");
+    const nextModuleBtn = document.getElementById("next-module-btn");
+    const retryQuizBtn = document.getElementById("retry-quiz-btn");
+
+    function getCompletedCount() {
+      return Object.values(progressData.completed).filter(Boolean).length;
+    }
+
+    function updateOverallProgress() {
+      const total = courseModules.length;
+      const done = getCompletedCount();
+      const percent = Math.round((done / total) * 100);
+      document.getElementById("course-progress-text").textContent = percent + "%";
+      document.getElementById("course-progress-bar").style.width = percent + "%";
+      document.getElementById("course-progress-note").textContent =
+        done === total
+          ? "All modules completed. Great work."
+          : done + " of " + total + " modules completed.";
+    }
+
+    function isUnlocked(index) {
+      if (index === 0) return true;
+      const prevKey = courseModules[index - 1].key;
+      return !!progressData.completed[prevKey];
+    }
+
+    function renderRoadmap() {
+      roadmapEl.innerHTML = "";
+
+      courseModules.forEach((module, index) => {
+        const completed = !!progressData.completed[module.key];
+        const unlocked = isUnlocked(index);
+        const active = currentModuleKey === module.key;
+
+        const step = document.createElement("div");
+        step.className = "step training-step";
+        if (completed) step.classList.add("complete");
+        else if (active) step.classList.add("active");
+        if (!unlocked) step.classList.add("locked");
+
+        step.innerHTML = `
+          <div class="dot">${completed ? "✓" : index + 1}</div>
+          <div>
+            <strong>${module.title}</strong>
+            <p>${module.short}</p>
+          </div>
+        `;
+
+        if (unlocked) {
+          step.style.cursor = "pointer";
+          step.addEventListener("click", () => {
+            currentModuleKey = module.key;
+            progressData.current = module.key;
+            saveProgress(progressData);
+            renderModule();
+          });
+        }
+
+        roadmapEl.appendChild(step);
       });
+    }
+
+    function renderQuiz(module) {
+      quizResult.innerHTML = "";
+      retryQuizBtn.style.display = "none";
+
+      quizBody.innerHTML = module.quiz.map((q, i) => `
+        <div class="card" style="margin-top:.75rem;padding:.85rem;">
+          <strong>${i + 1}. ${q.q}</strong>
+          <div style="margin-top:.6rem;display:grid;gap:.4rem;">
+            ${q.options.map((opt, j) => `
+              <label style="display:flex;gap:.5rem;align-items:flex-start;">
+                <input type="radio" name="quiz-${module.key}-${i}" value="${j}">
+                <span>${opt}</span>
+              </label>
+            `).join("")}
+          </div>
+        </div>
+      `).join("") + `
+        <div style="margin-top:1rem;">
+          <button class="btn btn-primary" id="submit-quiz-btn">Check Answers</button>
+        </div>
+      `;
+
+      document.getElementById("submit-quiz-btn").addEventListener("click", () => {
+        let correct = 0;
+
+        module.quiz.forEach((q, i) => {
+          const selected = document.querySelector(\`input[name="quiz-\${module.key}-\${i}"]:checked\`);
+          if (selected && Number(selected.value) === q.answer) correct++;
+        });
+
+        const score = Math.round((correct / module.quiz.length) * 100);
+        progressData.scores[module.key] = score;
+
+        if (score >= passingScore) {
+          progressData.completed[module.key] = true;
+          quizResult.innerHTML = \`
+            <div class="notice" style="margin-top:1rem;">
+              <strong>Passed</strong>
+              <p>You scored \${score}%. This module has been marked complete.</p>
+            </div>
+          \`;
+        } else {
+          quizResult.innerHTML = \`
+            <div class="notice notice-danger" style="margin-top:1rem;">
+              <strong>Not Passed Yet</strong>
+              <p>You scored \${score}%. Please review the lesson and try again.</p>
+            </div>
+          \`;
+          retryQuizBtn.style.display = "inline-flex";
+        }
+
+        saveProgress(progressData);
+        renderRoadmap();
+        updateOverallProgress();
+        renderStatusBadge(module.key);
+      });
+    }
+
+    function renderStatusBadge(moduleKey) {
+      if (progressData.completed[moduleKey]) {
+        statusBadge.textContent = "Completed";
+        statusBadge.className = "badge info";
+      } else {
+        statusBadge.textContent = "In Progress";
+        statusBadge.className = "badge alert";
+      }
+    }
+
+    function renderModule() {
+      const module = courseModules.find(m => m.key === currentModuleKey);
+      if (!module) return;
+
+      detailTitle.textContent = module.title;
+      detailMeta.textContent = module.meta;
+      detailBody.innerHTML = module.body;
+
+      renderStatusBadge(module.key);
+      renderQuiz(module);
+      renderRoadmap();
+      updateOverallProgress();
+    }
+
+    markCompleteBtn.addEventListener("click", () => {
+      progressData.completed[currentModuleKey] = true;
+      saveProgress(progressData);
+      renderModule();
     });
 
-    setTrainingStep("orientation");
+    nextModuleBtn.addEventListener("click", () => {
+      const currentIndex = courseModules.findIndex(m => m.key === currentModuleKey);
+      if (currentIndex < courseModules.length - 1) {
+        const nextIndex = currentIndex + 1;
+        if (isUnlocked(nextIndex)) {
+          currentModuleKey = courseModules[nextIndex].key;
+          progressData.current = currentModuleKey;
+          saveProgress(progressData);
+          renderModule();
+        }
+      }
+    });
+
+    retryQuizBtn.addEventListener("click", () => {
+      renderQuiz(courseModules.find(m => m.key === currentModuleKey));
+    });
+
+    renderModule();
   </script>
   <script src="assets/js/app.js"></script>
 </body>
