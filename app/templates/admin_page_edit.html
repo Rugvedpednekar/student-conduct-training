@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-page">
+  <article class="dashboard-feature-card admin-banner">
+    <h3>Edit {{ page_label }}</h3>
+    <p>Admin Mode: update content blocks and click Save Section to publish immediately.</p>
+  </article>
+
+  {% for section in sections %}
+  <article class="dashboard-feature-card admin-editor">
+    <form method="post" action="/admin/content/{{ page_name }}/{{ section.section_key }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <h4>Section Key: <code>{{ section.section_key }}</code></h4>
+      <label>Title</label>
+      <input name="title" maxlength="255" required value="{{ section.title }}" />
+      <label>Body</label>
+      <textarea name="body" rows="6" required>{{ section.body }}</textarea>
+      <label>Metadata JSON (optional)</label>
+      <textarea name="metadata_json" rows="4">{{ section.metadata_json | tojson if section.metadata_json else '' }}</textarea>
+      <div class="admin-buttons">
+        <button class="btn-light" type="submit">Save Section</button>
+        <a class="btn-light" href="/admin/content/{{ page_name }}">Cancel</a>
+      </div>
+    </form>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
