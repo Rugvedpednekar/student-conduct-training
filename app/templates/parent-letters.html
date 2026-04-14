@@ -1,1 +1,117 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Parent Letters</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="/static/css/styles.css"/></head><body><div class="portal-shell" id="portal-shell"></div><script src="/static/js/nav.js"></script><script>document.getElementById('page-title').textContent='Parent Letters';document.getElementById('page-content').innerHTML=`<section class='grid'><article class='card col-8'><h2>Parent Notification Workflow</h2><p>Parent letters are used only when policy criteria are met and supervisor approval is documented.</p><h3 style='margin-top:.8rem;'>Request-to-Send Steps</h3><ol class='list-clean'><li>Receive approved request from conduct officer.</li><li>Confirm mailing address through official student records.</li><li>Draft letter and route for supervisor edits.</li><li>Send final letter and log date in Maxient.</li></ol></article><article class='card col-4'><h3>Communication Cautions</h3><ul class='list-clean'><li>Keep language factual and policy-based.</li><li>Avoid over-disclosure of case details.</li><li>Escalate conflict or legal concerns immediately.</li></ul></article></section>`;</script><script src="/static/js/app.js"></script></body></html>
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Parent Letters</div>
+      <h1 class="dashboard-title">
+        Parent <span>Letters</span>
+      </h1>
+      <p class="dashboard-description">
+        This section explains when parent notification letters are used, how the workflow should be handled,
+        and what precautions a Graduate Assistant should take before a letter is prepared or sent.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Module Focus</span>
+        <strong>Communication</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Parent letters must be handled carefully, with supervisor guidance, accurate records, and policy-based communication.
+      </p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card col-8">
+      <h2>Parent Notification Workflow</h2>
+      <p style="margin-top:.6rem;">
+        Parent letters are used only when policy criteria are met and the office has determined that parent notification
+        is appropriate. These letters should never be treated as routine mailings without confirming that the case,
+        student status, and workflow requirements have been reviewed properly.
+      </p>
+
+      <h3 style="margin-top:1rem;">Request-to-Send Steps</h3>
+      <ol class="list-clean" style="margin-top:.75rem;">
+        <li>Receive the approved request from the conduct officer or supervisor.</li>
+        <li>Confirm the mailing address using official student records.</li>
+        <li>Draft the letter using the appropriate office template.</li>
+        <li>Route the draft for supervisor edits or approval if needed.</li>
+        <li>Send the final version through the approved process.</li>
+        <li>Log the date and relevant workflow notes in Maxient or the appropriate office record.</li>
+      </ol>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Important Practice</strong>
+        <p>
+          Parent letters should be factual, policy-based, and carefully reviewed. Do not add unnecessary case detail,
+          assumptions, or personal wording that goes beyond the approved office purpose.
+        </p>
+      </div>
+    </article>
+
+    <article class="card col-4">
+      <h3>Communication Cautions</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Keep language factual and policy-based.</li>
+        <li>Avoid over-disclosure of case details.</li>
+        <li>Verify the correct student and correct address before sending anything.</li>
+        <li>Escalate unusual family requests or legal concerns to a supervisor.</li>
+        <li>Do not promise mailing changes or delivery exceptions without approval.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Before Sending a Parent Letter</h3>
+      <div class="checklist" style="margin-top:.75rem;">
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Confirm the letter is actually required for this case.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Verify the student identity and official address.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Use the correct template and current wording.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Confirm whether supervisor review is required before sending.
+        </label>
+      </div>
+    </article>
+
+    <article class="card col-6">
+      <h3>Special Situations</h3>
+      <p style="margin-top:.75rem;">
+        Sometimes a student may request a different mailing address or raise concerns about family notification.
+        These situations should not be handled casually. Gather the request, document it appropriately, and bring it
+        to the supervisor for direction before making any change to the normal process.
+      </p>
+    </article>
+
+    <article class="card col-12">
+      <h3>Images / Visual Reference Area</h3>
+      <p style="margin-top:.6rem;">
+        This section is intentionally left ready for screenshots, mailing workflow examples, sample address-check steps,
+        or visual references you may want to add later.
+      </p>
+
+      <div style="margin-top:1rem; border:2px dashed #d9e2f0; border-radius:1rem; padding:2rem; background:#f8faff; text-align:center;">
+        <strong style="display:block; margin-bottom:.4rem; color:#465f88;">Future Image Placeholder</strong>
+        <p style="margin:0;">
+          You can later add screenshots, process visuals, sample envelopes, or parent-letter workflow images here.
+        </p>
+      </div>
+    </article>
+  </section>
+</section>
+{% endblock %}
