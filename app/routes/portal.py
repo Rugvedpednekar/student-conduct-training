@@ -18,6 +18,7 @@ def render_page(request: Request, page_name: str, db: Session, user: User):
 
     sections = get_page_content(db, page_name)
     templates = request.app.state.templates
+
     return templates.TemplateResponse(
         "page.html",
         {
@@ -40,15 +41,41 @@ def root_redirect(request: Request):
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request):
+def dashboard(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
     templates = request.app.state.templates
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "user": user,
+            "page_name": "dashboard",
+            "page_label": "Dashboard",
+            "all_pages": PAGES,
+            "csrf_token": get_csrf_token(request),
+        },
+    )
 
 
 @router.get("/training-flow", response_class=HTMLResponse)
-async def training_flow(request: Request):
+def training_flow(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
     templates = request.app.state.templates
-    return templates.TemplateResponse("training-flow.html", {"request": request})
+    return templates.TemplateResponse(
+        "training-flow.html",
+        {
+            "request": request,
+            "user": user,
+            "page_name": "training-flow",
+            "page_label": "Training Flow",
+            "all_pages": PAGES,
+            "csrf_token": get_csrf_token(request),
+        },
+    )
 
 
 for route_name in [
@@ -59,8 +86,6 @@ for route_name in [
     "sanctions",
     "parent-letters",
     "templates",
-    "escalation",
-    "quick-reference",
 ]:
 
     @router.get(f"/{route_name}", name=f"view_{route_name}")
