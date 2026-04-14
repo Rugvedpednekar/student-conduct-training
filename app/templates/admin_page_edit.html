@@ -2,21 +2,61 @@
 {% block content %}
 <section class="dashboard-page">
   <article class="dashboard-feature-card admin-banner">
-    <h3>Edit {{ page_label }}</h3>
-    <p>Admin Mode: update content blocks and click Save Section to publish immediately.</p>
+    <div class="admin-banner-head">
+      <div>
+        <h3>Edit {{ page_label }}</h3>
+        <p>Admin Mode: update content blocks and click Save Section to publish immediately.</p>
+      </div>
+
+      <form method="post" action="/admin/reset-training-progress" class="admin-reset-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+        <button
+          type="submit"
+          class="btn-outline-light admin-reset-btn"
+          title="This will reset training progress for all Graduate Assistants. Completed modules, quiz progress, and training completion status will be cleared."
+          onclick="return confirm('Are you sure you want to reset all GA training progress? This action will affect all users and cannot be undone easily.')"
+        >
+          Reset All Training Modules
+        </button>
+      </form>
+    </div>
+
+    <p class="admin-reset-help">
+      Hover over the reset button to see what it does. Use this only when you want to clear all GA training progress and restart module completion tracking.
+    </p>
   </article>
 
   {% for section in sections %}
   <article class="dashboard-feature-card admin-editor">
     <form method="post" action="/admin/content/{{ page_name }}/{{ section.section_key }}">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+
       <h4>Section Key: <code>{{ section.section_key }}</code></h4>
-      <label>Title</label>
-      <input name="title" maxlength="255" required value="{{ section.title }}" />
-      <label>Body</label>
-      <textarea name="body" rows="6" required>{{ section.body }}</textarea>
-      <label>Metadata JSON (optional)</label>
-      <textarea name="metadata_json" rows="4">{{ section.metadata_json | tojson if section.metadata_json else '' }}</textarea>
+
+      <label for="title-{{ section.section_key }}">Title</label>
+      <input
+        id="title-{{ section.section_key }}"
+        name="title"
+        maxlength="255"
+        required
+        value="{{ section.title }}"
+      />
+
+      <label for="body-{{ section.section_key }}">Body</label>
+      <textarea
+        id="body-{{ section.section_key }}"
+        name="body"
+        rows="6"
+        required
+      >{{ section.body }}</textarea>
+
+      <label for="metadata-{{ section.section_key }}">Metadata JSON (optional)</label>
+      <textarea
+        id="metadata-{{ section.section_key }}"
+        name="metadata_json"
+        rows="4"
+      >{{ section.metadata_json | tojson if section.metadata_json else '' }}</textarea>
+
       <div class="admin-buttons">
         <button class="btn-light" type="submit">Save Section</button>
         <a class="btn-light" href="/admin/content/{{ page_name }}">Cancel</a>
