@@ -9,15 +9,14 @@
     { label: 'Case Handling', href: '/case-handling', icon: '📁' },
     { label: 'Sanctions', href: '/sanctions', icon: '⚖' },
     { label: 'Parent Letters', href: '/parent-letters', icon: '✉' },
-    { label: 'Templates', href: '/templates', icon: '🗂' },
-    { label: 'Escalation', href: '/escalation', icon: '⚠' },
-    { label: 'Quick Reference', href: '/quick-reference', icon: '⟡' }
+    { label: 'Templates', href: '/templates', icon: '🗂' }
   ];
 
   const shell = document.getElementById('portal-shell');
   if (!shell) return;
 
   const page = location.pathname || '/dashboard';
+
   const navMarkup = links
     .map(
       (link) => `
