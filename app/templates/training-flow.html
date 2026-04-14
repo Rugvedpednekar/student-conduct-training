@@ -171,7 +171,7 @@
   }
 
   .course-reading {
-    max-width: 860px;
+    max-width: 960px;
   }
 
   .course-back {
@@ -220,11 +220,19 @@
     line-height: 1.75;
   }
 
-  .reading-content ul {
-    list-style: disc;
+  .reading-content ul,
+  .reading-content ol {
     padding-left: 1.25rem;
     margin-bottom: 1rem;
     color: #4a5568;
+  }
+
+  .reading-content ul {
+    list-style: disc;
+  }
+
+  .reading-content ol {
+    list-style: decimal;
   }
 
   .reading-content li {
@@ -264,6 +272,55 @@
     font-size: 11px;
     flex-shrink: 0;
     margin-top: 2px;
+  }
+
+  .reading-callout {
+    background: #fff8ec;
+    border-left: 4px solid #b2701f;
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    margin: 1rem 0;
+  }
+
+  .reading-callout strong {
+    color: #1e2d3d;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .reading-subcard {
+    background: #f8fafc;
+    border: 1px solid #e3ebf5;
+    border-radius: 14px;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .training-video-wrap {
+    margin: 1rem 0 1.25rem;
+    border: 1px solid #dde5ef;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .training-video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    display: block;
+    background: #eef3f9;
+  }
+
+  .training-video-caption {
+    padding: 0.9rem 1rem;
+    border-top: 1px solid #dde5ef;
+    background: #fff;
+  }
+
+  .training-video-caption p {
+    margin: 0;
+    font-size: 0.92rem;
   }
 
   .quiz-question {
@@ -654,57 +711,224 @@
     {
       key: "casehandling",
       title: "Case Handling",
-      short: "Case intake, hearing scheduling, CRF completion, and post-hearing workflow.",
+      short: "Case intake, hearing scheduling, hearing notification, CRF completion, and post-hearing workflow.",
       meta: "Phase 04 • Assigned case workflow",
       body: `
-        <p>This phase covers what happens when a case moves through the conduct process and how a GA supports that process.</p>
-        <ul>
-          <li>Review reports and compare them with existing records when needed.</li>
-          <li>Schedule hearings clearly and send the appropriate notice.</li>
-          <li>Prepare hearing materials and confirm logistics.</li>
-          <li>After the hearing, complete the CRF and ensure the hearing resolution is sent.</li>
-          <li>Keep documentation accurate, neutral, and complete.</li>
-        </ul>
+        <p>This phase covers what happens when a case is assigned in Maxient and how a Graduate Assistant supports the workflow before and after the hearing.</p>
+
+        <div class="training-video-wrap">
+          <iframe
+            class="training-video-frame"
+            src="https://hartford0-my.sharepoint.com/:v:/g/personal/stconduct_hartford_edu/IQD0FslKfEmoR6q60Mb0fKS7AYpdkWM7GxE1M2Ovva7jzMk?e=fbeevN"
+            title="Case Handling Training Video"
+            allowfullscreen
+          ></iframe>
+          <div class="training-video-caption">
+            <p><strong>Video walkthrough:</strong> Maxient hearing workflow, scheduling a hearing, and sending the hearing notification email.</p>
+          </div>
+        </div>
+
+        <div class="reading-callout">
+          <strong>What this section teaches</strong>
+          <p>You will learn how to find an assigned case, review the record, schedule the hearing, send the hearing notification, complete the CRF after the hearing, apply findings, and prepare the hearing outcome process.</p>
+        </div>
+
+        <h3>Part 1: Before the Hearing</h3>
+
+        <div class="reading-subcard">
+          <h3>1. Go to Home and Open Unheard Cases</h3>
+          <p>Start on the Maxient home page. Click <strong>Unheard Cases</strong> or <strong>Unresolved Cases</strong> to find the cases that still need hearing-related action.</p>
+          <ul>
+            <li>Assigned cases appear in this workflow area.</li>
+            <li>Status and hold-related information may also appear depending on the case.</li>
+            <li>If you do not have open cases, use the cases already assigned to you for training review.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>2. Open the Student Case</h3>
+          <p>Click the <strong>File ID number</strong> for the student case you want to work on.</p>
+          <ul>
+            <li>This opens the student record.</li>
+            <li>You can see first name, last name, student ID number, and other student details.</li>
+            <li>Sometimes Maxient may show that the student no longer appears in the campus data feed. This may happen if the student has graduated or their status has changed.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>3. Review the Record and EFC</h3>
+          <p>Before scheduling anything, review the case carefully.</p>
+          <ul>
+            <li>Use the <strong>Demographics</strong> tab to confirm basic student information.</li>
+            <li>Use the <strong>EFC</strong> to read the incident report or reports.</li>
+            <li>There may be more than one report, including Public Safety, RA, or RD reports.</li>
+            <li>You should understand what information is being relied on before the hearing is scheduled and later discussed.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>4. Go to Assignments</h3>
+          <p>Click <strong>Assignments</strong>. This confirms that the current case is assigned to you.</p>
+          <p>Once the case is assigned to you, one of your first responsibilities is to schedule the hearing correctly.</p>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>5. Check the Student Schedule Before Selecting the Hearing Date</h3>
+          <p>Before choosing an appointment date and time, review the student’s class schedule if it is available.</p>
+          <ul>
+            <li><strong>M</strong> = Monday</li>
+            <li><strong>T</strong> = Tuesday</li>
+            <li><strong>W</strong> = Wednesday</li>
+            <li><strong>R</strong> = Thursday</li>
+            <li><strong>F</strong> = Friday</li>
+          </ul>
+          <ul>
+            <li>Schedule the hearing around the student’s classes whenever possible.</li>
+            <li>Allow a few minutes for walking time from class to the office.</li>
+            <li>If no schedule information appears for the student, note it and consult Dave if needed.</li>
+          </ul>
+        </div>
+
+        <div class="reading-callout">
+          <strong>Important Rule: 48 Business Hours Notice</strong>
+          <p>Students must be provided 48 business hours notice of a scheduled hearing. For example, if the hearing is Friday at 2:00 PM, the hearing notification should be sent no later than Wednesday at 2:00 PM.</p>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>6. Schedule the Hearing Appointment</h3>
+          <p>Once you are ready to schedule the hearing:</p>
+          <ol>
+            <li>Select the appointment date.</li>
+            <li>Select the appointment time.</li>
+            <li>Select the appointment location.</li>
+          </ol>
+          <p>For this training workflow, the hearing location is typically:</p>
+          <ul>
+            <li><strong>GSU Room 307</strong></li>
+          </ul>
+          <p>After entering all required information, click <strong>Save Updates</strong>.</p>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>7. Open Letters and Choose the Hearing Notification Template</h3>
+          <p>After saving the appointment details, the next step is to send the student the hearing notification.</p>
+          <ol>
+            <li>Click <strong>Letters</strong>.</li>
+            <li>Select the hearing notification template.</li>
+            <li>Choose yourself as the signer.</li>
+            <li>Click into the draft builder and read the full letter carefully.</li>
+          </ol>
+          <ul>
+            <li>The signer should always be the hearing officer sending the notice.</li>
+            <li>Review the date, time, location, and wording before sending.</li>
+            <li>If another staff member should be copied, add them in the copy tab as appropriate.</li>
+            <li>Attachments are typically not added to the hearing notification email.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>8. Email the Hearing Notification</h3>
+          <p>After reviewing everything, send the letter through Maxient.</p>
+          <ul>
+            <li>You may select the option to be notified when the student opens the email.</li>
+            <li>Once confirmed, click <strong>Email This Letter</strong>.</li>
+            <li>A copy of the sent letter can later be found in the EFC for the case.</li>
+          </ul>
+        </div>
+
+        <h3>Part 2: After the Hearing</h3>
+
+        <div class="reading-subcard">
+          <h3>9. Complete the Case Resolution Form (CRF)</h3>
+          <p>After the hearing is over, return to the student’s case and complete the CRF.</p>
+          <ul>
+            <li>From the home screen, go to the relevant case and select <strong>Complete CRF</strong>.</li>
+            <li>Complete all required fields.</li>
+            <li><strong>Resolution type</strong> should be <strong>Administrative Student Conduct Hearing</strong>.</li>
+            <li><strong>Resolution date</strong> should be the same day you complete the CRF and email the hearing outcome.</li>
+            <li><strong>Administrator 1</strong> should be you, the hearing officer.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>10. Enter Findings for Each Charge</h3>
+          <p>Each student conduct code regulation listed in the case must receive a finding.</p>
+          <ul>
+            <li>Review each alleged charge separately.</li>
+            <li>Use the <strong>preponderance of evidence</strong> standard.</li>
+            <li>This means what is more likely than not to have happened.</li>
+            <li>This is not the criminal standard of proof.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>11. Apply Sanctions Correctly</h3>
+          <p>If the student is found responsible for at least one charge, refer to the minimum sanctioning guidelines.</p>
+          <ul>
+            <li>Use past Maxient history only if the student is found responsible in the current case.</li>
+            <li>Prior history affects sanctioning only after responsibility is established in the present case.</li>
+            <li>If the charge is not covered in the minimum sanctioning guidelines, consult Dave.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>12. Send the Hearing Outcome Email</h3>
+          <p>After the CRF is complete and sanctions are determined, send the hearing resolution email to the student.</p>
+          <ul>
+            <li>The hearing outcome should reflect the findings entered in the CRF.</li>
+            <li>If the student is not responsible, the outcome should still be documented and communicated appropriately.</li>
+            <li>The CRF and the hearing outcome email should be completed the same day whenever possible.</li>
+          </ul>
+        </div>
+
+        <div class="reading-callout">
+          <strong>Common Mistakes to Avoid</strong>
+          <p>Do not schedule without checking class times when available. Do not forget the 48 business hours notice rule. Do not send the hearing notification before saving assignment details. Do not use prior Maxient history unless the student is responsible in the current case. Do not leave the CRF and hearing outcome for a later date without a reason.</p>
+        </div>
+
+        <h3>Quick Workflow Summary</h3>
+        <ol>
+          <li>Go to Home.</li>
+          <li>Open Unheard Cases or Unresolved Cases.</li>
+          <li>Select the case by File ID.</li>
+          <li>Review demographics and the EFC.</li>
+          <li>Go to Assignments.</li>
+          <li>Check the student schedule.</li>
+          <li>Choose hearing date, time, and location.</li>
+          <li>Save Updates.</li>
+          <li>Open Letters.</li>
+          <li>Select the hearing notification template.</li>
+          <li>Keep yourself as the signer.</li>
+          <li>Review the letter and send it.</li>
+          <li>After the hearing, complete the CRF.</li>
+          <li>Enter findings and apply sanctions appropriately.</li>
+          <li>Send the hearing outcome email.</li>
+        </ol>
       `,
       quiz: [
         {
-          q: "What document is completed after the hearing?",
-          options: ["Housing form", "CRF", "Meal plan request", "Transcript request"],
+          q: "Where do you usually go first to find assigned cases that still need hearing action?",
+          options: ["Demographics", "Unheard Cases or Unresolved Cases", "Letters", "Configuration"],
           answer: 1
         },
         {
-          q: "When is the hearing resolution sent?",
-          options: [
-            "Before the hearing",
-            "After the hearing process and documentation",
-            "Only if the student is not responsible",
-            "Only at semester end"
-          ],
+          q: "What should you review before selecting a hearing date and time?",
+          options: ["Meal plan", "Student class schedule when available", "Parking balance", "Residence key inventory"],
           answer: 1
         },
         {
-          q: "What tone should documentation use?",
-          options: ["Personal", "Emotional", "Neutral and accurate", "Opinion-based"],
-          answer: 2
-        },
-        {
-          q: "What is part of preparing a hearing?",
-          options: [
-            "Ignoring logistics",
-            "Confirming documentation and scheduling details",
-            "Waiting until after the hearing",
-            "Removing sanctions early"
-          ],
+          q: "What is the required notice rule for scheduling a hearing?",
+          options: ["24 business hours", "48 business hours", "72 calendar hours", "Same-day notice is fine"],
           answer: 1
         },
         {
-          q: "Why is case handling structured in phases?",
-          options: [
-            "To skip unnecessary steps",
-            "To keep the case process organized and consistent",
-            "To avoid documentation",
-            "To reduce supervisor involvement"
-          ],
+          q: "What should the CRF resolution type be for this workflow?",
+          options: ["Informal review", "Administrative Student Conduct Hearing", "Residence hall meeting", "Appeal review"],
+          answer: 1
+        },
+        {
+          q: "When should prior Maxient history affect sanctioning?",
+          options: ["Always", "Only if the student is found responsible in the current case", "Only for first-time cases", "Never"],
           answer: 1
         }
       ]
@@ -884,7 +1108,7 @@
     }
   ];
 
-  const STORAGE_KEY = "ga_training_course_v4";
+  const STORAGE_KEY = "ga_training_course_v5";
   let activeModuleIndex = 0;
   let progressData = loadProgress();
 
