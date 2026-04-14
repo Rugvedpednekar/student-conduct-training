@@ -1,1 +1,122 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Responsibilities</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="/static/css/styles.css"/></head><body><div class="portal-shell" id="portal-shell"></div><script src="/static/js/nav.js"></script><script>document.getElementById('page-title').textContent='Responsibilities';document.getElementById('page-content').innerHTML=`<section class='grid'><article class='card col-6'><h3>Daily, Weekly, and As-Needed</h3><ul class='list-clean'><li><strong>Daily:</strong> Inbox triage, Maxient updates, hearing calendar review.</li><li><strong>Weekly:</strong> Sanction completion reconciliation and hold queue review.</li><li><strong>As-needed:</strong> Escalation support, urgent hearing prep, parent-letter routing.</li></ul></article><article class='card col-6'><h3>Morning Workflow Checklist</h3><div class='checklist'><label class='check-item' data-check><input type='checkbox'/> Review conduct inbox</label><label class='check-item' data-check><input type='checkbox'/> Confirm hearings and deadlines</label><label class='check-item' data-check><input type='checkbox'/> Update open case statuses</label><label class='check-item' data-check><input type='checkbox'/> Flag items needing supervisor review</label></div></article><article class='card col-6'><h3>Common Mistakes to Avoid</h3><ul class='list-clean'><li>Missing same-day case notes after hearings.</li><li>Not cross-checking student identifiers before updates.</li><li>Clearing holds before supervisor approval.</li></ul></article><article class='card col-6'><h3>Suggested Work Rhythm</h3><p>Prioritize time-sensitive communications first, then documentation and tracking updates, and end each day with case log hygiene and next-day prep.</p></article></section>`;</script><script src="/static/js/app.js"></script></body></html>
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Responsibilities</div>
+      <h1 class="dashboard-title">
+        GA <span>Responsibilities</span>
+      </h1>
+      <p class="dashboard-description">
+        This page outlines the recurring responsibilities of a Graduate Assistant in Student Conduct,
+        including daily workflow expectations, weekly operational tasks, and habits that help maintain
+        accurate, timely, and professional office support.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Module Focus</span>
+        <strong>Operations</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Strong daily and weekly habits help keep hearings, sanctions, communications, and case follow-up on track.
+      </p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card col-6">
+      <h3>Daily Responsibilities</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Review the Student Conduct inbox and monitor new messages carefully.</li>
+        <li>Check for new incident reports, hearing-related communication, and follow-up needs.</li>
+        <li>Review Maxient updates and confirm whether open cases need notes, reminders, or status updates.</li>
+        <li>Compare relevant Public Safety reports with existing conduct records when needed.</li>
+        <li>Confirm upcoming hearings, deadlines, and time-sensitive student communication.</li>
+        <li>Flag unclear situations, duplicate case concerns, or anything needing supervisor review.</li>
+        <li>Maintain professional and FERPA-safe communication throughout the day.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Weekly Responsibilities</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Review overdue sanctions and help track missing completion items.</li>
+        <li>Support parent-letter workflow when policy criteria are met.</li>
+        <li>Review sanction-related fees, charges, or completion tracking items as assigned.</li>
+        <li>Help with hold-related review workflow when documentation is ready for supervisor review.</li>
+        <li>Organize recurring follow-up items that need to be closed or escalated.</li>
+        <li>Support Student Conduct awareness efforts, including office communication or outreach tasks if assigned.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Morning Workflow Checklist</h3>
+      <div class="checklist" style="margin-top:.75rem;">
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Review conduct inbox
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Confirm hearings and deadlines
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Update open case statuses
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Flag items needing supervisor review
+        </label>
+      </div>
+    </article>
+
+    <article class="card col-6">
+      <h3>As-Needed Responsibilities</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Support hearing preparation and hearing logistics.</li>
+        <li>Draft or prepare follow-up communication for review.</li>
+        <li>Assist with sanctions verification and completion checks.</li>
+        <li>Help route parent letters and related records appropriately.</li>
+        <li>Respond to unusual workflow needs based on supervisor direction.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Common Mistakes to Avoid</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Missing same-day case notes or follow-up steps after hearings.</li>
+        <li>Not cross-checking student identifiers before updating a case.</li>
+        <li>Assuming a sanction is complete without proper verification.</li>
+        <li>Sending communication before confirming details or approval needs.</li>
+        <li>Moving forward on unclear issues instead of asking for guidance.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Suggested Work Rhythm</h3>
+      <p style="margin-top:.75rem;">
+        Start with time-sensitive communication and urgent workflow items first. Then move into documentation,
+        case review, and tracking tasks. End the day by checking for unresolved follow-up, confirming hearing
+        preparation status, and making sure open items are clearly organized for the next work period.
+      </p>
+    </article>
+
+    <article class="card col-12">
+      <div class="notice">
+        <strong>Important Practice</strong>
+        <p>
+          Daily consistency matters more than speed. A GA should aim to be organized, accurate, professional,
+          and proactive about asking questions before something becomes a larger issue.
+        </p>
+      </div>
+    </article>
+  </section>
+</section>
+{% endblock %}
