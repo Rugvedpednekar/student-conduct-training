@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GA Training Portal | Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/styles.css" />
-</head>
-<body>
-<div class="portal-shell" id="portal-shell"></div>
-<script src="/static/js/nav.js"></script>
-<script>
-document.getElementById('page-content').innerHTML = `
-  <!-- HERO -->
+{% extends "base.html" %}
+
+{% block content %}
   <div class="page-hero">
     <div class="page-hero-main">
       <div class="breadcrumb">
@@ -36,7 +22,6 @@ document.getElementById('page-content').innerHTML = `
     </div>
   </div>
 
-  <!-- FEATURE CARDS -->
   <div class="grid" style="margin-bottom:24px;">
     <div class="col-4">
       <a href="/training-flow" class="dash-feature-card primary">
@@ -76,7 +61,6 @@ document.getElementById('page-content').innerHTML = `
     </div>
   </div>
 
-  <!-- MODULE GRID -->
   <div class="section-head">
     <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
     <a href="/training-flow" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
@@ -157,7 +141,6 @@ document.getElementById('page-content').innerHTML = `
     </div>
   </div>
 
-  <!-- BANNER -->
   <div class="banner">
     <div class="banner-content">
       <h3>Ready to contribute?</h3>
@@ -169,7 +152,6 @@ document.getElementById('page-content').innerHTML = `
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer style="margin-top:28px;padding-top:20px;border-top:1px solid #dde5ef;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
     <div style="display:flex;gap:20px;align-items:center;font-size:12px;color:#6b7f95;">
       <span>© 2024 University Academic Affairs</span>
@@ -181,8 +163,4 @@ document.getElementById('page-content').innerHTML = `
       <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;">System Status: Optimal</span>
     </div>
   </footer>
-`;
-</script>
-<script src="/static/js/app.js"></script>
-</body>
-</html>
+{% endblock %}
