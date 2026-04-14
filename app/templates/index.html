@@ -1,166 +1,211 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA Training Portal | Dashboard</title>
 
-{% block content %}
-  <div class="page-hero">
-    <div class="page-hero-main">
-      <div class="breadcrumb">
-        <span>Admin Portal</span>
-        <span class="sep">›</span>
-        <span class="current">Dashboard</span>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <div class="portal-shell" id="portal-shell"></div>
+
+  <script src="/static/js/nav.js"></script>
+  <script>
+    document.getElementById("page-title").textContent = "Dashboard";
+    document.getElementById("page-subtitle").textContent = "Welcome to Student Conduct GA onboarding";
+
+    document.getElementById("page-content").innerHTML = `
+      <!-- HERO -->
+      <div class="page-hero">
+        <div class="page-hero-main">
+          <div class="breadcrumb">
+            <span>Admin Portal</span>
+            <span class="sep">›</span>
+            <span class="current">Dashboard</span>
+          </div>
+          <h1 style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;color:#1e2d3d;line-height:1.2;margin-bottom:8px;">
+            Welcome to the<br/><span style="color:#2d4a6b;">Student Conduct Team</span>
+          </h1>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-card-top">
+            <span>Training Progress</span>
+            <strong>35% Complete</strong>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar-fill" style="width:35%;"></div>
+          </div>
+          <p>
+            Complete the <strong style="color:#2d4a6b;">Office Overview</strong> module to unlock core responsibilities.
+          </p>
+        </div>
       </div>
-      <h1 style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;color:#1e2d3d;line-height:1.2;margin-bottom:8px;">
-        Welcome to the<br/><span style="color:#2d4a6b;">Student Conduct Team</span>
-      </h1>
-    </div>
-    <div class="progress-card">
-      <div class="progress-card-top">
-        <span>Training Progress</span>
-        <strong>35% Complete</strong>
+
+      <!-- FEATURE CARDS -->
+      <div class="grid" style="margin-bottom:24px;">
+        <div class="col-4">
+          <a href="/training-flow" class="dash-feature-card primary">
+            <div style="display:flex;justify-content:space-between;">
+              <div class="dash-card-icon">▶</div>
+              <span style="font-size:17px;opacity:.35;">↗</span>
+            </div>
+            <div>
+              <div class="dash-card-title" style="color:#fff;">Start Training</div>
+              <div class="dash-card-sub">Resume your current module: Case Adjudication 101.</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-4">
+          <a href="/quick-reference" class="dash-feature-card secondary">
+            <div style="display:flex;justify-content:space-between;">
+              <div class="dash-card-icon" style="background:#e4ebf3;color:#455d7a;">📖</div>
+              <span style="font-size:17px;opacity:.25;">↗</span>
+            </div>
+            <div>
+              <div class="dash-card-title" style="color:#1e2d3d;">Quick Reference</div>
+              <div class="dash-card-sub">Access policy handbooks, emergency contacts, and cheat sheets.</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-4">
+          <a href="/responsibilities" class="dash-feature-card tertiary">
+            <div style="display:flex;justify-content:space-between;">
+              <div class="dash-card-icon" style="background:#e8e4f3;color:#6b4a9c;">✓</div>
+              <span style="font-size:17px;opacity:.25;">↗</span>
+            </div>
+            <div>
+              <div class="dash-card-title" style="color:#1e2d3d;">Common Tasks</div>
+              <div class="dash-card-sub">Log hours, submit letters, or request system access overrides.</div>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="progress-bar"><div class="progress-bar-fill" style="width:35%;"></div></div>
-      <p>Complete the <strong style="color:#2d4a6b;">Office Overview</strong> module to unlock core responsibilities.</p>
-    </div>
-  </div>
 
-  <div class="grid" style="margin-bottom:24px;">
-    <div class="col-4">
-      <a href="/training-flow" class="dash-feature-card primary">
-        <div style="display:flex;justify-content:space-between;">
-          <div class="dash-card-icon">▶</div>
-          <span style="font-size:17px;opacity:.35;">↗</span>
-        </div>
-        <div>
-          <div class="dash-card-title" style="color:#fff;">Start Training</div>
-          <div class="dash-card-sub">Resume your current module: Case Adjudication 101.</div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4">
-      <a href="/quick-reference" class="dash-feature-card secondary">
-        <div style="display:flex;justify-content:space-between;">
-          <div class="dash-card-icon" style="background:#e4ebf3;color:#455d7a;">📖</div>
-          <span style="font-size:17px;opacity:.25;">↗</span>
-        </div>
-        <div>
-          <div class="dash-card-title" style="color:#1e2d3d;">Quick Reference</div>
-          <div class="dash-card-sub">Access policy handbooks, emergency contacts, and cheat sheets.</div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4">
-      <a href="/responsibilities" class="dash-feature-card tertiary">
-        <div style="display:flex;justify-content:space-between;">
-          <div class="dash-card-icon" style="background:#e8e4f3;color:#6b4a9c;">✓</div>
-          <span style="font-size:17px;opacity:.25;">↗</span>
-        </div>
-        <div>
-          <div class="dash-card-title" style="color:#1e2d3d;">Common Tasks</div>
-          <div class="dash-card-sub">Log hours, submit letters, or request system access overrides.</div>
-        </div>
-      </a>
-    </div>
-  </div>
+      <!-- MODULE GRID -->
+      <div class="section-head">
+        <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
+        <a href="/training-flow" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
+      </div>
 
-  <div class="section-head">
-    <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
-    <a href="/training-flow" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
-  </div>
+      <div class="grid" style="margin-bottom:28px;">
+        <div class="col-3">
+          <a href="/office-overview" class="module-card">
+            <div class="module-icon">🏛</div>
+            <div>
+              <h4>Office Overview</h4>
+              <p>Understanding our organizational structure, mission, and team roles.</p>
+            </div>
+          </a>
+        </div>
 
-  <div class="grid" style="margin-bottom:28px;">
-    <div class="col-3">
-      <a href="/office-overview" class="module-card">
-        <div class="module-icon">🏛</div>
-        <div>
-          <h4>Office Overview</h4>
-          <p>Understanding our organizational structure, mission, and team roles.</p>
+        <div class="col-3">
+          <a href="/systems" class="module-card">
+            <div class="module-icon">🗄</div>
+            <div>
+              <h4>Maxient System</h4>
+              <p>Mastering the primary case management database and intake workflow.</p>
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/systems" class="module-card">
-        <div class="module-icon">🗄</div>
-        <div>
-          <h4>Maxient System</h4>
-          <p>Mastering the primary case management database and intake workflow.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/responsibilities" class="module-card">
-        <div class="module-icon">📅</div>
-        <div>
-          <h4>Daily Tasks</h4>
-          <p>Checklists for morning intake, scheduling, and student correspondence.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/quick-reference" class="module-card">
-        <div class="module-icon">🔒</div>
-        <div>
-          <h4>FERPA &amp; Privacy</h4>
-          <p>Critical compliance training for handling sensitive student data and records.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/parent-letters" class="module-card">
-        <div class="module-icon">👨‍👩‍👧</div>
-        <div>
-          <h4>Family Outreach</h4>
-          <p>Guidelines for drafting parent letters and managing external phone calls.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/templates" class="module-card">
-        <div class="module-icon">📝</div>
-        <div>
-          <h4>Templates</h4>
-          <p>Standardized formats for sanctions, formal warnings, and outcomes.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/escalation" class="module-card">
-        <div class="module-icon">⚠</div>
-        <div>
-          <h4>Escalation</h4>
-          <p>When and how to involve the Dean of Students or General Counsel.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-3">
-      <a href="/sanctions" class="module-card">
-        <div class="module-icon">⚖</div>
-        <div>
-          <h4>Sanction Matrix</h4>
-          <p>Decision-making framework for consistent policy application.</p>
-        </div>
-      </a>
-    </div>
-  </div>
 
-  <div class="banner">
-    <div class="banner-content">
-      <h3>Ready to contribute?</h3>
-      <p>The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
-    </div>
-    <div class="banner-actions">
-      <a href="#" class="btn-light">📘 Update Handbook</a>
-      <a href="#" class="btn-outline-light">Dismiss</a>
-    </div>
-  </div>
+        <div class="col-3">
+          <a href="/responsibilities" class="module-card">
+            <div class="module-icon">📅</div>
+            <div>
+              <h4>Daily Tasks</h4>
+              <p>Checklists for morning intake, scheduling, and student correspondence.</p>
+            </div>
+          </a>
+        </div>
 
-  <footer style="margin-top:28px;padding-top:20px;border-top:1px solid #dde5ef;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-    <div style="display:flex;gap:20px;align-items:center;font-size:12px;color:#6b7f95;">
-      <span>© 2024 University Academic Affairs</span>
-      <a href="#" style="color:#6b7f95;text-decoration:none;">Privacy Policy</a>
-      <a href="#" style="color:#6b7f95;text-decoration:none;">ADA Accessibility</a>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
-      <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;">System Status: Optimal</span>
-    </div>
-  </footer>
-{% endblock %}
+        <div class="col-3">
+          <a href="/quick-reference" class="module-card">
+            <div class="module-icon">🔒</div>
+            <div>
+              <h4>FERPA &amp; Privacy</h4>
+              <p>Critical compliance training for handling sensitive student data and records.</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-3">
+          <a href="/parent-letters" class="module-card">
+            <div class="module-icon">👨‍👩‍👧</div>
+            <div>
+              <h4>Family Outreach</h4>
+              <p>Guidelines for drafting parent letters and managing external phone calls.</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-3">
+          <a href="/templates" class="module-card">
+            <div class="module-icon">📝</div>
+            <div>
+              <h4>Templates</h4>
+              <p>Standardized formats for sanctions, formal warnings, and outcomes.</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-3">
+          <a href="/escalation" class="module-card">
+            <div class="module-icon">⚠</div>
+            <div>
+              <h4>Escalation</h4>
+              <p>When and how to involve the Dean of Students or General Counsel.</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-3">
+          <a href="/sanctions" class="module-card">
+            <div class="module-icon">⚖</div>
+            <div>
+              <h4>Sanction Matrix</h4>
+              <p>Decision-making framework for consistent policy application.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BANNER -->
+      <div class="banner">
+        <div class="banner-content">
+          <h3>Ready to contribute?</h3>
+          <p>The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
+        </div>
+        <div class="banner-actions">
+          <a href="#" class="btn-light">📘 Update Handbook</a>
+          <a href="#" class="btn-outline-light">Dismiss</a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer style="margin-top:28px;padding-top:20px;border-top:1px solid #dde5ef;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;gap:20px;align-items:center;font-size:12px;color:#6b7f95;">
+          <span>© 2024 University Academic Affairs</span>
+          <a href="#" style="color:#6b7f95;text-decoration:none;">Privacy Policy</a>
+          <a href="#" style="color:#6b7f95;text-decoration:none;">ADA Accessibility</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+          <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;">System Status: Optimal</span>
+        </div>
+      </footer>
+    `;
+  </script>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
