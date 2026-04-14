@@ -1,361 +1,337 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GA Training Portal | Sanctions</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/styles.css" />
-</head>
-<body>
-  <div class="portal-shell" id="portal-shell"></div>
+{% extends "base.html" %}
 
-  <script src="/static/js/nav.js"></script>
-  <script>
-    document.getElementById('page-title').textContent = 'Sanctions';
-    document.getElementById('page-subtitle').textContent = 'Minimum sanctioning guidelines and completion workflow';
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Sanctions</div>
+      <h1 class="dashboard-title">
+        Minimum <span>Sanctioning Guidelines</span>
+      </h1>
+      <p class="dashboard-description">
+        This section is an internal-use reference for sanction selection, completion deadlines,
+        parent notification expectations, seasonal GIPP guidance, and hold-related workflow review.
+      </p>
+    </div>
 
-    document.getElementById('page-content').innerHTML = `
-      <section class="dashboard-page">
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Sanction Workflow</span>
+        <strong>Internal Guide</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        The sanction start date is the date the resolution email is sent, not the date of the incident.
+      </p>
+    </aside>
+  </section>
 
-        <section class="dashboard-hero">
-          <div class="dashboard-hero-main">
-            <div class="dashboard-breadcrumb">Admin Portal  ›  Sanctions</div>
-            <h1 class="dashboard-title">
-              Minimum <span>Sanctioning Guidelines</span>
-            </h1>
-            <p class="dashboard-description">
-              Internal-use reference for sanction selection, completion deadlines, seasonal assignment rules,
-              parent notification requirements, and hearing outcome copy guidance.
-            </p>
-          </div>
+  <section class="grid">
+    <article class="card col-8">
+      <h2>Core Operational Rules</h2>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>For sanctions with a time limit, the start date is the date the resolution email is sent.</li>
+        <li>Always review prior sanctions before determining current sanctions.</li>
+        <li>OSCCR coordinates financial charges for online classes.</li>
+        <li>If a hearing officer wants to assign sanctions beyond the listed minimums, they should consult Dave before drafting the resolution.</li>
+        <li>If a student is found responsible and Maxient shows an athletic affiliation, copy Alicia Queally on the hearing outcome email.</li>
+      </ul>
 
-          <aside class="dashboard-progress-card">
-            <div class="dashboard-progress-top">
-              <span>Sanction Workflow</span>
-              <strong>Internal Guide</strong>
-            </div>
-            <div class="progress">
-              <span style="width:100%;"></span>
-            </div>
-            <p>
-              The sanction start date is the date sanctions are sent in the resolution email, not the incident date.
-            </p>
-          </aside>
-        </section>
+      <h3 style="margin-top:1rem;">Hold Removal Workflow</h3>
+      <ol class="list-clean" style="margin-top:.75rem;">
+        <li>Verify that completion evidence is received and valid.</li>
+        <li>Confirm time-based sanctions have reached the correct end date.</li>
+        <li>Update Maxient and any required tracking records.</li>
+        <li>Submit for supervisor review if hold removal is needed.</li>
+        <li>Supervisor approves and initiates the hold removal process.</li>
+      </ol>
+    </article>
 
-        <section class="grid">
-          <article class="card col-8">
-            <h2>Core Operational Rules</h2>
-            <ul class="list-clean">
-              <li>For sanctions with a time limit, the start date is the date the resolution email is sent.</li>
-              <li>Always review prior sanctions before determining current sanctions.</li>
-              <li>OSCCR coordinates financial charges for online classes.</li>
-              <li>If a hearing officer wants to assign sanctions beyond the listed minimums, they should consult Dave before drafting the resolution.</li>
-              <li>If a student is found responsible and the Maxient demographics tab shows an athletic affiliation, copy Alicia Queally on the hearing outcome email.</li>
-            </ul>
+    <article class="card col-4">
+      <div class="notice notice-danger">
+        <strong>Supervisor-Only Action</strong>
+        <p>
+          GAs do not independently remove holds, modify sanction deadlines, or assign non-standard sanctions
+          without direct supervisor authorization.
+        </p>
+      </div>
 
-            <h3 style="margin-top:1rem;">Hold Removal Workflow</h3>
-            <ol class="list-clean">
-              <li>Verify completion evidence is received and valid.</li>
-              <li>Confirm time-based sanctions have reached the correct end date.</li>
-              <li>Update Maxient and any tracking sheets.</li>
-              <li>Submit for supervisor review if hold removal is needed.</li>
-              <li>Supervisor approves and initiates hold removal.</li>
-            </ol>
-          </article>
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Seasonal GIPP Rule</strong>
+        <p>
+          From <strong>August 26 to April 7</strong>, use GIPP Grad Meeting Assigned.
+          From <strong>April 8 to August 25</strong>, do not use GIPP Grad Meeting Assigned; use the educational paper in lieu of GIPP.
+        </p>
+      </div>
+    </article>
+  </section>
 
-          <article class="card col-4">
-            <div class="notice notice-danger">
-              <strong>Supervisor-Only Action</strong>
-              <p>GAs do not independently remove holds, modify sanction deadlines, or assign non-standard sanctions without direct supervisor authorization.</p>
-            </div>
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Alcohol Policy</h2>
+    </div>
 
-            <div class="notice" style="margin-top:1rem;">
-              <strong>Seasonal GIPP Rule</strong>
-              <p>
-                From <strong>August 26 to April 7</strong>, use GIPP Grad Meeting Assigned.
-                From <strong>April 8 to August 25</strong>, do not use GIPP Grad Meeting Assigned; use the educational paper in lieu of GIPP.
-              </p>
-            </div>
-          </article>
-        </section>
+    <div class="grid">
+      <article class="card col-6">
+        <h3>Alcohol 1st Time Violation</h3>
+        <p style="margin-top:.5rem;"><strong>Applicable sections:</strong> 9A, 9B, 9C, 9D, 9F, 9I, 9J, or 9H if the student is under 21.</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
+          <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
+          <li>April 8–August 25: do not assign GIPP Grad Meeting; use educational paper instead.</li>
+          <li>Disciplinary Probation for 3 months.</li>
+          <li>Parent notification after appeal window closes if student is under 21 at time of letter.</li>
+          <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
+        </ul>
+      </article>
 
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Alcohol Policy</h2>
-          </div>
+      <article class="card col-6">
+        <h3>Alcohol 1st Time — Low-Level Sections</h3>
+        <p style="margin-top:.5rem;"><strong>Applicable sections:</strong> 9E excessive amount, 9G drinking paraphernalia with no residue, and/or 9H displaying alcohol-related materials for 21+ students.</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Disciplinary Warning.</li>
+        </ul>
+      </article>
 
-          <div class="grid">
+      <article class="card col-6">
+        <h3>Alcohol 2nd Time Violation</h3>
+        <p style="margin-top:.5rem;"><strong>For all alcohol sections except E, G, and H.</strong></p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “second time.”</li>
+          <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
+          <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
+          <li>$120 administrative cost is already built into sanction language; do not list separately.</li>
+          <li>Disciplinary Probation for 12 months.</li>
+          <li>Parent notification after appeal window closes if student is under 21.</li>
+          <li>E-Checkup summer assignment; no scheduled GIPP Grad meeting.</li>
+          <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
+        </ul>
+      </article>
 
-            <article class="card col-6">
-              <h3>Alcohol 1st Time Violation</h3>
-              <p><strong>Applicable sections:</strong> 9A, 9B, 9C, 9D, 9F, 9I, 9J, or 9H if the student is under 21. :contentReference[oaicite:1]{index=1}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
-                <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
-                <li>April 8–August 25: do not assign GIPP Grad Meeting; use educational paper instead.</li>
-                <li>Disciplinary Probation for 3 months.</li>
-                <li>Parent notification after appeal window closes if student is under 21 at time of letter.</li>
-                <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Alcohol 2nd Time — Sections E / G / H</h3>
+        <p style="margin-top:.5rem;"><strong>Applicable sections:</strong> E excessive amount, only G drinking paraphernalia with no residue, H displaying alcohol-related materials, or empties found in a room with 21+ occupants.</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
+          <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
+          <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
+          <li>Disciplinary Probation for 1 month.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-            <article class="card col-6">
-              <h3>Alcohol 1st Time — Low-Level Sections</h3>
-              <p><strong>Applicable sections:</strong> 9E excessive amount, 9G drinking paraphernalia (no residue), and/or 9H displaying alcohol-related materials for 21+ students. :contentReference[oaicite:2]{index=2}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Disciplinary Warning.</li>
-              </ul>
-            </article>
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Controlled Substance / Drug Policy</h2>
+    </div>
 
-            <article class="card col-6">
-              <h3>Alcohol 2nd Time Violation</h3>
-              <p><strong>For all alcohol sections except E, G, and H.</strong> :contentReference[oaicite:3]{index=3}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “second time.”</li>
-                <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
-                <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
-                <li>$120 administrative cost is already built into sanction language; do not list separately.</li>
-                <li>Disciplinary Probation for 12 months.</li>
-                <li>Parent notification after appeal window closes if student is under 21.</li>
-                <li>E-Checkup summer assignment; no scheduled GIPP Grad meeting.</li>
-                <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
-              </ul>
-            </article>
+    <div class="grid">
+      <article class="card col-6">
+        <h3>Drug Policy 1st Time — Paraphernalia, No Residue / No Drugs</h3>
+        <p style="margin-top:.5rem;"><strong>Regulation:</strong> 8C</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Disciplinary Warning.</li>
+        </ul>
+      </article>
 
-            <article class="card col-6">
-              <h3>Alcohol 2nd Time — Sections E / G / H</h3>
-              <p><strong>Applicable sections:</strong> E excessive amount, only G drinking paraphernalia (no residue), H displaying alcohol-related materials, or empties found in a room with 21+ occupants. :contentReference[oaicite:4]{index=4}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Under the Influence (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
-                <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
-                <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
-                <li>Disciplinary Probation for 1 month.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Drug Policy 2nd Time — Paraphernalia, No Residue / No Drugs</h3>
+        <p style="margin-top:.5rem;"><strong>Regulation:</strong> 8C</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
+          <li>Disciplinary Probation for 3 months.</li>
+        </ul>
+      </article>
 
-          </div>
-        </section>
+      <article class="card col-6">
+        <h3>Drug Policy 1st Time — Paraphernalia / Possession / Use with Residue or Drugs</h3>
+        <p style="margin-top:.5rem;"><strong>Regulation:</strong> 8A</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
+          <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
+          <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
+          <li>Disciplinary Probation for 3 months.</li>
+          <li>Parent notification after appeal window closes if student is under 21.</li>
+          <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
+        </ul>
+      </article>
 
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Controlled Substance / Drug Policy</h2>
-          </div>
+      <article class="card col-6">
+        <h3>Drug Policy 2nd Time — Paraphernalia / Possession / Use with Residue or Drugs</h3>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “SECOND TIME.”</li>
+          <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
+          <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
+          <li>Disciplinary Probation for 6 months, or University Deferred Suspension if already on disciplinary probation.</li>
+          <li>Parent notification after appeal window closes if student is under 21.</li>
+          <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-          <div class="grid">
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Fire Safety / Housing / Vacancy</h2>
+    </div>
 
-            <article class="card col-6">
-              <h3>Drug Policy 1st Time — Paraphernalia, No Residue / No Drugs</h3>
-              <p><strong>Regulation:</strong> 8C. :contentReference[oaicite:5]{index=5}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Disciplinary Warning.</li>
-              </ul>
-            </article>
+    <div class="grid">
+      <article class="card col-6">
+        <h3>Failure to Keep Vacancy</h3>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Set a specific re-adjustment deadline and date for RD visual inspection.</li>
+          <li>Assign reflection paper and attach the maintain vacancy written assignment form.</li>
+          <li>Reflection paper due in one week.</li>
+        </ul>
+        <p style="margin-top:.75rem;">
+          <strong>Operational note:</strong> A first instance may be treated like a prohibited-item first-time issue with an email reminder; a second time results in a conduct hearing.
+        </p>
+      </article>
 
-            <article class="card col-6">
-              <h3>Drug Policy 2nd Time — Paraphernalia, No Residue / No Drugs</h3>
-              <p><strong>Regulation:</strong> 8C. :contentReference[oaicite:6]{index=6}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
-                <li>Disciplinary Probation for 3 months.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Fire Safety — 1st Time</h3>
+        <p style="margin-top:.5rem;"><strong>Examples:</strong> lit candle or lit incense unattended, covered smoke detector, purposefully removed smoke detector.</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Deferred Permanent Removal from housing.</li>
+          <li>Fire Safety Online Safety Course.</li>
+          <li>Give one week to complete the 20-minute Vector training.</li>
+          <li>Copy stconduct@hartford.edu and stender@hartford.edu in hearing resolution email.</li>
+        </ul>
+      </article>
 
-            <article class="card col-6">
-              <h3>Drug Policy 1st Time — Paraphernalia / Possession / Use with Residue or Drugs</h3>
-              <p><strong>Regulation:</strong> 8A. :contentReference[oaicite:7]{index=7}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “first time.”</li>
-                <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
-                <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
-                <li>Disciplinary Probation for 3 months.</li>
-                <li>Parent notification after appeal window closes if student is under 21.</li>
-                <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Fire Safety — 2nd Time</h3>
+        <p style="margin-top:.5rem;"><strong>Examples:</strong> lit candle or lit incense unattended, covered smoke detector, purposefully removed smoke detector.</p>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Permanent Removal from housing.</li>
+          <li>Include move-out date one week from hearing resolution.</li>
+          <li>Include check-out instructions through Residential Life.</li>
+          <li>Student may be interimly suspended before move-out if further behavior is reported.</li>
+        </ul>
+      </article>
 
-            <article class="card col-6">
-              <h3>Drug Policy 2nd Time — Paraphernalia / Possession / Use with Residue or Drugs</h3>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Marijuana 101 (3rd Millennium), due in 2 weeks; hearing officer selects “SECOND TIME.”</li>
-                <li>August 26–April 7: assign GIPP Grad Meeting, due in 3 weeks.</li>
-                <li>April 8–August 25: use educational paper in lieu of GIPP.</li>
-                <li>Disciplinary Probation for 6 months, or University Deferred Suspension if already on disciplinary probation.</li>
-                <li>Parent notification after appeal window closes if student is under 21.</li>
-                <li>Copy Carlene Davidson and GIPPGrads@hartford.edu in the hearing resolution.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Damage to University Property</h3>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Fire Safety Online Safety Course.</li>
+          <li>Give one week to complete the 20-minute Vector training.</li>
+          <li>Copy stconduct@hartford.edu and stender@hartford.edu in hearing resolution email.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-          </div>
-        </section>
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Prohibited Items / Repeated Behavior Rules</h2>
+    </div>
 
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Fire Safety / Housing / Vacancy</h2>
-          </div>
+    <div class="grid">
+      <article class="card col-12">
+        <ul class="list-clean">
+          <li>Drug/drug paraphernalia, alcohol, and lit candle/lit incense always result in a student conduct hearing.</li>
+          <li>All other prohibited items: no conduct meeting on first instance; send reminder email from Maxient explaining why the item is not allowed.</li>
+          <li>If a second occurrence happens for a prohibited item that did not have a conduct hearing the first time, the second instance results in a hearing.</li>
+          <li>If found responsible after that second instance, assign reflection paper or another educational assignment plus a low-level punitive sanction after consultation.</li>
+          <li>Two instances of an unlit candle in a room: the second instance results in a hearing, and if found responsible, the Fire Safety Online Course can be assigned.</li>
+          <li>Messy room or items hanging from the ceiling: RA documents internally first; if not corrected, a Maxient report is submitted and the RD sends a warning/policy reminder email via template letter 14.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-          <div class="grid">
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Fire Safety Class / Truth and Consequences Reference</h2>
+    </div>
 
-            <article class="card col-6">
-              <h3>Failure to Keep Vacancy</h3>
-              <ul class="list-clean">
-                <li>Set a specific re-adjustment deadline and date for RD visual inspection.</li>
-                <li>Assign reflection paper and attach the maintain vacancy written assignment form.</li>
-                <li>Reflection paper due in one week.</li>
-              </ul>
-              <p style="margin-top:.75rem;"><strong>Operational note:</strong> 1st time may be treated like a prohibited item first-time issue with an email reminder; 2nd time results in a conduct hearing. :contentReference[oaicite:8]{index=8}</p>
-            </article>
+    <div class="grid">
+      <article class="card col-6">
+        <h3>Truth and Consequences Class Can Be Used For</h3>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Cleanliness</li>
+          <li>Candles that are new / never lit, or dry wax situations, if repeated</li>
+          <li>Quiet hours</li>
+          <li>Items on ceiling, sprinkler pipes, and similar repeated issues</li>
+        </ul>
+      </article>
 
-            <article class="card col-6">
-              <h3>Fire Safety — 1st Time</h3>
-              <p><strong>Examples:</strong> lit candle or lit incense unattended, covered smoke detector, purposefully removed smoke detector (#10b). :contentReference[oaicite:9]{index=9}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Deferred Permanent Removal from housing.</li>
-                <li>Fire Safety Online Safety Course.</li>
-                <li>Give one week to complete the 20-minute Vector training.</li>
-                <li>Copy stconduct@hartford.edu and stender@hartford.edu in hearing resolution email.</li>
-              </ul>
-            </article>
+      <article class="card col-6">
+        <h3>Fire Safety Class / Reflection Paper Can Be Used For</h3>
+        <ul class="list-clean" style="margin-top:.75rem;">
+          <li>Pulling a fire alarm when there is no fire</li>
+          <li>Tampering with equipment, including covering smoke detectors</li>
+          <li>Failure to evacuate during drills</li>
+          <li>Lit candle, attended or unattended</li>
+          <li>Lit incense, attended or unattended</li>
+        </ul>
+        <p style="margin-top:.75rem;">
+          In some situations, the reflection paper assignment can be used in lieu of the fire safety class.
+        </p>
+      </article>
+    </div>
+  </section>
 
-            <article class="card col-6">
-              <h3>Fire Safety — 2nd Time</h3>
-              <p><strong>Examples:</strong> lit candle or lit incense unattended, covered smoke detector, purposefully removed smoke detector (#10b). :contentReference[oaicite:10]{index=10}</p>
-              <ul class="list-clean" style="margin-top:.75rem;">
-                <li>Permanent Removal from housing.</li>
-                <li>Include move-out date one week from hearing resolution.</li>
-                <li>Include check-out instructions through Residential Life.</li>
-                <li>Student may be interimly suspended before move-out if further behavior is reported.</li>
-              </ul>
-            </article>
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Quick Sanction Selection Table</h2>
+    </div>
 
-            <article class="card col-6">
-              <h3>Damage to University Property</h3>
-              <ul class="list-clean">
-                <li>Fire Safety Online Safety Course.</li>
-                <li>Give one week to complete the 20-minute Vector training.</li>
-                <li>Copy stconduct@hartford.edu and stender@hartford.edu in hearing resolution email.</li>
-              </ul>
-            </article>
-
-          </div>
-        </section>
-
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Prohibited Items / Repeated Behavior Rules</h2>
-          </div>
-
-          <div class="grid">
-            <article class="card col-12">
-              <ul class="list-clean">
-                <li>Drug/drug paraphernalia, alcohol, and lit candle/lit incense always result in a student conduct hearing.</li>
-                <li>All other prohibited items: no conduct meeting on first instance; send reminder email from Maxient explaining why the item is not allowed.</li>
-                <li>If a second occurrence happens for a prohibited item that did not have a conduct hearing the first time, the second instance results in a hearing.</li>
-                <li>If found responsible after that second instance, assign reflection paper or other educational assignment plus a low-level punitive sanction after consultation.</li>
-                <li>Two instances of an unlit candle in a room: second instance results in a hearing, and if found responsible, the Fire Safety Online Course can be assigned.</li>
-                <li>Messy room or items hanging from the ceiling: RA documents internally first; if not corrected, submit Maxient report and RD sends warning/policy reminder email via template letter 14.</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Fire Safety Class / Truth and Consequences Class Reference</h2>
-          </div>
-
-          <div class="grid">
-            <article class="card col-6">
-              <h3>Truth and Consequences Class Can Be Used For</h3>
-              <ul class="list-clean">
-                <li>Cleanliness</li>
-                <li>Candles that are new / never lit, or dry wax situations, if repeated</li>
-                <li>Quiet hours</li>
-                <li>Items on ceiling, sprinkler pipes, etc., if repeated</li>
-              </ul>
-            </article>
-
-            <article class="card col-6">
-              <h3>Fire Safety Class / Reflection Paper Can Be Used For</h3>
-              <ul class="list-clean">
-                <li>Pulling a fire alarm when there is no fire</li>
-                <li>Tampering with equipment, including covering smoke detectors</li>
-                <li>Failure to evacuate during drills</li>
-                <li>Lit candle, attended or unattended</li>
-                <li>Lit incense, attended or unattended</li>
-              </ul>
-              <p style="margin-top:.75rem;">
-                The guideline notes that, in lieu of the fire safety class, the reflection paper assignment can be used. :contentReference[oaicite:11]{index=11}
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section class="dashboard-section">
-          <div class="dashboard-section-head">
-            <h2>Quick Sanction Selection Table</h2>
-          </div>
-
-          <div class="grid">
-            <article class="card col-12">
-              <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse; font-size:.95rem;">
-                  <thead>
-                    <tr style="text-align:left; border-bottom:1px solid #d9e2f0;">
-                      <th style="padding:.75rem;">Violation Type</th>
-                      <th style="padding:.75rem;">Minimum Sanction</th>
-                      <th style="padding:.75rem;">Extra Requirements</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Alcohol 1st time (major sections)</td>
-                      <td style="padding:.75rem;">UTI + GIPP/Educational Paper + 3 months probation</td>
-                      <td style="padding:.75rem;">Parent letter if under 21; copy Carlene + GIPP</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Alcohol 1st time (E/G/H low-level)</td>
-                      <td style="padding:.75rem;">Warning</td>
-                      <td style="padding:.75rem;">None unless otherwise directed</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Alcohol 2nd time</td>
-                      <td style="padding:.75rem;">UTI + GIPP/Educational Paper + 12 months probation</td>
-                      <td style="padding:.75rem;">Parent letter if under 21; E-Checkup summer assignment</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Drug 1st time with residue/drugs</td>
-                      <td style="padding:.75rem;">Marijuana 101 + GIPP/Educational Paper + 3 months probation</td>
-                      <td style="padding:.75rem;">Parent letter if under 21; copy Carlene + GIPP</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Drug 2nd time with residue/drugs</td>
-                      <td style="padding:.75rem;">Marijuana 101 + GIPP/Educational Paper + 6 months probation</td>
-                      <td style="padding:.75rem;">Use deferred suspension if already on disc probation</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e6edf7;">
-                      <td style="padding:.75rem;">Fire safety 1st time</td>
-                      <td style="padding:.75rem;">Deferred Permanent Removal from housing</td>
-                      <td style="padding:.75rem;">Fire Safety Online Course + copy stconduct/stender</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:.75rem;">Fire safety 2nd time</td>
-                      <td style="padding:.75rem;">Permanent Removal from housing</td>
-                      <td style="padding:.75rem;">Include move-out date and checkout instructions</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </article>
-          </div>
-        </section>
-
-      </section>
-    `;
-  </script>
-  <script src="/static/js/app.js"></script>
-</body>
-</html>
+    <div class="grid">
+      <article class="card col-12">
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:.95rem;">
+            <thead>
+              <tr style="text-align:left; border-bottom:1px solid #d9e2f0;">
+                <th style="padding:.75rem;">Violation Type</th>
+                <th style="padding:.75rem;">Minimum Sanction</th>
+                <th style="padding:.75rem;">Extra Requirements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Alcohol 1st time (major sections)</td>
+                <td style="padding:.75rem;">UTI + GIPP/Educational Paper + 3 months probation</td>
+                <td style="padding:.75rem;">Parent letter if under 21; copy Carlene + GIPP</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Alcohol 1st time (E/G/H low-level)</td>
+                <td style="padding:.75rem;">Warning</td>
+                <td style="padding:.75rem;">None unless otherwise directed</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Alcohol 2nd time</td>
+                <td style="padding:.75rem;">UTI + GIPP/Educational Paper + 12 months probation</td>
+                <td style="padding:.75rem;">Parent letter if under 21; E-Checkup summer assignment</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Drug 1st time with residue/drugs</td>
+                <td style="padding:.75rem;">Marijuana 101 + GIPP/Educational Paper + 3 months probation</td>
+                <td style="padding:.75rem;">Parent letter if under 21; copy Carlene + GIPP</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Drug 2nd time with residue/drugs</td>
+                <td style="padding:.75rem;">Marijuana 101 + GIPP/Educational Paper + 6 months probation</td>
+                <td style="padding:.75rem;">Use deferred suspension if already on disciplinary probation</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e6edf7;">
+                <td style="padding:.75rem;">Fire safety 1st time</td>
+                <td style="padding:.75rem;">Deferred Permanent Removal from housing</td>
+                <td style="padding:.75rem;">Fire Safety Online Course + copy stconduct/stender</td>
+              </tr>
+              <tr>
+                <td style="padding:.75rem;">Fire safety 2nd time</td>
+                <td style="padding:.75rem;">Permanent Removal from housing</td>
+                <td style="padding:.75rem;">Include move-out date and checkout instructions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>
+{% endblock %}
