@@ -1,338 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>GA Training Portal | Dashboard</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@400,0,0,24&display=swap" rel="stylesheet" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#455d7a',    /* The primary dark blue */
-                            light: '#e9eef4',   /* The light blue backgrounds */
-                            text: '#2d3748',    /* Dark slate text */
-                            muted: '#718096',   /* Gray text */
-                            bg: '#f8fafc',      /* Main page background */
-                            card: '#ffffff'     /* Card backgrounds */
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Manrope', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        /* Custom scrollbar for sidebar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA Training Portal | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body class="bg-brand-bg text-brand-text font-sans flex h-screen overflow-hidden">
-
-    <aside class="w-64 bg-brand-bg border-r border-gray-200 flex flex-col h-full flex-shrink-0 z-20">
-        <div class="p-6 pb-4">
-            <h1 class="text-brand-dark font-display font-bold text-lg leading-tight">GA Training Portal</h1>
-            <p class="text-brand-muted text-xs font-medium mt-0.5">University Admin</p>
-        </div>
-
-        <nav class="flex-1 overflow-y-auto px-4 space-y-1 mt-2">
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-brand-light text-brand-dark rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">grid_view</span>
-                <span class="text-sm">Dashboard</span>
-            </a>
-
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">info</span>
-                <span class="text-sm">Office Overview</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">menu_book</span>
-                <span class="text-sm">Training Flow</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">computer</span>
-                <span class="text-sm">Systems</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">assignment</span>
-                <span class="text-sm">Responsibilities</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">work</span>
-                <span class="text-sm">Case Handling</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">gavel</span>
-                <span class="text-sm">Sanctions</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">mail</span>
-                <span class="text-sm">Parent Letters</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">description</span>
-                <span class="text-sm">Templates</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">error</span>
-                <span class="text-sm">Escalation</span>
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-brand-muted hover:bg-gray-100 hover:text-brand-text rounded-lg font-medium transition-colors">
-                <span class="material-symbols-outlined text-xl">quick_reference_all</span>
-                <span class="text-sm">Quick Ref</span>
-            </a>
-        </nav>
-
-        <div class="p-4 mb-4 mx-4 bg-brand-light rounded-xl flex items-center gap-3 mt-auto">
-            <div class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-white overflow-hidden flex-shrink-0">
-                <span class="font-display font-bold">AM</span>
-            </div>
-            <div class="overflow-hidden">
-                <p class="text-sm font-semibold text-brand-dark truncate">Alex Mercer</p>
-                <p class="text-[10px] font-bold text-brand-muted uppercase tracking-wider mt-0.5">View Progress</p>
-            </div>
-        </div>
-    </aside>
-
-    <div class="flex-1 flex flex-col h-full overflow-hidden bg-white rounded-tl-3xl shadow-[-4px_0_24px_rgba(0,0,0,0.02)]">
-        
-        <header class="h-20 px-10 flex items-center justify-between border-b border-gray-100 flex-shrink-0">
-            <div class="flex items-center gap-6">
-                <h2 class="text-xl font-display font-bold text-brand-dark">Academic Curator</h2>
-                
-                <div class="relative hidden md:block">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted text-xl">search</span>
-                    <input type="text" placeholder="Search resources..." class="pl-10 pr-4 py-2 w-72 bg-brand-light/50 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-dark/20 outline-none transition-all placeholder:text-gray-400">
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <button class="text-brand-muted hover:text-brand-dark transition-colors">
-                    <span class="material-symbols-outlined text-2xl">notifications</span>
-                </button>
-                <button class="text-brand-muted hover:text-brand-dark transition-colors">
-                    <span class="material-symbols-outlined text-2xl">settings</span>
-                </button>
-                <button class="bg-brand-dark text-white px-6 py-2.5 rounded-full font-display font-semibold text-sm hover:bg-brand-dark/90 transition-colors ml-2 shadow-sm">
-                    Checklist
-                </button>
-            </div>
-        </header>
-
-        <main class="flex-1 overflow-y-auto p-10 bg-[#fafcff]">
-            <div class="max-w-7xl mx-auto space-y-12">
-                
-                <section class="flex flex-col lg:flex-row justify-between items-end gap-8">
-                    <div>
-                        <div class="flex items-center gap-2 text-xs font-medium text-brand-muted mb-4">
-                            <span>Admin Portal</span>
-                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                            <span class="text-brand-dark font-semibold">Dashboard</span>
-                        </div>
-                        <h2 class="text-4xl md:text-5xl font-display font-extrabold text-brand-text leading-tight tracking-tight">
-                            Welcome to the <br/>
-                            <span class="text-brand-dark">Student Conduct Team</span>
-                        </h2>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-gray-100 w-full lg:w-80">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm font-semibold text-brand-text">Training Progress</span>
-                            <span class="text-brand-dark font-display font-bold">35% Complete</span>
-                        </div>
-                        <div class="w-full h-2 bg-brand-light rounded-full overflow-hidden mb-4">
-                            <div class="h-full bg-brand-dark rounded-full" style="width: 35%"></div>
-                        </div>
-                        <p class="text-xs text-brand-muted leading-relaxed">
-                            Complete the <span class="font-semibold text-brand-dark">Office Overview</span> module to unlock core responsibilities.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-brand-dark text-white p-8 rounded-2xl flex flex-col justify-between h-56 group cursor-pointer shadow-md hover:shadow-lg transition-shadow relative overflow-hidden">
-                        <div class="flex justify-between items-start z-10">
-                            <div class="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
-                                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-                            </div>
-                            <span class="material-symbols-outlined text-white/50 group-hover:text-white transition-colors">north_east</span>
-                        </div>
-                        <div class="z-10">
-                            <h3 class="text-2xl font-display font-bold mb-2">Start Training</h3>
-                            <p class="text-white/80 text-sm leading-relaxed">Resume your current module: Case Adjudication 101.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-8 rounded-2xl flex flex-col justify-between h-56 group cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="flex justify-between items-start">
-                            <div class="bg-[#e4ebf3] p-3 rounded-xl text-brand-dark">
-                                <span class="material-symbols-outlined text-3xl text-[#5a7696]">menu_book</span>
-                            </div>
-                            <span class="material-symbols-outlined text-gray-300 group-hover:text-brand-dark transition-colors">north_east</span>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-display font-bold mb-2 text-brand-text">Quick Reference</h3>
-                            <p class="text-brand-muted text-sm leading-relaxed">Access policy handbooks, emergency contacts, and cheat sheets.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#f4f7fb] p-8 rounded-2xl flex flex-col justify-between h-56 group cursor-pointer border border-gray-50 hover:shadow-md transition-shadow">
-                        <div class="flex justify-between items-start">
-                            <div class="bg-[#e9e4f3] p-3 rounded-xl text-[#725a96]">
-                                <span class="material-symbols-outlined text-3xl">task_alt</span>
-                            </div>
-                            <span class="material-symbols-outlined text-gray-300 group-hover:text-[#725a96] transition-colors">north_east</span>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-display font-bold mb-2 text-brand-text">Common Tasks</h3>
-                            <p class="text-brand-muted text-sm leading-relaxed">Log hours, submit letters, or request system access overrides.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-1.5 h-6 bg-brand-dark rounded-full"></div>
-                            <h3 class="text-xl font-display font-bold text-brand-text">Office Functions & Systems</h3>
-                        </div>
-                        <a href="#" class="text-sm font-semibold text-brand-dark hover:text-brand-dark/80 transition-colors">View All Modules</a>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">corporate_fare</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Office Overview</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Understanding our organizational structure, mission, and team roles.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">database</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Maxient System</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Mastering the primary case management database and intake workflow.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">event_note</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Daily Tasks</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Checklists for morning intake, scheduling, and student correspondence.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">policy</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">FERPA & Privacy</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Critical compliance training for handling sensitive student data and records.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">family_restroom</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Family Outreach</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Guidelines for drafting parent letters and managing external phone calls.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">history_edu</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Templates</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Standardized formats for sanctions, formal warnings, and outcomes.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">warning</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Escalation</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">When and how to involve the Dean of Students or General Counsel.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow flex items-start gap-4">
-                            <div class="bg-brand-light w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-dark">
-                                <span class="material-symbols-outlined">gavel</span>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-brand-text mb-1">Sanction Matrix</h4>
-                                <p class="text-xs text-brand-muted leading-relaxed">Decision-making framework for consistent policy application.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="bg-brand-dark rounded-2xl p-10 flex flex-col lg:flex-row justify-between items-center gap-8 relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(90deg, transparent 0%, transparent 49%, #ffffff 50%, transparent 51%, transparent 100%); background-size: 40px 100%;"></div>
-                    
-                    <div class="relative z-10 max-w-2xl">
-                        <h4 class="text-2xl font-display font-bold text-white mb-3">Ready to contribute?</h4>
-                        <p class="text-white/80 text-sm leading-relaxed">The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
-                    </div>
-                    <div class="relative z-10 flex flex-wrap gap-4">
-                        <button class="bg-white text-brand-dark px-8 py-3 rounded-xl font-display font-bold shadow-lg hover:-translate-y-0.5 transition-transform">
-                            Update Handbook
-                        </button>
-                        <button class="border border-white/30 text-white px-8 py-3 rounded-xl font-display font-bold hover:bg-white/10 transition-colors">
-                            Dismiss
-                        </button>
-                    </div>
-                </section>
-
-                <footer class="pt-8 border-t border-gray-200 text-xs text-brand-muted flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-6">
-                        <span>© 2024 University Academic Affairs</span>
-                        <a href="#" class="hover:text-brand-dark transition-colors">Privacy Policy</a>
-                        <a href="#" class="hover:text-brand-dark transition-colors">ADA Accessibility</a>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-                        <span class="font-bold text-emerald-600 uppercase tracking-wide">System Status: Optimal</span>
-                    </div>
-                </footer>
-
-            </div>
-        </main>
+<body>
+<div class="portal-shell" id="portal-shell"></div>
+<script src="assets/js/nav.js"></script>
+<script>
+document.getElementById('page-content').innerHTML = `
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="page-hero-main">
+      <div class="breadcrumb">
+        <span>Admin Portal</span>
+        <span class="sep">›</span>
+        <span class="current">Dashboard</span>
+      </div>
+      <h1 style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;color:#1e2d3d;line-height:1.2;margin-bottom:8px;">
+        Welcome to the<br/><span style="color:#2d4a6b;">Student Conduct Team</span>
+      </h1>
     </div>
+    <div class="progress-card">
+      <div class="progress-card-top">
+        <span>Training Progress</span>
+        <strong>35% Complete</strong>
+      </div>
+      <div class="progress-bar"><div class="progress-bar-fill" style="width:35%;"></div></div>
+      <p>Complete the <strong style="color:#2d4a6b;">Office Overview</strong> module to unlock core responsibilities.</p>
+    </div>
+  </div>
 
+  <!-- FEATURE CARDS -->
+  <div class="grid" style="margin-bottom:24px;">
+    <div class="col-4">
+      <a href="training-flow.html" class="dash-feature-card primary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon">▶</div>
+          <span style="font-size:17px;opacity:.35;">↗</span>
+        </div>
+        <div>
+          <div class="dash-card-title" style="color:#fff;">Start Training</div>
+          <div class="dash-card-sub">Resume your current module: Case Adjudication 101.</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-4">
+      <a href="quick-ref.html" class="dash-feature-card secondary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon" style="background:#e4ebf3;color:#455d7a;">📖</div>
+          <span style="font-size:17px;opacity:.25;">↗</span>
+        </div>
+        <div>
+          <div class="dash-card-title" style="color:#1e2d3d;">Quick Reference</div>
+          <div class="dash-card-sub">Access policy handbooks, emergency contacts, and cheat sheets.</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-4">
+      <a href="responsibilities.html" class="dash-feature-card tertiary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon" style="background:#e8e4f3;color:#6b4a9c;">✓</div>
+          <span style="font-size:17px;opacity:.25;">↗</span>
+        </div>
+        <div>
+          <div class="dash-card-title" style="color:#1e2d3d;">Common Tasks</div>
+          <div class="dash-card-sub">Log hours, submit letters, or request system access overrides.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- MODULE GRID -->
+  <div class="section-head">
+    <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
+    <a href="training-flow.html" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
+  </div>
+
+  <div class="grid" style="margin-bottom:28px;">
+    <div class="col-3">
+      <a href="office-overview.html" class="module-card">
+        <div class="module-icon">🏛</div>
+        <div>
+          <h4>Office Overview</h4>
+          <p>Understanding our organizational structure, mission, and team roles.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="systems.html" class="module-card">
+        <div class="module-icon">🗄</div>
+        <div>
+          <h4>Maxient System</h4>
+          <p>Mastering the primary case management database and intake workflow.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="responsibilities.html" class="module-card">
+        <div class="module-icon">📅</div>
+        <div>
+          <h4>Daily Tasks</h4>
+          <p>Checklists for morning intake, scheduling, and student correspondence.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="quick-ref.html" class="module-card">
+        <div class="module-icon">🔒</div>
+        <div>
+          <h4>FERPA &amp; Privacy</h4>
+          <p>Critical compliance training for handling sensitive student data and records.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="parent-letters.html" class="module-card">
+        <div class="module-icon">👨‍👩‍👧</div>
+        <div>
+          <h4>Family Outreach</h4>
+          <p>Guidelines for drafting parent letters and managing external phone calls.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="templates.html" class="module-card">
+        <div class="module-icon">📝</div>
+        <div>
+          <h4>Templates</h4>
+          <p>Standardized formats for sanctions, formal warnings, and outcomes.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="escalation.html" class="module-card">
+        <div class="module-icon">⚠</div>
+        <div>
+          <h4>Escalation</h4>
+          <p>When and how to involve the Dean of Students or General Counsel.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="sanctions.html" class="module-card">
+        <div class="module-icon">⚖</div>
+        <div>
+          <h4>Sanction Matrix</h4>
+          <p>Decision-making framework for consistent policy application.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-content">
+      <h3>Ready to contribute?</h3>
+      <p>The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
+    </div>
+    <div class="banner-actions">
+      <a href="#" class="btn-light">📘 Update Handbook</a>
+      <a href="#" class="btn-outline-light">Dismiss</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="margin-top:28px;padding-top:20px;border-top:1px solid #dde5ef;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;gap:20px;align-items:center;font-size:12px;color:#6b7f95;">
+      <span>© 2024 University Academic Affairs</span>
+      <a href="#" style="color:#6b7f95;text-decoration:none;">Privacy Policy</a>
+      <a href="#" style="color:#6b7f95;text-decoration:none;">ADA Accessibility</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+      <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;">System Status: Optimal</span>
+    </div>
+  </footer>
+`;
+</script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
