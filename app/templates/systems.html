@@ -2,6 +2,36 @@
 
 {% block content %}
 <section class="dashboard-page">
+  <style>
+    .system-shot {
+      margin-top: 1rem;
+      border: 1px solid #dde5ef;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(26, 43, 73, 0.05);
+    }
+
+    .system-shot img {
+      width: 100%;
+      display: block;
+      background: #f3f6fb;
+    }
+
+    .system-shot figcaption {
+      padding: 0.9rem 1rem;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: #4a5568;
+      border-top: 1px solid #dde5ef;
+      background: #fbfdff;
+    }
+
+    .system-link-list a {
+      word-break: break-word;
+    }
+  </style>
+
   <section class="dashboard-hero">
     <div class="dashboard-hero-main">
       <div class="dashboard-breadcrumb">Admin Portal › Systems</div>
@@ -9,8 +39,7 @@
         Office <span>Systems</span>
       </h1>
       <p class="dashboard-description">
-        This section explains the major systems used in Student Conduct operations, why each system matters,
-        and how a Graduate Assistant should use them accurately in daily workflow.
+        This section explains the systems used throughout Student Conduct workflow and how a Graduate Assistant should use them accurately in daily work.
       </p>
     </div>
 
@@ -23,43 +52,55 @@
         <span style="width:100%;"></span>
       </div>
       <p>
-        Learn the tools first, because most daily GA tasks depend on Maxient, Outlook, and sanction tracking systems.
+        Learn the tools first, because most daily GA tasks depend on Maxient, Outlook, 3rd Millennium, and shared office resources.
       </p>
     </aside>
   </section>
 
   <section class="grid">
+    <article class="card col-12">
+      <h2>What are the systems you are going to use?</h2>
+      <p style="margin-top:.7rem;">
+        As a Graduate Assistant in Student Conduct, you will mainly use Maxient, Outlook, 3rd Millennium, and the shared office drive. Each system supports a different part of the office workflow.
+      </p>
+    </article>
+
     <article class="card col-8">
-      <h2>Maxient</h2>
+      <h2>1. Maxient</h2>
       <p style="margin-top:.6rem;">
-        Maxient is the primary case-management platform used by the Office of Student Conduct.
-        It is where reports, case records, hearing-related information, documentation, sanction information,
-        and other conduct workflow details are organized and reviewed.
+        Maxient is the main system used in Student Conduct. It is the primary conduct case-management platform used to organize and manage case workflow.
       </p>
 
-      <h3 style="margin-top:1rem;">Why We Use Maxient</h3>
+      <h3 style="margin-top:1rem;">What Maxient is used for</h3>
       <ul class="list-clean" style="margin-top:.65rem;">
-        <li>To keep conduct records organized in one place.</li>
-        <li>To review incident reports and related case information.</li>
-        <li>To document conduct workflow accurately and consistently.</li>
-        <li>To support hearing preparation, outcome tracking, and case follow-up.</li>
-        <li>To maintain an official internal record of conduct-related activity.</li>
+        <li>Reviewing assigned cases</li>
+        <li>Checking student records</li>
+        <li>Reading incident reports</li>
+        <li>Scheduling hearings</li>
+        <li>Sending hearing letters</li>
+        <li>Completing CRFs</li>
+        <li>Reviewing prior case history</li>
+        <li>Tracking sanctions and conduct workflow</li>
       </ul>
 
-      <h3 style="margin-top:1rem;">How a GA Uses Maxient</h3>
-      <ul class="list-clean" style="margin-top:.65rem;">
-        <li>Review whether a report or student may already have a related case.</li>
-        <li>Check case details before communication or follow-up.</li>
-        <li>Review notes, status updates, sanctions, and hearing-related workflow information.</li>
-        <li>Help support documentation accuracy before and after hearings.</li>
-        <li>Use Maxient carefully and consistently, since incomplete records can affect later workflow.</li>
-      </ul>
+      <p style="margin-top:1rem;">
+        This is the most important system because much of the hearing and case process happens there.
+      </p>
+
+      <div class="reading-subcard system-link-list" style="margin-top:1rem;">
+        <h3>Maxient Access and Training Links</h3>
+        <ul class="list-clean" style="margin-top:.65rem;">
+          <li><strong>Login:</strong> <a href="http://cm.maxient.com/hartford" target="_blank" rel="noopener noreferrer">http://cm.maxient.com/hartford</a></li>
+          <li>If you are logging in for the first time, set up your Authenticator.</li>
+          <li><strong>Workflow 1:</strong> <a href="https://support.maxient.com/hc/en-us/articles/230310328-General-Work-Flow-Video-1" target="_blank" rel="noopener noreferrer">General Work Flow Video 1</a></li>
+          <li><strong>Workflow 2:</strong> <a href="https://support.maxient.com/hc/en-us/articles/230310348-General-Work-Flow-Video-2" target="_blank" rel="noopener noreferrer">General Work Flow Video 2</a></li>
+        </ul>
+      </div>
 
       <div class="notice" style="margin-top:1rem;">
         <strong>Important Maxient Practice</strong>
         <p>
-          Before updating anything, confirm you are working on the correct student and the correct case.
-          Always cross-check details carefully and ask for guidance if a record looks unclear, duplicated, or incomplete.
+          Before updating a case, confirm you are working on the correct student and the correct record. Always cross-check details carefully and ask for guidance if a record looks unclear, duplicated, or incomplete.
         </p>
       </div>
     </article>
@@ -87,82 +128,114 @@
     </article>
 
     <article class="card col-6">
-      <h3>Outlook</h3>
+      <h2>2. Outlook</h2>
       <p style="margin-top:.6rem;">
-        Outlook is used for daily communication in Student Conduct. Much of the GA workflow begins in Outlook,
-        especially when reviewing new messages, Public Safety reports, student questions, hearing communication,
-        and internal office follow-up.
+        Outlook is the official communication system used in Student Conduct.
       </p>
 
-      <h4 style="margin-top:1rem;">How to Use Outlook Well</h4>
+      <h3 style="margin-top:1rem;">What Outlook is used for</h3>
       <ul class="list-clean" style="margin-top:.65rem;">
-        <li>Check inbox messages regularly throughout the work period.</li>
-        <li>Read messages carefully before responding.</li>
-        <li>Use a professional tone in all student and staff communication.</li>
-        <li>Confirm details before replying to conduct-related questions.</li>
-        <li>Keep subject lines, attachments, and recipients accurate.</li>
+        <li>Communicating with students and others</li>
+        <li>Receiving Public Safety reports</li>
+        <li>Receiving weekly updates from GIPP Grad for completed meetings</li>
+        <li>Checking Dave’s schedule in Outlook Calendar</li>
       </ul>
 
+      <div class="reading-subcard system-link-list" style="margin-top:1rem;">
+        <h3>Outlook Link</h3>
+        <p style="margin-top:.35rem;">
+          <a href="https://outlook.office365.com/mail/" target="_blank" rel="noopener noreferrer">https://outlook.office365.com/mail/</a>
+        </p>
+      </div>
+
       <div class="notice" style="margin-top:1rem;">
-        <strong>Signature Reminder</strong>
+        <strong>Outlook Reminder</strong>
         <p>
-          Update your Outlook signature so it reflects your own name and role correctly.
-          Do not leave another person’s name or an old signature in your outgoing emails.
+          Check Outlook regularly throughout the day. Read messages carefully before replying, and always use a professional tone in Student Conduct communication.
         </p>
       </div>
     </article>
 
     <article class="card col-6">
-      <h3>Outlook Calendar</h3>
+      <h2>3. 3rd Millennium</h2>
       <p style="margin-top:.6rem;">
-        Outlook Calendar is important for tracking hearings, scheduling meetings, and staying aware of time-sensitive workflow.
-        It helps ensure that hearing logistics, reminders, and office timing stay organized.
+        3rd Millennium is used for sanction completion tracking. It helps the office verify whether a student completed assigned educational courses.
       </p>
 
-      <h4 style="margin-top:1rem;">How to Use Outlook Calendar</h4>
+      <h3 style="margin-top:1rem;">What 3rd Millennium is used for</h3>
       <ul class="list-clean" style="margin-top:.65rem;">
-        <li>Review scheduled hearings and appointments regularly.</li>
-        <li>Confirm dates, times, and participants carefully.</li>
-        <li>Use calendar awareness to avoid missed deadlines or overlaps.</li>
-        <li>Make sure hearing timing and follow-up tasks are aligned with office workflow.</li>
+        <li>Checking whether a student completed sanctions like educational courses</li>
+        <li>Verifying completion before updating records</li>
+        <li>Searching by student ID, email, or name when needed</li>
       </ul>
+
+      <div class="reading-subcard system-link-list" style="margin-top:1rem;">
+        <h3>3rd Millennium Link</h3>
+        <ul class="list-clean" style="margin-top:.65rem;">
+          <li><a href="https://sms.3rdmil.com/" target="_blank" rel="noopener noreferrer">https://sms.3rdmil.com/</a></li>
+          <li>This is the login page for 3rd Millennium.</li>
+          <li>Check the password book for the username and password.</li>
+        </ul>
+      </div>
     </article>
 
     <article class="card col-12">
-      <h2>3rd Millennium</h2>
-      <p style="margin-top:.6rem;">
-        3rd Millennium is used for educational sanctions such as online courses and related sanction completion tracking.
-        It helps the office verify whether a student has completed an assigned educational requirement.
-      </p>
+      <h3>3rd Millennium Walkthrough</h3>
 
-      <h3 style="margin-top:1rem;">What It Is Used For</h3>
-      <ul class="list-clean" style="margin-top:.65rem;">
-        <li>Checking completion of sanctions like Under the Influence or Marijuana 101.</li>
-        <li>Confirming whether a student has completed an assigned online educational module.</li>
-        <li>Supporting sanction follow-up and overdue review workflow.</li>
-      </ul>
+      <figure class="system-shot">
+        <img src="/static/images/systems/3rd_mil-login.PNG" alt="3rd Millennium login page">
+        <figcaption>
+          <strong>Login Page:</strong> This is the 3rd Millennium login page. Use the Student Conduct account credentials from the password book to sign in.
+        </figcaption>
+      </figure>
 
-      <h3 style="margin-top:1rem;">How to Access It</h3>
-      <p style="margin-top:.65rem;">
-        Access should be provided through the office’s approved process and account setup.
-        Use the official office login or approved access method provided during training.
-        If access is missing or something does not look correct, ask for help instead of trying to work around it.
-      </p>
+      <figure class="system-shot">
+        <img src="/static/images/systems/3rd_mil-2facAuth.PNG" alt="3rd Millennium two-factor authentication screen">
+        <figcaption>
+          <strong>Two-Factor Authentication:</strong> After logging in, you may receive a verification code on <strong>stconduct@hartford.edu</strong>. Enter that code to continue.
+        </figcaption>
+      </figure>
 
-      <h3 style="margin-top:1rem;">How to Check Whether a Student Completed a Sanction</h3>
-      <ul class="list-clean" style="margin-top:.65rem;">
-        <li><strong>Primary method:</strong> search using the student’s ID.</li>
-        <li><strong>Also usable:</strong> search using the student’s email address.</li>
-        <li><strong>Use name only if needed:</strong> search by student name only when the name is unique enough to avoid confusion.</li>
-      </ul>
+      <figure class="system-shot">
+        <img src="/static/images/systems/3rd_mil-Dashboard.PNG" alt="3rd Millennium dashboard">
+        <figcaption>
+          <strong>Dashboard:</strong> This is the main dashboard of 3rd Millennium. From here, you can begin searching for student records and reviewing sanction-related information.
+        </figcaption>
+      </figure>
+
+      <figure class="system-shot">
+        <img src="/static/images/systems/3rd_mil-Courseenroll.PNG" alt="3rd Millennium course enrollment page">
+        <figcaption>
+          <strong>Course Enrollment:</strong> Use this screen to check whether the student is enrolled in the assigned course and to review course progress when needed.
+        </figcaption>
+      </figure>
 
       <div class="notice" style="margin-top:1rem;">
         <strong>Verification Reminder</strong>
         <p>
-          Do not mark a sanction as complete unless it has been properly verified.
-          If completion is not appearing clearly, double-check the search method and confirm the record carefully before updating anything.
+          Do not mark a sanction as complete unless it has been properly verified. If completion is not appearing clearly, double-check the search method and confirm the record carefully before updating anything.
         </p>
       </div>
+    </article>
+
+    <article class="card col-12">
+      <h2>4. Shared Space</h2>
+      <p style="margin-top:.6rem;">
+        On the assigned Student Conduct laptop, you can access the shared office drive. This shared space contains important office resources and reference documents.
+      </p>
+
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Look for the <strong>conduct</strong> shared drive on the laptop.</li>
+        <li>Open the GA folder inside that shared space.</li>
+        <li>You will find important documents such as the minimum sanction guidelines and overdue sanctions lists.</li>
+      </ul>
+
+      <figure class="system-shot">
+        <img src="/static/images/systems/Shared_drive.PNG" alt="Shared Student Conduct drive on the office laptop">
+        <figcaption>
+          <strong>Shared Drive:</strong> This is the shared Student Conduct drive on the office laptop. Use it to access the GA folder and important internal office documents.
+        </figcaption>
+      </figure>
     </article>
 
     <article class="card col-12">
@@ -170,7 +243,7 @@
         <div>
           <h3>Continue Systems Training</h3>
           <p style="margin-top:.35rem;">
-            After reviewing these tools, continue the structured learning flow to reinforce how they connect to daily GA work.
+            After reviewing these systems, continue the structured learning flow to reinforce how they connect to daily GA work.
           </p>
         </div>
         <a href="/training-flow" class="btn btn-primary">Go to Training Flow</a>
