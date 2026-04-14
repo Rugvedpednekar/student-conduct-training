@@ -1,243 +1,1062 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="dashboard-page training-course-page">
+<style>
+  .course-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .course-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .course-progress-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: #e8eef5;
+    border-radius: 999px;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2d4a6b;
+  }
+
+  .course-view {
+    display: none;
+  }
+
+  .course-view.active {
+    display: block;
+  }
+
+  .course-timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid #dde5ef;
+  }
+
+  .course-timeline-item {
+    position: relative;
+    margin-bottom: 1.15rem;
+  }
+
+  .course-timeline-node {
+    position: absolute;
+    left: -2.75rem;
+    top: 1rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 2px solid #dde5ef;
+    z-index: 1;
+  }
+
+  .course-timeline-node.complete {
+    background: #1a7a4a;
+    border-color: #1a7a4a;
+    color: #fff;
+  }
+
+  .course-timeline-node.active {
+    background: #2d4a6b;
+    border-color: #2d4a6b;
+    color: #fff;
+  }
+
+  .course-timeline-node.locked {
+    background: #e8eef5;
+    border-color: #dde5ef;
+    color: #9aafbf;
+  }
+
+  .course-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  .course-card.complete {
+    border: 2px solid #1a7a4a;
+  }
+
+  .course-card.active {
+    border: 2px solid #2d4a6b;
+    cursor: pointer;
+  }
+
+  .course-card.locked {
+    border: 1px solid #dde5ef;
+    background: #f8fafc;
+    opacity: 0.58;
+    pointer-events: none;
+  }
+
+  .course-card:hover.active,
+  .course-card:hover.complete {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .course-phase {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+
+  .course-phase.complete {
+    color: #1a7a4a;
+  }
+
+  .course-phase.active {
+    color: #2d4a6b;
+  }
+
+  .course-phase.locked {
+    color: #9aafbf;
+  }
+
+  .course-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .course-title-row h3 {
+    font-size: 1.35rem;
+    margin: 0;
+  }
+
+  .course-status-btn {
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .course-status-btn.complete {
+    background: #edf7f2;
+    color: #1a7a4a;
+    border: 1px solid #86efac;
+  }
+
+  .course-status-btn.active {
+    background: #2d4a6b;
+    color: #fff;
+    border: none;
+  }
+
+  .course-status-btn.locked {
+    background: #e8eef5;
+    color: #9aafbf;
+    border: none;
+  }
+
+  .course-reading {
+    max-width: 860px;
+  }
+
+  .course-back {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #6b7f95;
+    margin-bottom: 1rem;
+  }
+
+  .course-meta {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2d4a6b;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .course-reading h2 {
+    font-size: 1.9rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dde5ef;
+  }
+
+  .reading-content h3 {
+    font-family: "Manrope", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e2d3d;
+    margin: 1.3rem 0 0.45rem;
+  }
+
+  .reading-content p {
+    font-size: 0.96rem;
+    color: #4a5568;
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .reading-content ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+
+  .reading-content li {
+    margin-bottom: 0.45rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .reading-content .checklist {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 0.85rem;
+  }
+
+  .reading-content .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: #4a5568;
+    background: #f8fafc;
+    border: 1px solid #e3ebf5;
+    border-radius: 12px;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .reading-content .check-item::before {
+    content: "✓";
+    color: #059669;
+    font-weight: 700;
+    background: #d1fae5;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .quiz-question {
+    margin-bottom: 1.25rem;
+  }
+
+  .quiz-question p {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e2d3d;
+    margin-bottom: 0.75rem;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #dde5ef;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    background: #fff;
+  }
+
+  .quiz-option input[type="radio"] {
+    accent-color: #2d4a6b;
+  }
+
+  .quiz-actions {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dde5ef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .result-panel {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .result-icon {
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .result-icon.pass {
+    background: #d1fae5;
+    color: #1a7a4a;
+  }
+
+  .result-icon.fail {
+    background: #fee2e2;
+    color: #c0392b;
+  }
+
+  @media (max-width: 768px) {
+    .course-title-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .course-timeline {
+      padding-left: 1.45rem;
+    }
+
+    .course-timeline-node {
+      left: -2.15rem;
+    }
+  }
+</style>
+
+<section class="course-shell">
   <section class="dashboard-hero">
     <div class="dashboard-hero-main">
       <div class="dashboard-breadcrumb">Admin Portal › Training Flow</div>
-      <h1 class="dashboard-title">
-        GA <span>Training Flow</span>
-      </h1>
+      <h1 class="dashboard-title">Student Conduct GA <span>Onboarding</span></h1>
       <p class="dashboard-description">
-        This guided learning path is designed to help a Graduate Assistant understand the office step by step,
-        build confidence with systems and workflow, and demonstrate readiness through a knowledge check at the end.
+        This learning path is structured like a guided course. Each phase introduces one part of the
+        Graduate Assistant role so a new GA can build confidence step by step before handling more
+        independent office work.
       </p>
     </div>
 
     <aside class="dashboard-progress-card">
       <div class="dashboard-progress-top">
-        <span>Training Structure</span>
-        <strong>7 Learning Phases</strong>
+        <span>Overall Progress</span>
+        <strong id="progress-text">0 / 7</strong>
       </div>
       <div class="progress">
-        <span style="width:100%;"></span>
+        <span id="progress-bar-fill" style="width:0%;"></span>
       </div>
       <p>
-        Complete the phases in order so that each topic builds on the last one, just like a structured online course.
+        Complete each phase in order. A perfect score is required to unlock the next module.
       </p>
     </aside>
   </section>
 
-  <section class="grid">
-    <article class="card col-8">
-      <h2>Course Overview</h2>
-      <p style="margin-top:.6rem;">
-        This training flow is organized to help a new GA move from general office understanding
-        to practical workflow support. Each phase focuses on a part of the job that is important for
-        daily success in Student Conduct.
-      </p>
+  <div class="course-toolbar">
+    <div class="course-progress-pill">
+      <span>Structured Course Path</span>
+      <span id="progress-text-inline">0 / 7 Complete</span>
+    </div>
 
-      <div class="roadmap" style="margin-top:1rem;">
-        <div class="step active">
-          <div class="dot">1</div>
-          <div>
-            <h4>Office Orientation</h4>
-            <p>Understand the purpose of Student Conduct, the role of the office, and the expectations of a GA.</p>
-          </div>
-        </div>
+    <a
+      href="https://www.hartford.edu/current-students/_files/6.5_current_students_student_handbook.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-light"
+    >
+      Open Handbook
+    </a>
+  </div>
 
-        <div class="step active">
-          <div class="dot">2</div>
-          <div>
-            <h4>Systems Training</h4>
-            <p>Learn how Maxient, Outlook, Outlook Calendar, and 3rd Millennium support casework and communication.</p>
-          </div>
-        </div>
+  <div id="view-timeline" class="course-view active">
+    <div class="course-timeline" id="timeline-container"></div>
+  </div>
 
-        <div class="step active">
-          <div class="dot">3</div>
-          <div>
-            <h4>Daily and Weekly Workflow</h4>
-            <p>Learn the recurring responsibilities that help the office stay organized and responsive.</p>
-          </div>
-        </div>
+  <div id="view-reading" class="course-view">
+    <div class="card course-reading">
+      <button type="button" class="course-back" onclick="showCourseView('timeline')">← Back to Timeline</button>
+      <span id="reading-meta" class="course-meta"></span>
+      <h2 id="reading-title"></h2>
+      <div id="reading-body" class="reading-content"></div>
 
-        <div class="step active">
-          <div class="dot">4</div>
-          <div>
-            <h4>Case Handling</h4>
-            <p>Understand how reports are reviewed, hearings are scheduled, materials are prepared, and follow-up is completed.</p>
-          </div>
-        </div>
-
-        <div class="step active">
-          <div class="dot">5</div>
-          <div>
-            <h4>Sanctions and Tracking</h4>
-            <p>Review sanctioning guidelines, completion verification, and supervisor-controlled actions such as hold removal.</p>
-          </div>
-        </div>
-
-        <div class="step active">
-          <div class="dot">6</div>
-          <div>
-            <h4>Communication and Parent Letter Workflow</h4>
-            <p>Use the correct tone, review templates carefully, and handle parent notification workflow appropriately.</p>
-          </div>
-        </div>
-
-        <div class="step active">
-          <div class="dot">7</div>
-          <div>
-            <h4>Readiness Check</h4>
-            <p>Confirm understanding through a short quiz that checks systems knowledge, workflow judgment, and office expectations.</p>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="card col-4">
-      <h3>How to Use This Training</h3>
-      <div class="checklist" style="margin-top:.8rem;">
-        <label class="check-item" data-check>
-          <input type="checkbox" />
-          Review each training page in order.
-        </label>
-        <label class="check-item" data-check>
-          <input type="checkbox" />
-          Take notes on important systems and workflow details.
-        </label>
-        <label class="check-item" data-check>
-          <input type="checkbox" />
-          Ask questions when a process is unclear.
-        </label>
-        <label class="check-item" data-check>
-          <input type="checkbox" />
-          Use the quiz to confirm understanding, not just completion.
-        </label>
-      </div>
-
-      <div class="notice" style="margin-top:1rem;">
-        <strong>Goal</strong>
-        <p>
-          The goal is not only to finish the modules, but to understand the office well enough to support daily work confidently and responsibly.
-        </p>
-      </div>
-    </article>
-
-    <article class="card col-12">
-      <h2>Recommended Learning Sequence</h2>
-      <div class="module-grid" style="margin-top:1rem;">
-        <a class="function-tile" href="/office-overview">
-          <div>
-            <h4>1. Office Overview</h4>
-            <p>Start with mission, office role, collaborations, and confidentiality expectations.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/systems">
-          <div>
-            <h4>2. Systems</h4>
-            <p>Learn how Maxient, Outlook, Outlook Calendar, and 3rd Millennium are used.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/responsibilities">
-          <div>
-            <h4>3. Responsibilities</h4>
-            <p>Understand daily, weekly, and as-needed workflow expectations.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/case-handling">
-          <div>
-            <h4>4. Case Handling</h4>
-            <p>Review the case lifecycle from report intake to closure.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/sanctions">
-          <div>
-            <h4>5. Sanctions</h4>
-            <p>Study sanction rules, completion checks, and hold-related limitations.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/parent-letters">
-          <div>
-            <h4>6. Parent Letters</h4>
-            <p>Understand parent notification workflow, address checks, and communication caution points.</p>
-          </div>
-        </a>
-
-        <a class="function-tile" href="/templates">
-          <div>
-            <h4>7. Templates</h4>
-            <p>Review what template to use, when to use it, and how to adapt it carefully.</p>
-          </div>
-        </a>
-      </div>
-    </article>
-
-    <article class="card col-12">
-      <h2>Knowledge Check</h2>
-      <p style="margin-top:.6rem;">
-        Answer these questions after reviewing the training modules. This section is designed like a simple course checkpoint.
-      </p>
-
-      <form class="training-quiz" style="margin-top:1rem;">
-        <div class="card" style="background:#f8faff;">
-          <h3>1. What is the primary system used for conduct-related case records and documentation?</h3>
-          <label style="display:block; margin-top:.6rem;"><input type="radio" name="q1" /> Outlook</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q1" /> Maxient</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q1" /> Excel only</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q1" /> Canvas</label>
-        </div>
-
-        <div class="card" style="margin-top:1rem; background:#f8faff;">
-          <h3>2. What should a GA do if a case detail is unclear or a record may be duplicated?</h3>
-          <label style="display:block; margin-top:.6rem;"><input type="radio" name="q2" /> Make the decision independently</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q2" /> Ignore it and move on</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q2" /> Ask Dave or a supervisor before moving forward</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q2" /> Delete the unclear record</label>
-        </div>
-
-        <div class="card" style="margin-top:1rem; background:#f8faff;">
-          <h3>3. What is the primary method for checking sanction completion in 3rd Millennium?</h3>
-          <label style="display:block; margin-top:.6rem;"><input type="radio" name="q3" /> Student nickname</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q3" /> Student ID</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q3" /> Residence hall only</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q3" /> Hearing date only</label>
-        </div>
-
-        <div class="card" style="margin-top:1rem; background:#f8faff;">
-          <h3>4. Can a GA independently remove a hold or assign non-standard sanctions?</h3>
-          <label style="display:block; margin-top:.6rem;"><input type="radio" name="q4" /> Yes</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q4" /> No</label>
-        </div>
-
-        <div class="card" style="margin-top:1rem; background:#f8faff;">
-          <h3>5. What tone should be used in Student Conduct communication?</h3>
-          <label style="display:block; margin-top:.6rem;"><input type="radio" name="q5" /> Emotional and personal</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q5" /> Casual and informal</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q5" /> Neutral, professional, and accurate</label>
-          <label style="display:block; margin-top:.4rem;"><input type="radio" name="q5" /> As short as possible with no review</label>
-        </div>
-      </form>
-    </article>
-
-    <article class="card col-12">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <div class="quiz-actions">
         <div>
-          <h3>Completion Goal</h3>
-          <p style="margin-top:.35rem;">
-            By the end of this training flow, a GA should understand the office structure, systems, major workflows,
-            communication expectations, and when to ask for guidance instead of guessing.
-          </p>
+          <strong style="color:#1e2d3d;">Ready for the quiz?</strong>
+          <p style="margin-top:.2rem;">Mark this module as read and move to the knowledge check.</p>
         </div>
-        <a href="/office-overview" class="btn btn-primary">Start from Phase 1</a>
+        <button type="button" class="btn-light" style="background:#2d4a6b;color:#fff;" onclick="startCourseQuiz()">
+          Mark as Read &amp; Take Quiz
+        </button>
       </div>
-    </article>
-  </section>
+    </div>
+  </div>
+
+  <div id="view-quiz" class="course-view">
+    <div class="card course-reading">
+      <h2 style="margin-bottom:.35rem;">Knowledge Check</h2>
+      <p style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #dde5ef;">
+        Answer all questions correctly to complete this phase and unlock the next one.
+      </p>
+
+      <div id="quiz-container"></div>
+
+      <div class="quiz-actions">
+        <button type="button" class="course-back" onclick="showCourseView('reading')">← Review Documentation</button>
+        <button type="button" class="btn btn-primary" onclick="submitCourseQuiz()">Submit Answers</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-result" class="course-view">
+    <div id="result-success" class="result-panel" style="display:none;">
+      <div class="result-icon pass">✓</div>
+      <h2 style="margin-bottom:.5rem;">Module Passed</h2>
+      <p style="margin-bottom:1.25rem;">
+        You scored <strong id="score-pass"></strong>% and unlocked the next phase.
+      </p>
+      <button type="button" class="btn btn-primary" onclick="returnToCourseTimeline()">Return to Roadmap</button>
+    </div>
+
+    <div id="result-fail" class="result-panel" style="display:none;">
+      <div class="result-icon fail">✗</div>
+      <h2 style="margin-bottom:.5rem;">Module Not Passed</h2>
+      <p style="margin-bottom:1.25rem;">
+        You scored <strong id="score-fail" style="color:#c0392b;"></strong>%. Review the material and try again.
+      </p>
+      <button type="button" class="btn btn-primary" onclick="showCourseView('reading')">Review &amp; Retake Quiz</button>
+    </div>
+  </div>
 </section>
+
+<script>
+  const courseModules = [
+    {
+      key: "orientation",
+      title: "Orientation",
+      short: "Office purpose, Student Conduct mission, and Graduate Assistant expectations.",
+      meta: "Phase 01 • Office purpose and role expectations",
+      body: `
+        <p>This phase explains what the Office of Student Conduct does and how the Graduate Assistant role supports the office without replacing supervisor decision-making.</p>
+        <div class="checklist">
+          <div class="check-item"><div>Understand that Student Conduct supports accountability, education, and fair process.</div></div>
+          <div class="check-item"><div>Learn the role of the GA in communication, workflow support, organization, and follow-up.</div></div>
+          <div class="check-item"><div>Recognize that confidentiality and professionalism are part of daily office work.</div></div>
+          <div class="check-item"><div>Know that unclear situations should be brought to Dave instead of guessed through.</div></div>
+        </div>
+      `,
+      quiz: [
+        {
+          q: "What is a core purpose of the Office of Student Conduct?",
+          options: [
+            "Only to punish students",
+            "To support fair, educational accountability processes",
+            "To manage financial aid",
+            "To replace Public Safety"
+          ],
+          answer: 1
+        },
+        {
+          q: "What should a GA do when unsure about a conduct-related next step?",
+          options: [
+            "Move forward and hope it works",
+            "Ignore the issue",
+            "Ask Dave or a supervisor for guidance",
+            "Let the student decide"
+          ],
+          answer: 2
+        },
+        {
+          q: "Which of the following best describes the GA role?",
+          options: [
+            "Independent decision-maker for all cases",
+            "Support role for workflow, communication, and organization",
+            "Primary judicial officer for every hearing",
+            "Replacement for office leadership"
+          ],
+          answer: 1
+        },
+        {
+          q: "Which value is essential in Student Conduct work?",
+          options: [
+            "Speed over accuracy",
+            "Confidentiality",
+            "Minimal documentation",
+            "Informal communication"
+          ],
+          answer: 1
+        },
+        {
+          q: "Why is this phase placed first?",
+          options: [
+            "Because it is the least important",
+            "Because it builds the foundation for every later workflow",
+            "Because it replaces systems training",
+            "Because it is optional"
+          ],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "systems",
+      title: "Systems",
+      short: "Maxient, Outlook, Outlook Calendar, and 3rd Millennium.",
+      meta: "Phase 02 • Systems and tools used in the office",
+      body: `
+        <p>This phase focuses on the systems used throughout Student Conduct workflow.</p>
+        <h3>Maxient</h3>
+        <ul>
+          <li>Maxient is the primary conduct case-management system.</li>
+          <li>It is used for case review, record checks, notes, sanctions, and workflow support.</li>
+          <li>Before updating a case, confirm you are working on the correct student and the correct record.</li>
+        </ul>
+
+        <h3>Outlook and Outlook Calendar</h3>
+        <ul>
+          <li>Outlook is used for daily communication, Public Safety reports, student responses, and internal follow-up.</li>
+          <li>Outlook Calendar is used to track hearings, appointments, deadlines, and scheduling logistics.</li>
+          <li>Your signature should be updated to your own name and role.</li>
+        </ul>
+
+        <h3>3rd Millennium</h3>
+        <ul>
+          <li>Used to verify completion of educational sanctions such as Under the Influence and Marijuana 101.</li>
+          <li>Primary search method is student ID.</li>
+          <li>Email can also be used, and name should be used only if it is clearly unique.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "Which system is the primary conduct case-management platform?",
+          options: ["Outlook", "Maxient", "Canvas", "Banner"],
+          answer: 1
+        },
+        {
+          q: "What is the primary method for checking sanction completion in 3rd Millennium?",
+          options: ["Student ID", "Residence hall", "Hearing date", "Nickname"],
+          answer: 0
+        },
+        {
+          q: "What should you update in Outlook before sending office emails?",
+          options: ["Profile picture only", "Your email password", "Your signature", "Your storage plan"],
+          answer: 2
+        },
+        {
+          q: "What is Outlook Calendar used for in this office?",
+          options: ["Meal plan approvals", "Tracking hearings and scheduling", "Student billing", "Printing letters"],
+          answer: 1
+        },
+        {
+          q: "What should you do if a 3rd Millennium completion is not clearly appearing?",
+          options: ["Mark it complete anyway", "Ignore it", "Verify it carefully before updating records", "Delete the sanction"],
+          answer: 2
+        }
+      ]
+    },
+    {
+      key: "workflow",
+      title: "Daily and Weekly Workflow",
+      short: "Inbox review, report comparisons, sanctions follow-up, and recurring office support.",
+      meta: "Phase 03 • Daily and weekly workflow expectations",
+      body: `
+        <p>Daily work is driven by Outlook, new reports, hearings, follow-up communication, and sanctions-related tracking.</p>
+        <h3>Daily Responsibilities</h3>
+        <ul>
+          <li>Review the Student Conduct inbox and respond professionally when appropriate.</li>
+          <li>Check for new reports, hearing-related messages, and deadlines.</li>
+          <li>Review Public Safety reports and compare them with Maxient when a similar case may already exist.</li>
+          <li>Flag unclear or duplicate-looking items for supervisor review.</li>
+        </ul>
+
+        <h3>Weekly Responsibilities</h3>
+        <ul>
+          <li>Overdue sanctions review.</li>
+          <li>Parent-letter workflow support.</li>
+          <li>Sanctions fee or cost updates as assigned.</li>
+          <li>Recurring office follow-up and awareness support when assigned.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "What should you do if a Public Safety report may match an existing case?",
+          options: [
+            "Close the report yourself",
+            "Tell Dave and follow guidance",
+            "Ignore it",
+            "Only email the student"
+          ],
+          answer: 1
+        },
+        {
+          q: "Which is a daily responsibility?",
+          options: [
+            "Reviewing the conduct inbox",
+            "Replacing office hardware",
+            "Managing financial aid appeals",
+            "Approving housing contracts"
+          ],
+          answer: 0
+        },
+        {
+          q: "Which is a weekly responsibility?",
+          options: [
+            "Overdue sanctions review",
+            "Building access control",
+            "Course registration",
+            "Residence hall inspections alone"
+          ],
+          answer: 0
+        },
+        {
+          q: "What should happen when something is unclear in the workflow?",
+          options: [
+            "It should be ignored",
+            "It should be guessed through quickly",
+            "It should be flagged for supervisor review",
+            "It should be sent to the student immediately"
+          ],
+          answer: 2
+        },
+        {
+          q: "Why are daily and weekly workflows important?",
+          options: [
+            "They reduce documentation",
+            "They keep the office organized and responsive",
+            "They replace Maxient",
+            "They remove the need for communication"
+          ],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "casehandling",
+      title: "Case Handling",
+      short: "Case intake, hearing scheduling, CRF completion, and post-hearing workflow.",
+      meta: "Phase 04 • Assigned case workflow",
+      body: `
+        <p>This phase covers what happens when a case moves through the conduct process and how a GA supports that process.</p>
+        <ul>
+          <li>Review reports and compare them with existing records when needed.</li>
+          <li>Schedule hearings clearly and send the appropriate notice.</li>
+          <li>Prepare hearing materials and confirm logistics.</li>
+          <li>After the hearing, complete the CRF and ensure the hearing resolution is sent.</li>
+          <li>Keep documentation accurate, neutral, and complete.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "What document is completed after the hearing?",
+          options: ["Housing form", "CRF", "Meal plan request", "Transcript request"],
+          answer: 1
+        },
+        {
+          q: "When is the hearing resolution sent?",
+          options: [
+            "Before the hearing",
+            "After the hearing process and documentation",
+            "Only if the student is not responsible",
+            "Only at semester end"
+          ],
+          answer: 1
+        },
+        {
+          q: "What tone should documentation use?",
+          options: ["Personal", "Emotional", "Neutral and accurate", "Opinion-based"],
+          answer: 2
+        },
+        {
+          q: "What is part of preparing a hearing?",
+          options: [
+            "Ignoring logistics",
+            "Confirming documentation and scheduling details",
+            "Waiting until after the hearing",
+            "Removing sanctions early"
+          ],
+          answer: 1
+        },
+        {
+          q: "Why is case handling structured in phases?",
+          options: [
+            "To skip unnecessary steps",
+            "To keep the case process organized and consistent",
+            "To avoid documentation",
+            "To reduce supervisor involvement"
+          ],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "communication",
+      title: "Communication",
+      short: "Student replies, parent letters, staff communication, and message tone.",
+      meta: "Phase 05 • Professional communication expectations",
+      body: `
+        <p>This phase focuses on how Student Conduct communication should sound and how it should be reviewed.</p>
+        <ul>
+          <li>Reply to students clearly, politely, and professionally.</li>
+          <li>Use neutral language in conduct-related communication.</li>
+          <li>Confirm recipients, facts, and case details before sending anything final.</li>
+          <li>Use templates carefully and review them against the actual situation.</li>
+          <li>Handle parent-letter workflow only when policy criteria and approval requirements are met.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "What tone should be used in Student Conduct communication?",
+          options: ["Aggressive", "Neutral and professional", "Casual", "Personal"],
+          answer: 1
+        },
+        {
+          q: "What should you confirm before sending a final message?",
+          options: ["Only the subject line", "Nothing", "Facts, recipients, and case details", "Only the spelling of the student name"],
+          answer: 2
+        },
+        {
+          q: "How should templates be used?",
+          options: ["Copied blindly every time", "Used as a starting point and reviewed carefully", "Avoided completely", "Used without checking recipients"],
+          answer: 1
+        },
+        {
+          q: "When should parent letters be handled?",
+          options: ["Whenever a student asks", "Only when policy criteria and workflow approval support it", "At random", "Only verbally"],
+          answer: 1
+        },
+        {
+          q: "Why does tone matter in conduct communication?",
+          options: [
+            "It does not matter",
+            "Because communication must remain professional, accurate, and fair",
+            "Because students prefer casual language",
+            "Because it replaces documentation"
+          ],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "sanctions",
+      title: "Sanctions and Verification",
+      short: "Completion tracking, overdue review, verification, and supervisor-controlled actions.",
+      meta: "Phase 06 • Sanctions and completion tracking",
+      body: `
+        <p>This phase focuses on sanctions workflow and completion verification.</p>
+        <ul>
+          <li>Monitor sanction completion carefully.</li>
+          <li>Review overdue sanctions and follow up appropriately.</li>
+          <li>Use 3rd Millennium and other records to verify completion before marking anything complete.</li>
+          <li>Remember that hold removal and non-standard sanction action are supervisor-controlled.</li>
+          <li>Never treat undocumented completion as final.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "Can a GA independently remove a hold?",
+          options: ["Yes", "No"],
+          answer: 1
+        },
+        {
+          q: "What should be checked before updating a sanction as complete?",
+          options: [
+            "Only the student’s verbal claim",
+            "Manual or system verification",
+            "Residence hall status",
+            "Meal plan usage"
+          ],
+          answer: 1
+        },
+        {
+          q: "What should happen with overdue sanctions?",
+          options: [
+            "They should be ignored",
+            "They should be reviewed and followed up on",
+            "They should be deleted",
+            "They should automatically be marked complete"
+          ],
+          answer: 1
+        },
+        {
+          q: "Who controls hold removal and non-standard sanction action?",
+          options: ["The GA alone", "Any student worker", "Supervisor or authorized office leadership", "The student"],
+          answer: 2
+        },
+        {
+          q: "Why is verification important?",
+          options: [
+            "Because it reduces office work",
+            "Because sanctions should not be marked complete without evidence",
+            "Because it replaces communication",
+            "Because it removes hearing records"
+          ],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "readiness",
+      title: "Independent Readiness",
+      short: "Confidence with routine workflow while knowing when to ask for help.",
+      meta: "Phase 07 • Final readiness and confidence-building",
+      body: `
+        <p>The last phase focuses on readiness. The goal is not total independence from supervision, but confidence in routine office support while knowing when to pause and ask questions.</p>
+        <div class="checklist">
+          <div class="check-item"><div>Handle routine inbox and workflow follow-up more confidently.</div></div>
+          <div class="check-item"><div>Identify when a case may need creation, review, or escalation to a supervisor.</div></div>
+          <div class="check-item"><div>Support hearings, sanctions tracking, and communication with more consistency.</div></div>
+          <div class="check-item"><div>Know when to stop and ask for guidance instead of guessing.</div></div>
+        </div>
+      `,
+      quiz: [
+        {
+          q: "What does independent readiness mean in this office?",
+          options: [
+            "Doing everything without guidance",
+            "Handling routine work confidently while knowing when to ask for help",
+            "Making sanction decisions alone",
+            "Avoiding documentation"
+          ],
+          answer: 1
+        },
+        {
+          q: "What should a GA do when a situation moves beyond routine workflow?",
+          options: [
+            "Guess and continue",
+            "Pause and ask for guidance",
+            "Delete the record",
+            "Ignore it"
+          ],
+          answer: 1
+        },
+        {
+          q: "What is the goal of the training path overall?",
+          options: [
+            "Only to finish pages",
+            "To build understanding, judgment, and workflow confidence",
+            "To eliminate supervisor involvement",
+            "To reduce office records"
+          ],
+          answer: 1
+        },
+        {
+          q: "Which statement best reflects office expectations?",
+          options: [
+            "Confidence should replace review",
+            "Documentation and good judgment still matter",
+            "Routine workflow does not need accuracy",
+            "Training is separate from real tasks"
+          ],
+          answer: 1
+        },
+        {
+          q: "What is a sign of good readiness?",
+          options: [
+            "Knowing when to ask questions before making an error",
+            "Skipping steps to work faster",
+            "Making every decision without checking",
+            "Avoiding communication tasks"
+          ],
+          answer: 0
+        }
+      ]
+    }
+  ];
+
+  const STORAGE_KEY = "ga_training_course_v4";
+  let activeModuleIndex = 0;
+  let progressData = loadProgress();
+
+  function loadProgress() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { completed: {} };
+    } catch {
+      return { completed: {} };
+    }
+  }
+
+  function saveProgress(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function isUnlocked(index) {
+    if (index === 0) return true;
+    return !!progressData.completed[courseModules[index - 1].key];
+  }
+
+  function updateOverallProgress() {
+    const completedCount = Object.values(progressData.completed).filter(Boolean).length;
+    const percent = Math.round((completedCount / courseModules.length) * 100);
+
+    const progressText = document.getElementById("progress-text");
+    const progressInline = document.getElementById("progress-text-inline");
+    const progressBar = document.getElementById("progress-bar-fill");
+
+    if (progressText) progressText.textContent = `${completedCount} / ${courseModules.length}`;
+    if (progressInline) progressInline.textContent = `${completedCount} / ${courseModules.length} Complete`;
+    if (progressBar) progressBar.style.width = `${percent}%`;
+  }
+
+  function showCourseView(viewId) {
+    ["timeline", "reading", "quiz", "result"].forEach((view) => {
+      const el = document.getElementById(`view-${view}`);
+      if (el) {
+        el.classList.toggle("active", view === viewId);
+      }
+    });
+
+    const content = document.getElementById("page-content");
+    if (content) {
+      content.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function renderTimeline() {
+    const container = document.getElementById("timeline-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    courseModules.forEach((module, index) => {
+      const completed = !!progressData.completed[module.key];
+      const unlocked = isUnlocked(index);
+      const phaseNum = String(index + 1).padStart(2, "0");
+
+      const nodeClass = completed ? "complete" : unlocked ? "active" : "locked";
+      const nodeText = completed ? "✓" : unlocked ? "▶" : "🔒";
+      const cardClass = completed ? "complete" : unlocked ? "active" : "locked";
+
+      const actionMarkup = completed
+        ? `<span class="course-status-btn complete">Review</span>`
+        : unlocked
+          ? `<span class="course-status-btn active">Start Module</span>`
+          : `<span class="course-status-btn locked">Requires Phase ${String(index).padStart(2, "0")}</span>`;
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "course-timeline-item";
+      wrapper.innerHTML = `
+        <div class="course-timeline-node ${nodeClass}">${nodeText}</div>
+        <div class="course-card ${cardClass}" ${unlocked ? `onclick="openCourseModule(${index})"` : ""}>
+          <div class="course-title-row">
+            <div>
+              <div class="course-phase ${nodeClass}">Phase ${phaseNum}</div>
+              <h3>${module.title}</h3>
+            </div>
+            ${actionMarkup}
+          </div>
+          <p>${module.short}</p>
+        </div>
+      `;
+
+      container.appendChild(wrapper);
+    });
+
+    updateOverallProgress();
+  }
+
+  function openCourseModule(index) {
+    activeModuleIndex = index;
+    const module = courseModules[index];
+
+    document.getElementById("reading-meta").textContent = module.meta;
+    document.getElementById("reading-title").textContent = module.title;
+    document.getElementById("reading-body").innerHTML = module.body;
+
+    showCourseView("reading");
+  }
+
+  function startCourseQuiz() {
+    const module = courseModules[activeModuleIndex];
+    const container = document.getElementById("quiz-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    module.quiz.forEach((question, index) => {
+      const block = document.createElement("div");
+      block.className = "quiz-question";
+      block.innerHTML = `
+        <p>${index + 1}. ${question.q}</p>
+        ${question.options.map((option, optionIndex) => `
+          <label class="quiz-option">
+            <input type="radio" name="q${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("")}
+      `;
+      container.appendChild(block);
+    });
+
+    showCourseView("quiz");
+  }
+
+  function submitCourseQuiz() {
+    const module = courseModules[activeModuleIndex];
+    let correct = 0;
+    let allAnswered = true;
+
+    module.quiz.forEach((question, index) => {
+      const selected = document.querySelector(`input[name="q${index}"]:checked`);
+      if (!selected) {
+        allAnswered = false;
+        return;
+      }
+
+      if (parseInt(selected.value, 10) === question.answer) {
+        correct += 1;
+      }
+    });
+
+    if (!allAnswered) {
+      alert("Please answer all questions before submitting.");
+      return;
+    }
+
+    const percent = Math.round((correct / module.quiz.length) * 100);
+
+    document.getElementById("result-success").style.display = "none";
+    document.getElementById("result-fail").style.display = "none";
+
+    if (percent === 100) {
+      document.getElementById("score-pass").textContent = percent;
+      document.getElementById("result-success").style.display = "block";
+      progressData.completed[module.key] = true;
+      saveProgress(progressData);
+      updateOverallProgress();
+    } else {
+      document.getElementById("score-fail").textContent = percent;
+      document.getElementById("result-fail").style.display = "block";
+    }
+
+    showCourseView("result");
+  }
+
+  function returnToCourseTimeline() {
+    renderTimeline();
+    showCourseView("timeline");
+  }
+
+  renderTimeline();
+</script>
 {% endblock %}
