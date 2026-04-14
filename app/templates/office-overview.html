@@ -1,60 +1,117 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Office Overview</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/styles.css" />
-</head>
-<body>
-  <div class="portal-shell" id="portal-shell"></div>
+{% extends "base.html" %}
 
-  <script src="/static/js/nav.js"></script>
-  <script>
-    document.getElementById('page-title').textContent = 'Office Overview';
-    document.getElementById('page-content').innerHTML = `
-      <section class="grid">
-        <article class="card col-8">
-          <h2>Mission of Student Conduct</h2>
-          <p>
-            The Office of Student Conduct supports student growth and community accountability
-            through fair, educational, and consistent conduct processes.
-          </p>
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Office Overview</div>
+      <h1 class="dashboard-title">
+        Office <span>Overview</span>
+      </h1>
+      <p class="dashboard-description">
+        This section introduces the purpose of the Office of Student Conduct, the Graduate Assistant role,
+        and the campus partnerships that support daily casework, student communication, and conduct operations.
+      </p>
+    </div>
 
-          <div class="notice" style="margin-top:.8rem;">
-            <strong>FERPA & Confidentiality Reminder</strong>
-            <p>
-              Do not discuss identifiable case details outside approved workflows or with unauthorized individuals.
-            </p>
-          </div>
-        </article>
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Module Focus</span>
+        <strong>Foundation</strong>
+      </div>
+      <div class="progress">
+        <span style="width: 100%;"></span>
+      </div>
+      <p>
+        Start here to understand the office mission, the GA role, and the people you will work with most often.
+      </p>
+    </aside>
+  </section>
 
-        <article class="card col-6">
-          <h3>Who You Collaborate With</h3>
-          <ul class="list-clean">
-            <li>Director / Associate Director</li>
-            <li>Conduct officers and hearing staff</li>
-            <li>Administrative coordinator</li>
-            <li>Campus partners (Housing, Dean of Students, Registrar)</li>
-          </ul>
-        </article>
+  <section class="grid">
+    <article class="card col-8">
+      <h2>Mission of Student Conduct</h2>
+      <p style="margin-top:.5rem;">
+        The Office of Student Conduct supports student growth, accountability, and community standards
+        through fair, educational, and consistent conduct processes. The office helps students understand
+        expectations, respond to policy concerns, and move through the conduct process in a way that is
+        organized, respectful, and development-focused.
+      </p>
 
-        <article class="card col-6">
-          <h3>Current Resident Directors</h3>
-          <ul class="list-clean">
-            <li>Lucrecia Acosta Larrama — Resident Director (A & B)</li>
-            <li>Kiara Opoku — Resident Director (C & E)</li>
-            <li>James Clary — Resident Director (Village Apartments)</li>
-            <li>Radeana Hastings — Resident Director (D & F)</li>
-            <li>Kyle Thompson — Resident Director (Regents Park, Park River)</li>
-          </ul>
-        </article>
-      </section>
-    `;
-  </script>
-  <script src="/static/js/app.js"></script>
-</body>
-</html>
+      <div class="notice" style="margin-top:1rem;">
+        <strong>FERPA & Confidentiality Reminder</strong>
+        <p>
+          Student information must only be used for legitimate office purposes. Do not discuss identifiable
+          case details outside approved workflows or with anyone who is not authorized to receive that information.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:1rem; background:#f8faff;">
+        <h3>What the GA Role Supports</h3>
+        <ul class="list-clean" style="margin-top:.6rem;">
+          <li>Monitoring office communications and supporting case-related follow-up.</li>
+          <li>Helping with hearing scheduling, notices, reminders, and documentation workflow.</li>
+          <li>Supporting sanctions tracking, parent-letter workflow, and internal case organization.</li>
+          <li>Maintaining professionalism, accuracy, and supervisor-guided communication.</li>
+          <li>Identifying when something needs clarification and bringing it to Dave before moving forward.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card col-4">
+      <h3>What a New GA Should Understand Early</h3>
+      <div class="checklist" style="margin-top:.8rem;">
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Student Conduct work must be accurate, timely, and confidential.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          The GA supports workflow and communication, but major decisions stay under supervisor oversight.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          If something is unclear, ask before acting.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Good documentation and careful follow-up are essential to office operations.
+        </label>
+      </div>
+    </article>
+
+    <article class="card col-6">
+      <h3>Who You Collaborate With</h3>
+      <ul class="list-clean" style="margin-top:.6rem;">
+        <li>Director / Associate Director</li>
+        <li>Conduct officers and hearing staff</li>
+        <li>Administrative coordinator</li>
+        <li>Residential Life and Resident Directors</li>
+        <li>Public Safety</li>
+        <li>Dean of Students and other campus partners</li>
+        <li>Registrar and other offices involved in follow-up workflow when needed</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Current Resident Directors</h3>
+      <ul class="list-clean" style="margin-top:.6rem;">
+        <li>Lucrecia Acosta Larrama — Resident Director (A & B)</li>
+        <li>Kiara Opoku — Resident Director (C & E)</li>
+        <li>James Clary — Resident Director (Village Apartments)</li>
+        <li>Radeana Hastings — Resident Director (D & F)</li>
+        <li>Kyle Thompson — Resident Director (Regents Park, Park River)</li>
+      </ul>
+    </article>
+
+    <article class="card col-12">
+      <h3>Professional Expectations</h3>
+      <p style="margin-top:.5rem;">
+        A Graduate Assistant in Student Conduct is expected to communicate professionally, keep records organized,
+        protect confidential information, and follow office process carefully. Much of the role involves noticing
+        details, maintaining consistency, and asking good questions before taking action.
+      </p>
+    </article>
+  </section>
+</section>
+{% endblock %}
