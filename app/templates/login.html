@@ -4,23 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | GA Training Portal</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
   <link rel="stylesheet" href="/static/css/styles.css" />
   <link rel="stylesheet" href="/static/css/portal.css" />
 </head>
 <body class="login-body">
   <section class="login-card">
-    <h1>GA Training Portal</h1>
-    <p>Sign in to access Student Conduct training modules.</p>
-    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <div style="margin-bottom: 1.2rem;">
+      <h1 style="margin-bottom:.35rem;">GA Training Portal</h1>
+      <p>Sign in to access Student Conduct training modules and internal office guidance.</p>
+    </div>
+
+    {% if error %}
+      <p class="error" style="margin-bottom:1rem;">{{ error }}</p>
+    {% endif %}
+
     <form method="post" action="/login" class="login-form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
-      <label>Username<input name="username" maxlength="60" required /></label>
-      <label>Password<input type="password" name="password" minlength="7" required /></label>
+
+      <label for="username">Username</label>
+      <input
+        id="username"
+        name="username"
+        maxlength="60"
+        autocomplete="username"
+        required
+      />
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        minlength="7"
+        autocomplete="current-password"
+        required
+      />
+
       <button type="submit" class="btn-light">Sign In</button>
     </form>
+
+    <div style="margin-top:1.2rem; padding-top:1rem; border-top:1px solid #dde5ef;">
+      <p style="font-size:.92rem;">
+        This portal is for internal Student Conduct training use only. Please use your assigned credentials.
+      </p>
+    </div>
   </section>
 </body>
 </html>
