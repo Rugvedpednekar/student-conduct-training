@@ -9,7 +9,7 @@ from app.auth import enforce_csrf, get_csrf_token
 from app.content_defaults import PAGES
 from app.content_service import get_page_content
 from app.database import get_db
-from app.dependencies import get_current_user, require_role
+from app.dependencies import require_role
 from app.models import EditableContent, User
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -20,7 +20,12 @@ def admin_home(request: Request, user: User = Depends(require_role("admin"))):
     templates = request.app.state.templates
     return templates.TemplateResponse(
         "admin_index.html",
-        {"request": request, "user": user, "all_pages": PAGES, "csrf_token": get_csrf_token(request)},
+        {
+            "request": request,
+            "user": user,
+            "all_pages": PAGES,
+            "csrf_token": get_csrf_token(request),
+        },
     )
 
 
@@ -33,6 +38,7 @@ def admin_edit_page(
 ):
     if page_name not in PAGES:
         raise HTTPException(status_code=404)
+
     templates = request.app.state.templates
     return templates.TemplateResponse(
         "admin_page_edit.html",
@@ -61,6 +67,7 @@ def admin_update_section(
     user: User = Depends(require_role("admin")),
 ):
     enforce_csrf(request, csrf_token)
+
     content = db.scalar(
         select(EditableContent).where(
             EditableContent.page_name == page_name,
@@ -84,3 +91,17 @@ def admin_update_section(
     db.commit()
 
     return RedirectResponse(url=f"/admin/content/{page_name}", status_code=303)
+
+
+@router.post("/reset-training-progress")
+def admin_reset_training_progress(
+    request: Request,
+    csrf_token: str = Form(...),
+    user: User = Depends(require_role("admin")),
+):
+    enforce_csrf(request, csrf_token)
+
+    # Current training progress is stored in browser localStorage in training-flow.html.
+    # That means there is no shared server-side progress to reset here yet.
+    # This route prevents the 404 and safely redirects back for now.
+    return RedirectResponse(url="/admin", status_code=303)
