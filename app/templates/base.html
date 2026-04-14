@@ -21,7 +21,7 @@
       <div class="brand-card">
         <h1>GA Training Portal</h1>
         <p>Office of Student Conduct</p>
-        {% if user.role.name == 'admin' %}
+        {% if user and user.role and user.role.name == 'admin' %}
           <span class="badge alert">Admin Mode</span>
         {% endif %}
       </div>
@@ -38,7 +38,7 @@
             {% endif %}
           {% endfor %}
 
-          {% if user.role.name == 'admin' %}
+          {% if user and user.role and user.role.name == 'admin' %}
             <li>
               <a
                 class="nav-link {% if request.url.path.startswith('/admin') %}active{% endif %}"
@@ -55,10 +55,15 @@
     <section class="main-panel">
       <header class="topbar">
         <div class="topbar-left">
+          <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation">☰</button>
           <div>
             <h2 id="page-title">{{ page_label if page_label else "GA Training Portal" }}</h2>
             <p id="page-subtitle">
-              Signed in as {{ user.username }} ({{ user.role.name|upper }})
+              {% if user %}
+                Signed in as {{ user.username }} ({{ user.role.name|upper }})
+              {% else %}
+                Student Conduct internal operations portal
+              {% endif %}
             </p>
           </div>
         </div>
@@ -77,9 +82,14 @@
 
       <footer class="shell-footer">
         <span>© 2026 Office of Student Conduct</span>
-        <span>Use minimum necessary student information in all communications.</span>
       </footer>
     </section>
   </div>
+
+  <script>
+    document.getElementById('nav-toggle')?.addEventListener('click', () => {
+      document.getElementById('sidebar')?.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>
