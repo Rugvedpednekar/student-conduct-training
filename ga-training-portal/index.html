@@ -1,378 +1,188 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>GA Training Portal | Academic Curator</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "error-container": "#fe8983",
-                        "on-error": "#fff7f6",
-                        "error-dim": "#4e0309",
-                        "surface-container": "#e8eff3",
-                        "primary-container": "#d6e3ff",
-                        "tertiary-fixed-dim": "#cbc9e9",
-                        "on-primary-fixed-variant": "#435c85",
-                        "error": "#9f403d",
-                        "tertiary": "#5d5c78",
-                        "on-primary-container": "#39527b",
-                        "secondary-fixed-dim": "#c7d5ed",
-                        "inverse-on-surface": "#9a9d9f",
-                        "on-surface": "#2a3439",
-                        "inverse-surface": "#0b0f10",
-                        "surface-container-highest": "#d9e4ea",
-                        "secondary-container": "#d5e3fc",
-                        "on-surface-variant": "#566166",
-                        "surface-dim": "#cfdce3",
-                        "tertiary-fixed": "#d9d7f8",
-                        "outline-variant": "#a9b4b9",
-                        "surface-tint": "#465f88",
-                        "on-secondary-container": "#455367",
-                        "surface-container-low": "#f0f4f7",
-                        "surface-container-lowest": "#ffffff",
-                        "on-background": "#2a3439",
-                        "primary-fixed": "#d6e3ff",
-                        "on-secondary-fixed": "#324053",
-                        "primary-fixed-dim": "#bfd5ff",
-                        "outline": "#717c82",
-                        "on-tertiary-container": "#4a4a65",
-                        "secondary-fixed": "#d5e3fc",
-                        "on-primary-fixed": "#254067",
-                        "on-tertiary-fixed-variant": "#54546f",
-                        "surface-bright": "#f7f9fb",
-                        "on-error-container": "#752121",
-                        "tertiary-container": "#d9d7f8",
-                        "on-secondary-fixed-variant": "#4e5c71",
-                        "secondary-dim": "#465468",
-                        "on-primary": "#f6f7ff",
-                        "primary": "#465f88",
-                        "surface": "#f7f9fb",
-                        "on-tertiary-fixed": "#383751",
-                        "on-secondary": "#f8f8ff",
-                        "tertiary-dim": "#51516c",
-                        "background": "#f7f9fb",
-                        "inverse-primary": "#a8c2f1",
-                        "primary-dim": "#3a537b",
-                        "secondary": "#526074",
-                        "surface-variant": "#d9e4ea",
-                        "on-tertiary": "#fbf7ff",
-                        "surface-container-high": "#e1e9ee"
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.125rem",
-                        lg: "0.25rem",
-                        xl: "0.5rem",
-                        full: "0.75rem"
-                    },
-                    fontFamily: {
-                        headline: ["Manrope", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
-                        label: ["Inter", "sans-serif"]
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(16px);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA Training Portal | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body class="bg-surface text-on-surface font-body flex">
-    
-    <aside class="flex flex-col h-full sticky left-0 top-0 h-screen w-72 border-r border-outline-variant/20 bg-slate-50 dark:bg-slate-900 z-40">
-        <div class="p-8">
-            <h1 class="text-[#465f88] dark:text-[#f6f7ff] font-bold text-lg font-headline">GA Training Portal</h1>
-            <p class="text-on-surface-variant text-xs mt-1">University Admin</p>
+<body>
+<div class="portal-shell" id="portal-shell"></div>
+<script src="assets/js/nav.js"></script>
+<script>
+document.getElementById('page-content').innerHTML = `
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="page-hero-main">
+      <div class="breadcrumb">
+        <span>Admin Portal</span>
+        <span class="sep">›</span>
+        <span class="current">Dashboard</span>
+      </div>
+      <h1 style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;color:#1e2d3d;line-height:1.2;margin-bottom:8px;">
+        Welcome to the<br/><span style="color:#2d4a6b;">Student Conduct Team</span>
+      </h1>
+    </div>
+    <div class="progress-card">
+      <div class="progress-card-top">
+        <span>Training Progress</span>
+        <strong>35% Complete</strong>
+      </div>
+      <div class="progress-bar"><div class="progress-bar-fill" style="width:35%;"></div></div>
+      <p>Complete the <strong style="color:#2d4a6b;">Office Overview</strong> module to unlock core responsibilities.</p>
+    </div>
+  </div>
+
+  <!-- FEATURE CARDS -->
+  <div class="grid" style="margin-bottom:24px;">
+    <div class="col-4">
+      <a href="training-flow.html" class="dash-feature-card primary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon">▶</div>
+          <span style="font-size:17px;opacity:.35;">↗</span>
         </div>
-        
-        <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
-            <a class="flex items-center gap-3 px-4 py-2 text-[#465f88] dark:text-[#f6f7ff] font-bold bg-[#e1e9ee] dark:bg-slate-700/50 rounded-md transition-colors duration-200 ease-in-out" href="index.html">
-                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                <span class="font-manrope text-sm tracking-tight">Dashboard</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="office-overview.html">
-                <span class="material-symbols-outlined" data-icon="info">info</span>
-                <span class="font-manrope text-sm tracking-tight">Office Overview</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="training-flow.html">
-                <span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
-                <span class="font-manrope text-sm tracking-tight">Training Flow</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="systems.html">
-                <span class="material-symbols-outlined" data-icon="computer">computer</span>
-                <span class="font-manrope text-sm tracking-tight">Systems</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="responsibilities.html">
-                <span class="material-symbols-outlined" data-icon="assignment">assignment</span>
-                <span class="font-manrope text-sm tracking-tight">Responsibilities</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="case-handling.html">
-                <span class="material-symbols-outlined" data-icon="cases">cases</span>
-                <span class="font-manrope text-sm tracking-tight">Case Handling</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="sanctions.html">
-                <span class="material-symbols-outlined" data-icon="gavel">gavel</span>
-                <span class="font-manrope text-sm tracking-tight">Sanctions</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="parent-letters.html">
-                <span class="material-symbols-outlined" data-icon="mail">mail</span>
-                <span class="font-manrope text-sm tracking-tight">Parent Letters</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="templates.html">
-                <span class="material-symbols-outlined" data-icon="description">description</span>
-                <span class="font-manrope text-sm tracking-tight">Templates</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="escalation.html">
-                <span class="material-symbols-outlined" data-icon="priority_high">priority_high</span>
-                <span class="font-manrope text-sm tracking-tight">Escalation</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-[#e8eff3] dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-md" href="quick-reference.html">
-                <span class="material-symbols-outlined" data-icon="quick_reference">quick_reference</span>
-                <span class="font-manrope text-sm tracking-tight">Quick Ref</span>
-            </a>
-        </nav>
-        
-        <div class="p-6 mt-auto">
-            <div class="bg-[#f0f4f7] dark:bg-slate-800 p-4 rounded-xl flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-headline border-2 border-primary-container">
-                    GA
-                </div>
-                <div>
-                    <p class="text-xs font-bold text-primary">Student Conduct GA</p>
-                    <button class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider hover:text-primary transition-colors">View Progress</button>
-                </div>
-            </div>
+        <div>
+          <div class="dash-card-title" style="color:#fff;">Start Training</div>
+          <div class="dash-card-sub">Resume your current module: Case Adjudication 101.</div>
         </div>
-    </aside>
-
-    <main class="flex-1 flex flex-col min-h-screen">
-        <header class="flex justify-between items-center px-8 w-full h-16 sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-[#a9b4b9]/15">
-            <div class="flex items-center gap-6">
-                <h2 class="text-xl font-bold text-[#465f88] dark:text-white font-headline">Academic Curator</h2>
-                <div class="relative hidden lg:block">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-sm" data-icon="search">search</span>
-                    <input class="pl-10 pr-4 py-1.5 bg-surface-container-high rounded-full border-none focus:ring-2 focus:ring-[#465f88]/20 w-64 text-sm" placeholder="Search resources..." type="text"/>
-                </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <button class="text-slate-500 hover:text-[#465f88] transition-all p-2">
-                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-                </button>
-                <button class="text-slate-500 hover:text-[#465f88] transition-all p-2">
-                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
-                </button>
-                <button class="bg-primary hover:bg-primary-dim text-on-primary px-5 py-2 rounded-full font-headline font-semibold text-sm transition-all shadow-sm">
-                    Checklist
-                </button>
-            </div>
-        </header>
-
-        <div class="p-8 lg:p-12 space-y-12">
-            <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-                <div class="lg:col-span-8">
-                    <nav class="flex items-center gap-2 text-xs font-label text-on-surface-variant mb-4">
-                        <span>Admin Portal</span>
-                        <span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
-                        <span class="text-primary font-semibold">Dashboard</span>
-                    </nav>
-                    <h2 class="text-4xl lg:text-5xl font-headline font-extrabold text-on-surface tracking-tight leading-tight">
-                        Welcome to the <br/><span class="text-primary">Student Conduct Team</span>
-                    </h2>
-                </div>
-                <div class="lg:col-span-4">
-                    <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/15 shadow-sm">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-sm font-semibold text-on-surface-variant">Training Progress</span>
-                            <span class="text-primary font-bold">35% Complete</span>
-                        </div>
-                        <div class="w-full h-3 bg-surface-container-high rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-primary to-primary-dim" style="width: 35%"></div>
-                        </div>
-                        <p class="text-xs text-on-surface-variant mt-4 leading-relaxed">
-                            Complete the <a href="office-overview.html" class="font-semibold text-primary hover:underline">Office Overview</a> module to unlock core responsibilities.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="training-flow.html" class="group relative overflow-hidden bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-between min-h-[220px] transition-transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer block">
-                    <div class="flex justify-between items-start">
-                        <div class="bg-white/10 p-3 rounded-lg backdrop-blur-md">
-                            <span class="material-symbols-outlined text-3xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-                        </div>
-                        <span class="material-symbols-outlined text-white/50 group-hover:text-white transition-colors" data-icon="north_east">north_east</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-headline font-bold mb-2">Start Training</h3>
-                        <p class="text-on-primary/80 text-sm">Resume your current module: Case Adjudication 101.</p>
-                    </div>
-                </a>
-
-                <a href="quick-reference.html" class="group relative overflow-hidden bg-white dark:bg-slate-900 border border-outline-variant/15 p-8 rounded-xl flex flex-col justify-between min-h-[220px] transition-all hover:shadow-md cursor-pointer block">
-                    <div class="flex justify-between items-start">
-                        <div class="bg-secondary-container p-3 rounded-lg">
-                            <span class="material-symbols-outlined text-3xl text-primary" data-icon="quick_reference">quick_reference</span>
-                        </div>
-                        <span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="north_east">north_east</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-headline font-bold mb-2 text-on-surface">Quick Reference</h3>
-                        <p class="text-on-surface-variant text-sm">Access policy handbooks, emergency contacts, and cheat sheets.</p>
-                    </div>
-                </a>
-
-                <a href="responsibilities.html" class="group relative overflow-hidden bg-surface-container-low p-8 rounded-xl flex flex-col justify-between min-h-[220px] transition-all hover:bg-surface-container cursor-pointer block">
-                    <div class="flex justify-between items-start">
-                        <div class="bg-tertiary-container p-3 rounded-lg">
-                            <span class="material-symbols-outlined text-3xl text-on-tertiary-container" data-icon="task_alt">task_alt</span>
-                        </div>
-                        <span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors" data-icon="north_east">north_east</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-headline font-bold mb-2 text-on-surface">Common Tasks</h3>
-                        <p class="text-on-surface-variant text-sm">Log hours, submit letters, or request system access overrides.</p>
-                    </div>
-                </a>
-            </section>
-
-            <section class="space-y-6">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-headline font-bold text-on-surface flex items-center gap-2">
-                        <span class="w-1.5 h-6 bg-primary rounded-full"></span>
-                        Office Functions & Systems
-                    </h3>
-                    <a href="training-flow.html" class="text-sm font-semibold text-primary hover:underline transition-all">View All Modules</a>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                    <a href="office-overview.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="corporate_fare">corporate_fare</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Office Overview</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Understanding our organizational structure, mission, and team roles.</p>
-                        </div>
-                    </a>
-
-                    <a href="systems.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="database">database</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Maxient System</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Mastering the primary case management database and intake workflow.</p>
-                        </div>
-                    </a>
-
-                    <a href="responsibilities.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="event_note">event_note</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Daily Tasks</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Checklists for morning intake, scheduling, and student correspondence.</p>
-                        </div>
-                    </a>
-
-                    <a href="office-overview.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="policy">policy</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">FERPA & Privacy</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Critical compliance training for handling sensitive student data and records.</p>
-                        </div>
-                    </a>
-
-                    <a href="parent-letters.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="family_restroom">family_restroom</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Family Outreach</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Guidelines for drafting parent letters and managing external phone calls.</p>
-                        </div>
-                    </a>
-
-                    <a href="templates.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="history_edu">history_edu</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Templates</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Standardized formats for sanctions, formal warnings, and outcomes.</p>
-                        </div>
-                    </a>
-
-                    <a href="escalation.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="warning">warning</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Escalation</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">When and how to involve the Dean of Students or General Counsel.</p>
-                        </div>
-                    </a>
-
-                    <a href="sanctions.html" class="bg-surface-container-lowest p-6 rounded-[2rem] border border-outline-variant/15 hover:border-primary/30 hover:shadow-sm transition-all group flex items-start gap-4 h-full block">
-                        <div class="bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-xl shrink-0 group-hover:bg-primary-container transition-colors">
-                            <span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Sanction Matrix</h4>
-                            <p class="text-xs text-on-surface-variant leading-relaxed">Decision-making framework for consistent policy application.</p>
-                        </div>
-                    </a>
-                </div>
-            </section>
-
-            <section class="relative rounded-2xl overflow-hidden min-h-[160px] flex items-center px-12 bg-gradient-to-r from-[#39527b] to-[#465f88] shadow-md">
-                <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ffffff 10px, #ffffff 11px);"></div>
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center w-full gap-8 py-8">
-                    <div>
-                        <h4 class="text-2xl font-headline font-bold text-white mb-2">Ready to contribute?</h4>
-                        <p class="text-white/80 text-sm max-w-md">The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="https://www.hartford.edu/current-students/_files/6.5_current_students_student_handbook.pdf" target="_blank" rel="noopener noreferrer" class="bg-white text-primary px-8 py-3 rounded-full font-bold shadow-xl transition-all hover:scale-105 inline-block">
-                            Update Handbook
-                        </a>
-                        <button class="border border-white/30 text-white px-8 py-3 rounded-full font-bold hover:bg-white/10 transition-all">
-                            Dismiss
-                        </button>
-                    </div>
-                </div>
-            </section>
+      </a>
+    </div>
+    <div class="col-4">
+      <a href="quick-ref.html" class="dash-feature-card secondary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon" style="background:#e4ebf3;color:#455d7a;">📖</div>
+          <span style="font-size:17px;opacity:.25;">↗</span>
         </div>
+        <div>
+          <div class="dash-card-title" style="color:#1e2d3d;">Quick Reference</div>
+          <div class="dash-card-sub">Access policy handbooks, emergency contacts, and cheat sheets.</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-4">
+      <a href="responsibilities.html" class="dash-feature-card tertiary">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="dash-card-icon" style="background:#e8e4f3;color:#6b4a9c;">✓</div>
+          <span style="font-size:17px;opacity:.25;">↗</span>
+        </div>
+        <div>
+          <div class="dash-card-title" style="color:#1e2d3d;">Common Tasks</div>
+          <div class="dash-card-sub">Log hours, submit letters, or request system access overrides.</div>
+        </div>
+      </a>
+    </div>
+  </div>
 
-        <footer class="mt-auto py-8 px-8 border-t border-outline-variant/10 text-on-surface-variant text-[11px] flex justify-between items-center bg-surface-container-low">
-            <div class="flex gap-8">
-                <span>© 2026 University of Hartford Student Conduct</span>
-                <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                <a class="hover:text-primary transition-colors" href="#">ADA Accessibility</a>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-                <span class="font-semibold text-emerald-700 uppercase tracking-tighter">System Status: Optimal</span>
-            </div>
-        </footer>
-    </main>
+  <!-- MODULE GRID -->
+  <div class="section-head">
+    <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
+    <a href="training-flow.html" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
+  </div>
+
+  <div class="grid" style="margin-bottom:28px;">
+    <div class="col-3">
+      <a href="office-overview.html" class="module-card">
+        <div class="module-icon">🏛</div>
+        <div>
+          <h4>Office Overview</h4>
+          <p>Understanding our organizational structure, mission, and team roles.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="systems.html" class="module-card">
+        <div class="module-icon">🗄</div>
+        <div>
+          <h4>Maxient System</h4>
+          <p>Mastering the primary case management database and intake workflow.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="responsibilities.html" class="module-card">
+        <div class="module-icon">📅</div>
+        <div>
+          <h4>Daily Tasks</h4>
+          <p>Checklists for morning intake, scheduling, and student correspondence.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="quick-ref.html" class="module-card">
+        <div class="module-icon">🔒</div>
+        <div>
+          <h4>FERPA &amp; Privacy</h4>
+          <p>Critical compliance training for handling sensitive student data and records.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="parent-letters.html" class="module-card">
+        <div class="module-icon">👨‍👩‍👧</div>
+        <div>
+          <h4>Family Outreach</h4>
+          <p>Guidelines for drafting parent letters and managing external phone calls.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="templates.html" class="module-card">
+        <div class="module-icon">📝</div>
+        <div>
+          <h4>Templates</h4>
+          <p>Standardized formats for sanctions, formal warnings, and outcomes.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="escalation.html" class="module-card">
+        <div class="module-icon">⚠</div>
+        <div>
+          <h4>Escalation</h4>
+          <p>When and how to involve the Dean of Students or General Counsel.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="sanctions.html" class="module-card">
+        <div class="module-icon">⚖</div>
+        <div>
+          <h4>Sanction Matrix</h4>
+          <p>Decision-making framework for consistent policy application.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-content">
+      <h3>Ready to contribute?</h3>
+      <p>The 2024 Student Handbook has been updated. Review the changes before proceeding with case adjudication.</p>
+    </div>
+    <div class="banner-actions">
+      <a href="#" class="btn-light">📘 Update Handbook</a>
+      <a href="#" class="btn-outline-light">Dismiss</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="margin-top:28px;padding-top:20px;border-top:1px solid #dde5ef;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;gap:20px;align-items:center;font-size:12px;color:#6b7f95;">
+      <span>© 2024 University Academic Affairs</span>
+      <a href="#" style="color:#6b7f95;text-decoration:none;">Privacy Policy</a>
+      <a href="#" style="color:#6b7f95;text-decoration:none;">ADA Accessibility</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+      <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;">System Status: Optimal</span>
+    </div>
+  </footer>
+`;
+</script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
