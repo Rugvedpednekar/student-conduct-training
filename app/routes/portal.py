@@ -12,7 +12,7 @@ from app.models import User
 router = APIRouter()
 
 
-def render_page(request: Request, page_name: str, db: Session, user: User):
+def render_dynamic_page(request: Request, page_name: str, db: Session, user: User):
     if page_name not in PAGES:
         raise HTTPException(status_code=404)
 
@@ -33,6 +33,22 @@ def render_page(request: Request, page_name: str, db: Session, user: User):
     )
 
 
+def render_static_template(request: Request, user: User, template_name: str, page_name: str):
+    templates = request.app.state.templates
+
+    return templates.TemplateResponse(
+        template_name,
+        {
+            "request": request,
+            "user": user,
+            "page_name": page_name,
+            "page_label": PAGES[page_name]["label"] if page_name in PAGES else page_name.replace("-", " ").title(),
+            "all_pages": PAGES,
+            "csrf_token": get_csrf_token(request),
+        },
+    )
+
+
 @router.get("/")
 def root_redirect(request: Request):
     if request.session.get("user_id"):
@@ -45,18 +61,7 @@ def dashboard(
     request: Request,
     user: User = Depends(get_current_user),
 ):
-    templates = request.app.state.templates
-    return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "user": user,
-            "page_name": "dashboard",
-            "page_label": "Dashboard",
-            "all_pages": PAGES,
-            "csrf_token": get_csrf_token(request),
-        },
-    )
+    return render_static_template(request, user, "index.html", "dashboard")
 
 
 @router.get("/training-flow", response_class=HTMLResponse)
@@ -64,29 +69,67 @@ def training_flow(
     request: Request,
     user: User = Depends(get_current_user),
 ):
-    templates = request.app.state.templates
-    return templates.TemplateResponse(
-        "training-flow.html",
-        {
-            "request": request,
-            "user": user,
-            "page_name": "training-flow",
-            "page_label": "Training Flow",
-            "all_pages": PAGES,
-            "csrf_token": get_csrf_token(request),
-        },
-    )
+    return render_static_template(request, user, "training-flow.html", "training-flow")
 
 
-for route_name in [
-    "office-overview",
-    "systems",
-    "responsibilities",
-    "case-handling",
-    "sanctions",
-    "parent-letters",
-    "templates",
-]:
+@router.get("/office-overview", response_class=HTMLResponse)
+def office_overview(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "office-overview.html", "office-overview")
+
+
+@router.get("/systems", response_class=HTMLResponse)
+def systems(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "systems.html", "systems")
+
+
+@router.get("/responsibilities", response_class=HTMLResponse)
+def responsibilities(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "responsibilities.html", "responsibilities")
+
+
+@router.get("/case-handling", response_class=HTMLResponse)
+def case_handling(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "case-handling.html", "case-handling")
+
+
+@router.get("/sanctions", response_class=HTMLResponse)
+def sanctions(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "sanctions.html", "sanctions")
+
+
+@router.get("/parent-letters", response_class=HTMLResponse)
+def parent_letters(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "parent-letters.html", "parent-letters")
+
+
+@router.get("/templates", response_class=HTMLResponse)
+def templates_page(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "templates.html", "templates")
+
+
+# Keep this only for pages that are still driven by database content + page.html
+for route_name in []:
 
     @router.get(f"/{route_name}", name=f"view_{route_name}")
     def _view_page(
@@ -95,4 +138,4 @@ for route_name in [
         user: User = Depends(get_current_user),
         page_name: str = route_name,
     ):
-        return render_page(request, page_name, db, user)
+        return render_dynamic_page(request, page_name, db, user)
