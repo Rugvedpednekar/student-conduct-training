@@ -499,16 +499,12 @@ a { text-decoration: none; color: inherit; }
   border-radius: 20px;
   padding: 1.1rem;
   text-decoration: none;
-  color: var(--text);
+  color: inherit;
   display: flex;
   gap: 0.9rem;
   align-items: flex-start;
   box-shadow: 0 12px 32px rgba(42, 52, 57, 0.04);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.admin-manager-grid {
-  margin-top: 1rem;
 }
 
 .function-tile:hover {

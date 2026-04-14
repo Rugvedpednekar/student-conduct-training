@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
 
 from app.auth import get_csrf_token
@@ -39,10 +39,20 @@ def root_redirect(request: Request):
     return RedirectResponse(url="/login", status_code=303)
 
 
+@router.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    templates = request.app.state.templates
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@router.get("/training-flow", response_class=HTMLResponse)
+async def training_flow(request: Request):
+    templates = request.app.state.templates
+    return templates.TemplateResponse("training-flow.html", {"request": request})
+
+
 for route_name in [
-    "dashboard",
     "office-overview",
-    "training-flow",
     "systems",
     "responsibilities",
     "case-handling",

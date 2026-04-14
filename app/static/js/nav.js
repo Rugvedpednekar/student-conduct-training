@@ -1,23 +1,23 @@
 // Shared layout shell (sidebar + topbar + footer).
 (function renderPortalShell() {
   const links = [
-    { label: 'Dashboard', href: 'index.html', icon: '⌂' },
-    { label: 'Office Overview', href: 'office-overview.html', icon: 'ⓘ' },
-    { label: 'Training Flow', href: 'training-flow.html', icon: '⤴' },
-    { label: 'Systems', href: 'systems.html', icon: '🖥' },
-    { label: 'Responsibilities', href: 'responsibilities.html', icon: '☑' },
-    { label: 'Case Handling', href: 'case-handling.html', icon: '📁' },
-    { label: 'Sanctions', href: 'sanctions.html', icon: '⚖' },
-    { label: 'Parent Letters', href: 'parent-letters.html', icon: '✉' },
-    { label: 'Templates', href: 'templates.html', icon: '🗂' },
-    { label: 'Escalation', href: 'escalation.html', icon: '⚠' },
-    { label: 'Quick Reference', href: 'quick-reference.html', icon: '⟡' }
+    { label: 'Dashboard', href: '/dashboard', icon: '⌂' },
+    { label: 'Office Overview', href: '/office-overview', icon: 'ⓘ' },
+    { label: 'Training Flow', href: '/training-flow', icon: '⤴' },
+    { label: 'Systems', href: '/systems', icon: '🖥' },
+    { label: 'Responsibilities', href: '/responsibilities', icon: '☑' },
+    { label: 'Case Handling', href: '/case-handling', icon: '📁' },
+    { label: 'Sanctions', href: '/sanctions', icon: '⚖' },
+    { label: 'Parent Letters', href: '/parent-letters', icon: '✉' },
+    { label: 'Templates', href: '/templates', icon: '🗂' },
+    { label: 'Escalation', href: '/escalation', icon: '⚠' },
+    { label: 'Quick Reference', href: '/quick-reference', icon: '⟡' }
   ];
 
   const shell = document.getElementById('portal-shell');
   if (!shell) return;
 
-  const page = location.pathname.split('/').pop() || 'index.html';
+  const page = location.pathname || '/dashboard';
   const navMarkup = links
     .map(
       (link) => `
