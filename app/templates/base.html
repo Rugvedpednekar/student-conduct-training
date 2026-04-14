@@ -4,52 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page_label if page_label else "GA Training Portal" }}</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
   <link rel="stylesheet" href="/static/css/styles.css" />
   <link rel="stylesheet" href="/static/css/portal.css" />
 </head>
 <body>
-<div class="portal-shell">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand-card">
-      <h1>GA Training Portal</h1>
-      <p>Office of Student Conduct</p>
-      {% if user.role.name == 'admin' %}<span class="badge alert">Admin Mode</span>{% endif %}
-    </div>
-    <nav aria-label="Sidebar Navigation">
-      <ul class="nav-list">
-      {% for slug, details in all_pages.items() %}
-        <li><a class="nav-link {% if page_name == slug %}active{% endif %}" href="/{{ slug }}">{{ details.label }}</a></li>
-      {% endfor %}
-      {% if user.role.name == 'admin' %}
-      <li><a class="nav-link {% if request.url.path.startswith('/admin') %}active{% endif %}" href="/admin">Content Admin</a></li>
-      {% endif %}
-      </ul>
-    </nav>
-  </aside>
+  <div class="portal-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-card">
+        <h1>GA Training Portal</h1>
+        <p>Office of Student Conduct</p>
+        {% if user.role.name == 'admin' %}
+          <span class="badge alert">Admin Mode</span>
+        {% endif %}
+      </div>
 
-  <section class="main-panel">
-    <header class="topbar">
-      <div class="topbar-left">
-        <div>
-          <h2 id="page-title">{{ page_label }}</h2>
-          <p id="page-subtitle">Signed in as {{ user.username }} ({{ user.role.name|upper }})</p>
+      <nav aria-label="Sidebar Navigation">
+        <ul class="nav-list">
+          {% for slug, details in all_pages.items() %}
+            {% if slug not in ['quick-reference', 'escalation'] %}
+              <li>
+                <a class="nav-link {% if page_name == slug %}active{% endif %}" href="/{{ slug }}">
+                  <span>{{ details.label }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if user.role.name == 'admin' %}
+            <li>
+              <a
+                class="nav-link {% if request.url.path.startswith('/admin') %}active{% endif %}"
+                href="/admin"
+              >
+                <span>Content Admin</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </aside>
+
+    <section class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div>
+            <h2 id="page-title">{{ page_label if page_label else "GA Training Portal" }}</h2>
+            <p id="page-subtitle">
+              Signed in as {{ user.username }} ({{ user.role.name|upper }})
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="topbar-right">
-        <form action="/logout" method="post">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
-          <button class="btn-light" type="submit">Logout</button>
-        </form>
-      </div>
-    </header>
 
-    <main id="page-content">
-      {% block content %}{% endblock %}
-    </main>
-  </section>
-</div>
+        <div class="topbar-right">
+          <form action="/logout" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+            <button class="btn-light" type="submit">Logout</button>
+          </form>
+        </div>
+      </header>
+
+      <main id="page-content">
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="shell-footer">
+        <span>© 2026 Office of Student Conduct</span>
+        <span>Use minimum necessary student information in all communications.</span>
+      </footer>
+    </section>
+  </div>
 </body>
 </html>
