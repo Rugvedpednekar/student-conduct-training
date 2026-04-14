@@ -29,7 +29,8 @@ app.add_middleware(
     https_only=settings.secure_cookies,
 )
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-app.state.templates = Jinja2Templates(directory="app/templates")
+templates = Jinja2Templates(directory="app/templates")
+app.state.templates = templates
 
 app.include_router(auth.router)
 app.include_router(admin.router)

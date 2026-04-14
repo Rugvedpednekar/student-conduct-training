@@ -7,11 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
 <body>
 <div class="portal-shell" id="portal-shell"></div>
-<script src="assets/js/nav.js"></script>
+<script src="/static/js/nav.js"></script>
 <script>
 document.getElementById('page-content').innerHTML = `
   <!-- HERO -->
@@ -39,7 +39,7 @@ document.getElementById('page-content').innerHTML = `
   <!-- FEATURE CARDS -->
   <div class="grid" style="margin-bottom:24px;">
     <div class="col-4">
-      <a href="training-flow.html" class="dash-feature-card primary">
+      <a href="/training-flow" class="dash-feature-card primary">
         <div style="display:flex;justify-content:space-between;">
           <div class="dash-card-icon">▶</div>
           <span style="font-size:17px;opacity:.35;">↗</span>
@@ -51,7 +51,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-4">
-      <a href="quick-ref.html" class="dash-feature-card secondary">
+      <a href="/quick-reference" class="dash-feature-card secondary">
         <div style="display:flex;justify-content:space-between;">
           <div class="dash-card-icon" style="background:#e4ebf3;color:#455d7a;">📖</div>
           <span style="font-size:17px;opacity:.25;">↗</span>
@@ -63,7 +63,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-4">
-      <a href="responsibilities.html" class="dash-feature-card tertiary">
+      <a href="/responsibilities" class="dash-feature-card tertiary">
         <div style="display:flex;justify-content:space-between;">
           <div class="dash-card-icon" style="background:#e8e4f3;color:#6b4a9c;">✓</div>
           <span style="font-size:17px;opacity:.25;">↗</span>
@@ -79,12 +79,12 @@ document.getElementById('page-content').innerHTML = `
   <!-- MODULE GRID -->
   <div class="section-head">
     <h2><span class="bar"></span>Office Functions &amp; Systems</h2>
-    <a href="training-flow.html" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
+    <a href="/training-flow" style="font-size:13px;font-weight:600;color:#4a7fb5;text-decoration:none;">View All Modules</a>
   </div>
 
   <div class="grid" style="margin-bottom:28px;">
     <div class="col-3">
-      <a href="office-overview.html" class="module-card">
+      <a href="/office-overview" class="module-card">
         <div class="module-icon">🏛</div>
         <div>
           <h4>Office Overview</h4>
@@ -93,7 +93,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="systems.html" class="module-card">
+      <a href="/systems" class="module-card">
         <div class="module-icon">🗄</div>
         <div>
           <h4>Maxient System</h4>
@@ -102,7 +102,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="responsibilities.html" class="module-card">
+      <a href="/responsibilities" class="module-card">
         <div class="module-icon">📅</div>
         <div>
           <h4>Daily Tasks</h4>
@@ -111,7 +111,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="quick-ref.html" class="module-card">
+      <a href="/quick-reference" class="module-card">
         <div class="module-icon">🔒</div>
         <div>
           <h4>FERPA &amp; Privacy</h4>
@@ -120,7 +120,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="parent-letters.html" class="module-card">
+      <a href="/parent-letters" class="module-card">
         <div class="module-icon">👨‍👩‍👧</div>
         <div>
           <h4>Family Outreach</h4>
@@ -129,7 +129,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="templates.html" class="module-card">
+      <a href="/templates" class="module-card">
         <div class="module-icon">📝</div>
         <div>
           <h4>Templates</h4>
@@ -138,7 +138,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="escalation.html" class="module-card">
+      <a href="/escalation" class="module-card">
         <div class="module-icon">⚠</div>
         <div>
           <h4>Escalation</h4>
@@ -147,7 +147,7 @@ document.getElementById('page-content').innerHTML = `
       </a>
     </div>
     <div class="col-3">
-      <a href="sanctions.html" class="module-card">
+      <a href="/sanctions" class="module-card">
         <div class="module-icon">⚖</div>
         <div>
           <h4>Sanction Matrix</h4>
@@ -183,6 +183,6 @@ document.getElementById('page-content').innerHTML = `
   </footer>
 `;
 </script>
-<script src="assets/js/app.js"></script>
+<script src="/static/js/app.js"></script>
 </body>
 </html>
