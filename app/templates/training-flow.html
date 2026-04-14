@@ -171,7 +171,7 @@
   }
 
   .course-reading {
-    max-width: 960px;
+    max-width: 980px;
   }
 
   .course-back {
@@ -239,6 +239,13 @@
     margin-bottom: 0.45rem;
     font-size: 0.95rem;
     line-height: 1.7;
+  }
+
+  .reading-content a {
+    color: #2563eb;
+    text-decoration: underline;
+    font-weight: 600;
+    word-break: break-word;
   }
 
   .reading-content .checklist {
@@ -321,6 +328,30 @@
   .training-video-caption p {
     margin: 0;
     font-size: 0.92rem;
+  }
+
+  .system-shot {
+    margin-top: 1rem;
+    border: 1px solid #dde5ef;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(26, 43, 73, 0.05);
+  }
+
+  .system-shot img {
+    width: 100%;
+    display: block;
+    background: #f3f6fb;
+  }
+
+  .system-shot figcaption {
+    padding: 0.9rem 1rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: #4a5568;
+    border-top: 1px solid #dde5ef;
+    background: #fbfdff;
   }
 
   .quiz-question {
@@ -420,7 +451,7 @@
     <aside class="dashboard-progress-card">
       <div class="dashboard-progress-top">
         <span>Overall Progress</span>
-        <strong id="progress-text">0 / 7</strong>
+        <strong id="progress-text">0 / 9</strong>
       </div>
       <div class="progress">
         <span id="progress-bar-fill" style="width:0%;"></span>
@@ -434,7 +465,7 @@
   <div class="course-toolbar">
     <div class="course-progress-pill">
       <span>Structured Course Path</span>
-      <span id="progress-text-inline">0 / 7 Complete</span>
+      <span id="progress-text-inline">0 / 9 Complete</span>
     </div>
 
     <a
@@ -512,28 +543,50 @@
     {
       key: "orientation",
       title: "Orientation",
-      short: "Office purpose, Student Conduct mission, and Graduate Assistant expectations.",
-      meta: "Phase 01 • Office purpose and role expectations",
+      short: "Welcome to Student Conduct and Conflict Resolution, your role, and first-day expectations.",
+      meta: "Phase 01 • Welcome and office orientation",
       body: `
-        <p>This phase explains what the Office of Student Conduct does and how the Graduate Assistant role supports the office without replacing supervisor decision-making.</p>
+        <h3>Welcome to the Department of Student Conduct and Conflict Resolution</h3>
+        <p>This orientation introduces the purpose of Student Conduct, your role as a Graduate Assistant, and the professional expectations that guide the work of the office.</p>
+
+        <h3>What is Student Conduct?</h3>
+        <p>The Department of Student Conduct and Conflict Resolution helps uphold community standards at the University. The office supports fairness, accountability, education, and student development through a structured conduct process.</p>
+        <p>Student Conduct is not only about discipline. It is also about helping students understand policy expectations, reflect on their choices, and move through the process in a fair and professional way.</p>
+
+        <div class="reading-callout">
+          <strong>FERPA & Confidentiality Reminder</strong>
+          <p>Student information must only be used for legitimate office purposes. Do not discuss identifiable case details outside approved workflows or with anyone who is not authorized to receive that information.</p>
+        </div>
+
+        <h3>What is your role here?</h3>
+        <p>As a Graduate Assistant, your role is to support the daily workflow of the office. You help keep communication, case support, hearing preparation, documentation, sanctions tracking, and follow-up organized.</p>
+        <ul>
+          <li>Monitoring office communications and responding professionally</li>
+          <li>Supporting hearing scheduling and hearing-related workflow</li>
+          <li>Helping with case organization and documentation</li>
+          <li>Tracking sanctions and overdue follow-up tasks</li>
+          <li>Supporting parent-letter, survey, and other office processes</li>
+          <li>Asking for guidance before taking action when needed</li>
+        </ul>
+
+        <h3>What is expected of you?</h3>
+        <ul>
+          <li>Be professional in communication and conduct</li>
+          <li>Protect confidential student information</li>
+          <li>Follow office process carefully</li>
+          <li>Keep records and workflow organized</li>
+          <li>Ask questions early when something is unclear</li>
+          <li>Do not guess through case-related steps</li>
+        </ul>
+
         <div class="checklist">
-          <div class="check-item"><div>Understand that Student Conduct supports accountability, education, and fair process.</div></div>
-          <div class="check-item"><div>Learn the role of the GA in communication, workflow support, organization, and follow-up.</div></div>
-          <div class="check-item"><div>Recognize that confidentiality and professionalism are part of daily office work.</div></div>
-          <div class="check-item"><div>Know that unclear situations should be brought to Dave instead of guessed through.</div></div>
+          <div class="check-item"><div>Student Conduct work must be accurate, timely, and confidential.</div></div>
+          <div class="check-item"><div>The GA supports workflow and communication, but major decisions stay under supervisor oversight.</div></div>
+          <div class="check-item"><div>If something is unclear, ask before acting.</div></div>
+          <div class="check-item"><div>Good documentation and careful follow-up are essential to office operations.</div></div>
         </div>
       `,
       quiz: [
-        {
-          q: "What is a core purpose of the Office of Student Conduct?",
-          options: [
-            "Only to punish students",
-            "To support fair, educational accountability processes",
-            "To manage financial aid",
-            "To replace Public Safety"
-          ],
-          answer: 1
-        },
         {
           q: "What should a GA do when unsure about a conduct-related next step?",
           options: [
@@ -545,64 +598,101 @@
           answer: 2
         },
         {
-          q: "Which of the following best describes the GA role?",
+          q: "Where is the Password Book?",
           options: [
-            "Independent decision-maker for all cases",
-            "Support role for workflow, communication, and organization",
-            "Primary judicial officer for every hearing",
-            "Replacement for office leadership"
+            "Under the Table",
+            "With Jack",
+            "Lower shelf on right",
+            "I don’t know"
           ],
-          answer: 1
-        },
-        {
-          q: "Which value is essential in Student Conduct work?",
-          options: [
-            "Speed over accuracy",
-            "Confidentiality",
-            "Minimal documentation",
-            "Informal communication"
-          ],
-          answer: 1
-        },
-        {
-          q: "Why is this phase placed first?",
-          options: [
-            "Because it is the least important",
-            "Because it builds the foundation for every later workflow",
-            "Because it replaces systems training",
-            "Because it is optional"
-          ],
-          answer: 1
+          answer: 2
         }
       ]
     },
     {
       key: "systems",
       title: "Systems",
-      short: "Maxient, Outlook, Outlook Calendar, and 3rd Millennium.",
+      short: "Maxient, Outlook, 3rd Millennium, and the shared office drive.",
       meta: "Phase 02 • Systems and tools used in the office",
       body: `
         <p>This phase focuses on the systems used throughout Student Conduct workflow.</p>
-        <h3>Maxient</h3>
+
+        <h3>1. Maxient</h3>
+        <p>This is the main system used in Student Conduct.</p>
         <ul>
-          <li>Maxient is the primary conduct case-management system.</li>
-          <li>It is used for case review, record checks, notes, sanctions, and workflow support.</li>
-          <li>Before updating a case, confirm you are working on the correct student and the correct record.</li>
+          <li>Reviewing assigned cases</li>
+          <li>Checking student records</li>
+          <li>Reading incident reports</li>
+          <li>Scheduling hearings</li>
+          <li>Sending hearing letters</li>
+          <li>Completing CRFs</li>
+          <li>Reviewing prior case history</li>
+          <li>Tracking sanctions and conduct workflow</li>
+        </ul>
+        <p>This is the most important system because much of the hearing and case process happens there.</p>
+        <p><strong>Link:</strong> <a href="http://cm.maxient.com/hartford" target="_blank" rel="noopener noreferrer">http://cm.maxient.com/hartford</a></p>
+        <p>If you are logging in for the first time, set up your Authenticator.</p>
+        <ul>
+          <li><a href="https://support.maxient.com/hc/en-us/articles/230310328-General-Work-Flow-Video-1" target="_blank" rel="noopener noreferrer">Workflow 1</a></li>
+          <li><a href="https://support.maxient.com/hc/en-us/articles/230310348-General-Work-Flow-Video-2" target="_blank" rel="noopener noreferrer">Workflow 2</a></li>
         </ul>
 
-        <h3>Outlook and Outlook Calendar</h3>
+        <div class="reading-callout">
+          <strong>Important Maxient Practice</strong>
+          <p>Before updating a case, confirm you are working on the correct student and the correct record.</p>
+        </div>
+
+        <h3>2. Outlook</h3>
+        <p>This is the official communication system used in Student Conduct.</p>
         <ul>
-          <li>Outlook is used for daily communication, Public Safety reports, student responses, and internal follow-up.</li>
-          <li>Outlook Calendar is used to track hearings, appointments, deadlines, and scheduling logistics.</li>
-          <li>Your signature should be updated to your own name and role.</li>
+          <li>Communicating with students and others</li>
+          <li>You are going to receive Public Safety reports from Tim Humiston, if he is still working</li>
+          <li>You will get weekly updates from GIPP Grad for meetings completed</li>
+          <li>Check Outlook Calendar to know Dave’s schedule</li>
+        </ul>
+        <p><strong>Link:</strong> <a href="https://outlook.office365.com/mail/" target="_blank" rel="noopener noreferrer">https://outlook.office365.com/mail/</a></p>
+
+        <h3>3. 3rd Millennium</h3>
+        <p>This is used for sanction completion tracking.</p>
+        <ul>
+          <li>Checking whether a student completed sanctions like educational courses</li>
+          <li>Verifying completion before updating records</li>
+          <li>Searching by student ID, email, or name when needed</li>
+        </ul>
+        <p><strong>Link:</strong> <a href="https://sms.3rdmil.com/" target="_blank" rel="noopener noreferrer">https://sms.3rdmil.com/</a></p>
+        <p>This is your login page for 3rd Millennium. Check your password book for username and password.</p>
+
+        <figure class="system-shot">
+          <img src="/static/images/systems/3rd_mil-login.PNG" alt="3rd Millennium login page">
+          <figcaption><strong>Login Page:</strong> Use the Student Conduct account credentials from the password book to sign in.</figcaption>
+        </figure>
+
+        <figure class="system-shot">
+          <img src="/static/images/systems/3rd_mil-2facAuth.PNG" alt="3rd Millennium two-factor authentication screen">
+          <figcaption><strong>Two-Factor Authentication:</strong> A verification code will be sent to <strong>stconduct@hartford.edu</strong>. Enter the code to continue.</figcaption>
+        </figure>
+
+        <figure class="system-shot">
+          <img src="/static/images/systems/3rd_mil-Dashboard.PNG" alt="3rd Millennium dashboard">
+          <figcaption><strong>Dashboard:</strong> Search for the student with their name or email.</figcaption>
+        </figure>
+
+        <figure class="system-shot">
+          <img src="/static/images/systems/3rd_mil-Courseenroll.PNG" alt="3rd Millennium course enrollment screen">
+          <figcaption><strong>Course Enrollment:</strong> You can check whether the student is enrolled for the assigned course from here.</figcaption>
+        </figure>
+
+        <h3>4. Shared Space</h3>
+        <p>On the assigned Student Conduct laptop, you can see the shared drive. Open the conduct drive and then the GA folder.</p>
+        <ul>
+          <li>You will find previous necessary documents there</li>
+          <li>Examples include minimum sanction guidelines and overdue sanctions lists</li>
         </ul>
 
-        <h3>3rd Millennium</h3>
-        <ul>
-          <li>Used to verify completion of educational sanctions such as Under the Influence and Marijuana 101.</li>
-          <li>Primary search method is student ID.</li>
-          <li>Email can also be used, and name should be used only if it is clearly unique.</li>
-        </ul>
+        <figure class="system-shot">
+          <img src="/static/images/systems/Shared_drive.PNG" alt="Shared Student Conduct drive on the office laptop">
+          <figcaption><strong>Shared Drive:</strong> This is where you can access important office documents and shared GA resources.</figcaption>
+        </figure>
       `,
       quiz: [
         {
@@ -626,84 +716,8 @@
           answer: 1
         },
         {
-          q: "What should you do if a 3rd Millennium completion is not clearly appearing?",
-          options: ["Mark it complete anyway", "Ignore it", "Verify it carefully before updating records", "Delete the sanction"],
-          answer: 2
-        }
-      ]
-    },
-    {
-      key: "workflow",
-      title: "Daily and Weekly Workflow",
-      short: "Inbox review, report comparisons, sanctions follow-up, and recurring office support.",
-      meta: "Phase 03 • Daily and weekly workflow expectations",
-      body: `
-        <p>Daily work is driven by Outlook, new reports, hearings, follow-up communication, and sanctions-related tracking.</p>
-        <h3>Daily Responsibilities</h3>
-        <ul>
-          <li>Review the Student Conduct inbox and respond professionally when appropriate.</li>
-          <li>Check for new reports, hearing-related messages, and deadlines.</li>
-          <li>Review Public Safety reports and compare them with Maxient when a similar case may already exist.</li>
-          <li>Flag unclear or duplicate-looking items for supervisor review.</li>
-        </ul>
-
-        <h3>Weekly Responsibilities</h3>
-        <ul>
-          <li>Overdue sanctions review.</li>
-          <li>Parent-letter workflow support.</li>
-          <li>Sanctions fee or cost updates as assigned.</li>
-          <li>Recurring office follow-up and awareness support when assigned.</li>
-        </ul>
-      `,
-      quiz: [
-        {
-          q: "What should you do if a Public Safety report may match an existing case?",
-          options: [
-            "Close the report yourself",
-            "Tell Dave and follow guidance",
-            "Ignore it",
-            "Only email the student"
-          ],
-          answer: 1
-        },
-        {
-          q: "Which is a daily responsibility?",
-          options: [
-            "Reviewing the conduct inbox",
-            "Replacing office hardware",
-            "Managing financial aid appeals",
-            "Approving housing contracts"
-          ],
-          answer: 0
-        },
-        {
-          q: "Which is a weekly responsibility?",
-          options: [
-            "Overdue sanctions review",
-            "Building access control",
-            "Course registration",
-            "Residence hall inspections alone"
-          ],
-          answer: 0
-        },
-        {
-          q: "What should happen when something is unclear in the workflow?",
-          options: [
-            "It should be ignored",
-            "It should be guessed through quickly",
-            "It should be flagged for supervisor review",
-            "It should be sent to the student immediately"
-          ],
-          answer: 2
-        },
-        {
-          q: "Why are daily and weekly workflows important?",
-          options: [
-            "They reduce documentation",
-            "They keep the office organized and responsive",
-            "They replace Maxient",
-            "They remove the need for communication"
-          ],
+          q: "Where can you find important office documents like minimum sanction guidelines?",
+          options: ["Only in your Downloads folder", "The shared conduct drive and GA folder", "Instagram", "3rd Millennium"],
           answer: 1
         }
       ]
@@ -711,10 +725,93 @@
     {
       key: "casehandling",
       title: "Case Handling",
-      short: "Case intake, hearing scheduling, hearing notification, CRF completion, and post-hearing workflow.",
-      meta: "Phase 04 • Assigned case workflow",
+      short: "Creating a case, scheduling hearings, hearing notification, CRF completion, and post-hearing workflow.",
+      meta: "Phase 03 • Assigned case workflow",
       body: `
-        <p>This phase covers what happens when a case is assigned in Maxient and how a Graduate Assistant supports the workflow before and after the hearing.</p>
+        <p>This phase covers what happens when a case is assigned or created in Maxient and how a Graduate Assistant supports the workflow before and after the hearing.</p>
+
+        <div class="reading-callout">
+          <strong>There are two main report paths</strong>
+          <p>You may receive reports through <strong>Maxient Incoming Reports / Pending IRs</strong> or through <strong>Public Safety Reports</strong>. This section first explains how to create a case using Pending IRs in Maxient.</p>
+        </div>
+
+        <h3>Part 1: How to Create a Case from Pending IRs</h3>
+
+        <div class="training-video-wrap">
+          <iframe
+            class="training-video-frame"
+            src="https://hartford0-my.sharepoint.com/personal/stconduct_hartford_edu/_layouts/15/embed.aspx?UniqueId=0aded7e1-05b7-409b-ab1a-294442c2d5e9&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+            width="640"
+            height="360"
+            frameborder="0"
+            scrolling="no"
+            allowfullscreen
+            title="How to create case with Maxient IR.mp4"
+          ></iframe>
+          <div class="training-video-caption">
+            <p><strong>Video walkthrough:</strong> Creating a Student Conduct case using Maxient Pending IRs.</p>
+          </div>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>1. Open Pending IRs and Sort the Reports</h3>
+          <p>Reports can come through Incoming Reports or Pending IRs. A common workflow is to go to <strong>Pending IRs</strong> and sort the data so the most recent reports are easy to review.</p>
+          <ul>
+            <li>You may see more than one report for the same incident.</li>
+            <li>If the same incident appears multiple times, create only one case and merge the related reports later instead of creating duplicate cases.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>2. Select the Report and Click Action</h3>
+          <p>Choose the report you want to use, click <strong>Action</strong>, and then select <strong>Create Case and Go</strong>.</p>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>3. Set the Case Type</h3>
+          <ul>
+            <li>The case type should always be <strong>Student Conduct</strong>.</li>
+            <li>Follow the instructions in Maxient for what type of Student Conduct case it should be.</li>
+            <li>You may select areas such as <strong>Public Safety</strong> or <strong>Residential Life</strong> depending on the report source.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>4. Confirm the Student and Home Office</h3>
+          <ul>
+            <li>Confirm that the student shown is the correct student involved in the incident.</li>
+            <li>The <strong>Home Office</strong> should always be <strong>Student Conduct</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>5. Assign the Hearing Officer and Add Charges</h3>
+          <ul>
+            <li>The assigned hearing officer will be based on Dave’s direction.</li>
+            <li>Add the appropriate charge or issue.</li>
+            <li>Add the charge to the involved student.</li>
+            <li>If alcohol is clearly reportable, add the appropriate alcohol-related violation based on the report.</li>
+          </ul>
+        </div>
+
+        <div class="reading-subcard">
+          <h3>6. Save and Create the Case</h3>
+          <ul>
+            <li>Continue through the required screens.</li>
+            <li>Some sections may not be necessary depending on the case.</li>
+            <li>When finished, click <strong>Save and Create the Case</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="reading-callout">
+          <strong>Common Mistakes to Avoid When Creating a Case</strong>
+          <p>Do not create multiple cases for the same incident. Do not choose the wrong student. Do not forget to set the Home Office to Student Conduct. Do not add charges without checking the incident details carefully.</p>
+        </div>
+
+        <h3>Part 2: Public Safety Reports</h3>
+        <p>Public Safety Reports are another report path you may work with. Once office-specific steps are finalized, this section can be expanded further with the exact workflow used in Student Conduct.</p>
+
+        <h3>Part 3: Schedule a Hearing and Send the Hearing Notification</h3>
 
         <div class="training-video-wrap">
           <iframe
@@ -732,21 +829,9 @@
           </div>
         </div>
 
-        <div class="reading-callout">
-          <strong>What this section teaches</strong>
-          <p>You will learn how to find an assigned case, review the record, schedule the hearing, send the hearing notification, complete the CRF after the hearing, apply findings, and prepare the hearing outcome process.</p>
-        </div>
-
-        <h3>Part 1: Before the Hearing</h3>
-
         <div class="reading-subcard">
           <h3>1. Go to Home and Open Unheard Cases</h3>
           <p>Start on the Maxient home page. Click <strong>Unheard Cases</strong> or <strong>Unresolved Cases</strong> to find the cases that still need hearing-related action.</p>
-          <ul>
-            <li>Assigned cases appear in this workflow area.</li>
-            <li>Status and hold-related information may also appear depending on the case.</li>
-            <li>If you do not have open cases, use the cases already assigned to you for training review.</li>
-          </ul>
         </div>
 
         <div class="reading-subcard">
@@ -755,25 +840,21 @@
           <ul>
             <li>This opens the student record.</li>
             <li>You can see first name, last name, student ID number, and other student details.</li>
-            <li>Sometimes Maxient may show that the student no longer appears in the campus data feed. This may happen if the student has graduated or their status has changed.</li>
           </ul>
         </div>
 
         <div class="reading-subcard">
           <h3>3. Review the Record and EFC</h3>
-          <p>Before scheduling anything, review the case carefully.</p>
           <ul>
             <li>Use the <strong>Demographics</strong> tab to confirm basic student information.</li>
             <li>Use the <strong>EFC</strong> to read the incident report or reports.</li>
             <li>There may be more than one report, including Public Safety, RA, or RD reports.</li>
-            <li>You should understand what information is being relied on before the hearing is scheduled and later discussed.</li>
           </ul>
         </div>
 
         <div class="reading-subcard">
           <h3>4. Go to Assignments</h3>
           <p>Click <strong>Assignments</strong>. This confirms that the current case is assigned to you.</p>
-          <p>Once the case is assigned to you, one of your first responsibilities is to schedule the hearing correctly.</p>
         </div>
 
         <div class="reading-subcard">
@@ -800,22 +881,17 @@
 
         <div class="reading-subcard">
           <h3>6. Schedule the Hearing Appointment</h3>
-          <p>Once you are ready to schedule the hearing:</p>
           <ol>
             <li>Select the appointment date.</li>
             <li>Select the appointment time.</li>
             <li>Select the appointment location.</li>
           </ol>
-          <p>For this training workflow, the hearing location is typically:</p>
-          <ul>
-            <li><strong>GSU Room 307</strong></li>
-          </ul>
+          <p>For this training workflow, the hearing location is typically <strong>GSU Room 307</strong>.</p>
           <p>After entering all required information, click <strong>Save Updates</strong>.</p>
         </div>
 
         <div class="reading-subcard">
           <h3>7. Open Letters and Choose the Hearing Notification Template</h3>
-          <p>After saving the appointment details, the next step is to send the student the hearing notification.</p>
           <ol>
             <li>Click <strong>Letters</strong>.</li>
             <li>Select the hearing notification template.</li>
@@ -832,7 +908,6 @@
 
         <div class="reading-subcard">
           <h3>8. Email the Hearing Notification</h3>
-          <p>After reviewing everything, send the letter through Maxient.</p>
           <ul>
             <li>You may select the option to be notified when the student opens the email.</li>
             <li>Once confirmed, click <strong>Email This Letter</strong>.</li>
@@ -840,11 +915,10 @@
           </ul>
         </div>
 
-        <h3>Part 2: After the Hearing</h3>
+        <h3>Part 4: After the Hearing</h3>
 
         <div class="reading-subcard">
           <h3>9. Complete the Case Resolution Form (CRF)</h3>
-          <p>After the hearing is over, return to the student’s case and complete the CRF.</p>
           <ul>
             <li>From the home screen, go to the relevant case and select <strong>Complete CRF</strong>.</li>
             <li>Complete all required fields.</li>
@@ -856,7 +930,6 @@
 
         <div class="reading-subcard">
           <h3>10. Enter Findings for Each Charge</h3>
-          <p>Each student conduct code regulation listed in the case must receive a finding.</p>
           <ul>
             <li>Review each alleged charge separately.</li>
             <li>Use the <strong>preponderance of evidence</strong> standard.</li>
@@ -867,7 +940,6 @@
 
         <div class="reading-subcard">
           <h3>11. Apply Sanctions Correctly</h3>
-          <p>If the student is found responsible for at least one charge, refer to the minimum sanctioning guidelines.</p>
           <ul>
             <li>Use past Maxient history only if the student is found responsible in the current case.</li>
             <li>Prior history affects sanctioning only after responsibility is established in the present case.</li>
@@ -877,48 +949,28 @@
 
         <div class="reading-subcard">
           <h3>12. Send the Hearing Outcome Email</h3>
-          <p>After the CRF is complete and sanctions are determined, send the hearing resolution email to the student.</p>
           <ul>
             <li>The hearing outcome should reflect the findings entered in the CRF.</li>
             <li>If the student is not responsible, the outcome should still be documented and communicated appropriately.</li>
             <li>The CRF and the hearing outcome email should be completed the same day whenever possible.</li>
           </ul>
         </div>
-
-        <div class="reading-callout">
-          <strong>Common Mistakes to Avoid</strong>
-          <p>Do not schedule without checking class times when available. Do not forget the 48 business hours notice rule. Do not send the hearing notification before saving assignment details. Do not use prior Maxient history unless the student is responsible in the current case. Do not leave the CRF and hearing outcome for a later date without a reason.</p>
-        </div>
-
-        <h3>Quick Workflow Summary</h3>
-        <ol>
-          <li>Go to Home.</li>
-          <li>Open Unheard Cases or Unresolved Cases.</li>
-          <li>Select the case by File ID.</li>
-          <li>Review demographics and the EFC.</li>
-          <li>Go to Assignments.</li>
-          <li>Check the student schedule.</li>
-          <li>Choose hearing date, time, and location.</li>
-          <li>Save Updates.</li>
-          <li>Open Letters.</li>
-          <li>Select the hearing notification template.</li>
-          <li>Keep yourself as the signer.</li>
-          <li>Review the letter and send it.</li>
-          <li>After the hearing, complete the CRF.</li>
-          <li>Enter findings and apply sanctions appropriately.</li>
-          <li>Send the hearing outcome email.</li>
-        </ol>
       `,
       quiz: [
         {
-          q: "Where do you usually go first to find assigned cases that still need hearing action?",
-          options: ["Demographics", "Unheard Cases or Unresolved Cases", "Letters", "Configuration"],
+          q: "Where do you usually go first to create or review recent incident reports in Maxient?",
+          options: ["Letters", "Pending IRs or Incoming Reports", "Configuration", "Outlook"],
           answer: 1
         },
         {
-          q: "What should you review before selecting a hearing date and time?",
-          options: ["Meal plan", "Student class schedule when available", "Parking balance", "Residence key inventory"],
-          answer: 1
+          q: "What should you do if two reports are for the same incident?",
+          options: ["Create two separate cases", "Ignore one report", "Create one case and merge the related reports later", "Delete both"],
+          answer: 2
+        },
+        {
+          q: "What should the Home Office be when creating a Student Conduct case?",
+          options: ["Public Safety", "Residential Life", "Student Conduct", "Registrar"],
+          answer: 2
         },
         {
           q: "What is the required notice rule for scheduling a hearing?",
@@ -929,190 +981,280 @@
           q: "What should the CRF resolution type be for this workflow?",
           options: ["Informal review", "Administrative Student Conduct Hearing", "Residence hall meeting", "Appeal review"],
           answer: 1
-        },
-        {
-          q: "When should prior Maxient history affect sanctioning?",
-          options: ["Always", "Only if the student is found responsible in the current case", "Only for first-time cases", "Never"],
-          answer: 1
         }
       ]
     },
     {
-      key: "communication",
-      title: "Communication",
-      short: "Student replies, parent letters, staff communication, and message tone.",
-      meta: "Phase 05 • Professional communication expectations",
+      key: "dailyweekly",
+      title: "Daily and Weekly Responsibilities",
+      short: "Recurring responsibilities that keep office operations organized and responsive.",
+      meta: "Phase 04 • Recurring workflow responsibilities",
       body: `
-        <p>This phase focuses on how Student Conduct communication should sound and how it should be reviewed.</p>
+        <p>This phase explains the recurring work that happens after you understand case workflow and systems.</p>
+
+        <h3>Daily Responsibilities</h3>
         <ul>
-          <li>Reply to students clearly, politely, and professionally.</li>
-          <li>Use neutral language in conduct-related communication.</li>
-          <li>Confirm recipients, facts, and case details before sending anything final.</li>
-          <li>Use templates carefully and review them against the actual situation.</li>
-          <li>Handle parent-letter workflow only when policy criteria and approval requirements are met.</li>
+          <li>Check Outlook and review new office emails.</li>
+          <li>Review hearing-related communication and follow-up needs.</li>
+          <li>Check new reports and assigned workflow items.</li>
+          <li>Support case follow-up, hearing preparation, and documentation tasks.</li>
+          <li>Ask for guidance when something is unclear.</li>
         </ul>
-      `,
-      quiz: [
-        {
-          q: "What tone should be used in Student Conduct communication?",
-          options: ["Aggressive", "Neutral and professional", "Casual", "Personal"],
-          answer: 1
-        },
-        {
-          q: "What should you confirm before sending a final message?",
-          options: ["Only the subject line", "Nothing", "Facts, recipients, and case details", "Only the spelling of the student name"],
-          answer: 2
-        },
-        {
-          q: "How should templates be used?",
-          options: ["Copied blindly every time", "Used as a starting point and reviewed carefully", "Avoided completely", "Used without checking recipients"],
-          answer: 1
-        },
-        {
-          q: "When should parent letters be handled?",
-          options: ["Whenever a student asks", "Only when policy criteria and workflow approval support it", "At random", "Only verbally"],
-          answer: 1
-        },
-        {
-          q: "Why does tone matter in conduct communication?",
-          options: [
-            "It does not matter",
-            "Because communication must remain professional, accurate, and fair",
-            "Because students prefer casual language",
-            "Because it replaces documentation"
-          ],
-          answer: 1
-        }
-      ]
-    },
-    {
-      key: "sanctions",
-      title: "Sanctions and Verification",
-      short: "Completion tracking, overdue review, verification, and supervisor-controlled actions.",
-      meta: "Phase 06 • Sanctions and completion tracking",
-      body: `
-        <p>This phase focuses on sanctions workflow and completion verification.</p>
+
+        <h3>Weekly Responsibilities</h3>
         <ul>
-          <li>Monitor sanction completion carefully.</li>
-          <li>Review overdue sanctions and follow up appropriately.</li>
-          <li>Use 3rd Millennium and other records to verify completion before marking anything complete.</li>
-          <li>Remember that hold removal and non-standard sanction action are supervisor-controlled.</li>
-          <li>Never treat undocumented completion as final.</li>
+          <li>Overdue sanctions review</li>
+          <li>Parent-letter workflow</li>
+          <li>Sanction cost tracking</li>
+          <li>Survey follow-up after a case is closed</li>
+          <li>Weekly social media awareness posting</li>
         </ul>
-      `,
-      quiz: [
-        {
-          q: "Can a GA independently remove a hold?",
-          options: ["Yes", "No"],
-          answer: 1
-        },
-        {
-          q: "What should be checked before updating a sanction as complete?",
-          options: [
-            "Only the student’s verbal claim",
-            "Manual or system verification",
-            "Residence hall status",
-            "Meal plan usage"
-          ],
-          answer: 1
-        },
-        {
-          q: "What should happen with overdue sanctions?",
-          options: [
-            "They should be ignored",
-            "They should be reviewed and followed up on",
-            "They should be deleted",
-            "They should automatically be marked complete"
-          ],
-          answer: 1
-        },
-        {
-          q: "Who controls hold removal and non-standard sanction action?",
-          options: ["The GA alone", "Any student worker", "Supervisor or authorized office leadership", "The student"],
-          answer: 2
-        },
-        {
-          q: "Why is verification important?",
-          options: [
-            "Because it reduces office work",
-            "Because sanctions should not be marked complete without evidence",
-            "Because it replaces communication",
-            "Because it removes hearing records"
-          ],
-          answer: 1
-        }
-      ]
-    },
-    {
-      key: "readiness",
-      title: "Independent Readiness",
-      short: "Confidence with routine workflow while knowing when to ask for help.",
-      meta: "Phase 07 • Final readiness and confidence-building",
-      body: `
-        <p>The last phase focuses on readiness. The goal is not total independence from supervision, but confidence in routine office support while knowing when to pause and ask questions.</p>
+
         <div class="checklist">
-          <div class="check-item"><div>Handle routine inbox and workflow follow-up more confidently.</div></div>
-          <div class="check-item"><div>Identify when a case may need creation, review, or escalation to a supervisor.</div></div>
-          <div class="check-item"><div>Support hearings, sanctions tracking, and communication with more consistency.</div></div>
-          <div class="check-item"><div>Know when to stop and ask for guidance instead of guessing.</div></div>
+          <div class="check-item"><div>Check Outlook regularly and stay aware of urgent workflow items.</div></div>
+          <div class="check-item"><div>Keep case follow-up and hearing-related work organized.</div></div>
+          <div class="check-item"><div>Review recurring weekly tasks instead of waiting until they pile up.</div></div>
+          <div class="check-item"><div>Ask for guidance before acting on unclear workflow steps.</div></div>
         </div>
       `,
       quiz: [
         {
-          q: "What does independent readiness mean in this office?",
-          options: [
-            "Doing everything without guidance",
-            "Handling routine work confidently while knowing when to ask for help",
-            "Making sanction decisions alone",
-            "Avoiding documentation"
-          ],
-          answer: 1
-        },
-        {
-          q: "What should a GA do when a situation moves beyond routine workflow?",
-          options: [
-            "Guess and continue",
-            "Pause and ask for guidance",
-            "Delete the record",
-            "Ignore it"
-          ],
-          answer: 1
-        },
-        {
-          q: "What is the goal of the training path overall?",
-          options: [
-            "Only to finish pages",
-            "To build understanding, judgment, and workflow confidence",
-            "To eliminate supervisor involvement",
-            "To reduce office records"
-          ],
-          answer: 1
-        },
-        {
-          q: "Which statement best reflects office expectations?",
-          options: [
-            "Confidence should replace review",
-            "Documentation and good judgment still matter",
-            "Routine workflow does not need accuracy",
-            "Training is separate from real tasks"
-          ],
-          answer: 1
-        },
-        {
-          q: "What is a sign of good readiness?",
-          options: [
-            "Knowing when to ask questions before making an error",
-            "Skipping steps to work faster",
-            "Making every decision without checking",
-            "Avoiding communication tasks"
-          ],
+          q: "Which of the following is a daily responsibility?",
+          options: ["Reviewing the Student Conduct inbox", "Printing parent letters in bulk only once a semester", "Budget approval", "Editing the student handbook"],
           answer: 0
+        },
+        {
+          q: "Which of the following is a weekly responsibility?",
+          options: ["Overdue sanctions review", "Changing classroom schedules", "Residence hall lock changes", "Meal plan updates"],
+          answer: 0
+        },
+        {
+          q: "Why is this module important?",
+          options: ["Because recurring work keeps the office organized and responsive", "Because it replaces case handling", "Because it removes the need for systems training", "Because it only applies once per semester"],
+          answer: 0
+        }
+      ]
+    },
+    {
+      key: "overduesanctions",
+      title: "Overdue Sanctions",
+      short: "How to find overdue sanctions and send follow-up emails to students.",
+      meta: "Phase 05 • Overdue sanctions workflow",
+      body: `
+        <p>This phase explains how to identify overdue sanctions and how to follow up with students professionally.</p>
+
+        <h3>What are overdue sanctions?</h3>
+        <p>Overdue sanctions are sanctions that were assigned to a student but were not completed by the required deadline.</p>
+
+        <div class="reading-callout">
+          <strong>Why follow-up matters</strong>
+          <p>Unresolved sanctions may result in a hold being placed on the student account. Follow-up helps make sure students understand what is still outstanding.</p>
+        </div>
+
+        <h3>How to find overdue sanctions</h3>
+        <ul>
+          <li>Review the overdue sanctions list or office tracking method used by Student Conduct.</li>
+          <li>Check the hearing resolution letter to confirm what was assigned and what the student still needs to complete.</li>
+          <li>Before emailing the student, confirm the case and sanction details carefully.</li>
+        </ul>
+
+        <h3>How to follow up with the student</h3>
+        <ul>
+          <li>Send a professional reminder email.</li>
+          <li>Tell the student to review the hearing resolution letter sent from Maxient.</li>
+          <li>Resend the hearing resolution email if needed.</li>
+          <li>Direct the student to contact <strong>stconduct@hartford.edu</strong> if they cannot find the letter or need help.</li>
+        </ul>
+
+        <h3>Email Format</h3>
+        <div class="reading-subcard">
+          <p><strong>Subject:</strong> Reminder: Overdue Sanctions</p>
+          <p>Hi,</p>
+          <p>This is a reminder that you have one or more overdue sanctions with the Office of Student Conduct and Conflict Resolution.</p>
+          <p>To review the details of your assigned sanctions and instructions for completing them, please refer to the hearing resolution letter sent to your email. To locate these communications quickly, search for the term “Maxient” in your inbox. I will also resend the hearing resolution email to ensure you have access to the information.</p>
+          <p>Please note that unresolved sanctions may result in a hold being placed on your student account.</p>
+          <p>If you are unable to locate your letter, have difficulty completing your sanctions, believe this notification was sent in error, or have any other concerns, please don’t hesitate to contact us at <strong>stconduct@hartford.edu</strong>.</p>
+        </div>
+      `,
+      quiz: [
+        {
+          q: "What should you review before emailing a student about overdue sanctions?",
+          options: ["Only Instagram", "The hearing resolution letter and sanction details", "Parking balance", "Meal plan usage"],
+          answer: 1
+        },
+        {
+          q: "What search term should a student use to find the original hearing resolution email?",
+          options: ["Outlook", "Student Conduct", "Maxient", "Survey"],
+          answer: 2
+        },
+        {
+          q: "What may happen if sanctions remain unresolved?",
+          options: ["Nothing", "A hold may be placed on the student account", "The case deletes automatically", "The student graduates automatically"],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "parentletters",
+      title: "Parent Letters",
+      short: "Finding the parent letter, sending it, printing it, and mailing it.",
+      meta: "Phase 06 • Parent letter workflow",
+      body: `
+        <p>This phase explains the parent-letter workflow at a high level.</p>
+
+        <h3>How to find the parent letter</h3>
+        <ul>
+          <li>Locate the correct parent-letter template or workflow resource used by the office.</li>
+          <li>Confirm the correct student and case before preparing the letter.</li>
+        </ul>
+
+        <h3>How to send it</h3>
+        <ul>
+          <li>Review the content carefully before sending.</li>
+          <li>Make sure approval expectations are met.</li>
+          <li>Use the correct address and office process.</li>
+        </ul>
+
+        <h3>How to take the print out</h3>
+        <ul>
+          <li>Prepare the final version of the letter.</li>
+          <li>Print it clearly and make sure the final content is correct.</li>
+        </ul>
+
+        <h3>Where to mail it</h3>
+        <ul>
+          <li>Use the office’s approved mailing process.</li>
+          <li>Verify the mailing address before sending.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "What should you confirm before preparing a parent letter?",
+          options: ["Only the printer location", "The correct student and case", "The student’s GPA", "The residence hall meal plan"],
+          answer: 1
+        },
+        {
+          q: "What should be verified before mailing a parent letter?",
+          options: ["Instagram login", "Mailing address", "Class schedule", "3rd Millennium password"],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "sanctioncosts",
+      title: "Sanction Costs",
+      short: "Why sanction costs are tracked and how they are calculated for Dave.",
+      meta: "Phase 07 • Sanction cost workflow",
+      body: `
+        <p>This phase explains why sanction costs are tracked and how that information is prepared.</p>
+
+        <h3>Why sanction costs matter</h3>
+        <p>All the sanctions assigned by the office may have associated costs. Those costs need to be tracked so the total can be calculated and sent to Dave. Dave then forwards the information to the University Budget team.</p>
+
+        <h3>How to find sanction costs</h3>
+        <ul>
+          <li>Review the sanction cost list or office tracking source.</li>
+          <li>Confirm which sanctions were assigned and what amount applies.</li>
+        </ul>
+
+        <h3>How the calculation is prepared</h3>
+        <ul>
+          <li>Use Excel to calculate the total amount.</li>
+          <li>Check the data carefully before sending it.</li>
+          <li>Send the completed information to Dave for final review and forwarding.</li>
+        </ul>
+      `,
+      quiz: [
+        {
+          q: "Why are sanction costs tracked?",
+          options: ["For social media posting", "Because assigned sanctions may have associated costs that must be calculated and reported", "To replace hearing letters", "Only for athletics"],
+          answer: 1
+        },
+        {
+          q: "Who receives the completed sanction cost information from the GA?",
+          options: ["Registrar", "Dave", "Public Safety", "The student"],
+          answer: 1
+        }
+      ]
+    },
+    {
+      key: "survey",
+      title: "Survey",
+      short: "Sending the anonymous process survey after a case has been closed.",
+      meta: "Phase 08 • Survey follow-up",
+      body: `
+        <p>This phase explains the survey follow-up process after a case has been closed.</p>
+
+        <h3>Why the survey is sent</h3>
+        <p>The Office of Student Conduct and Conflict Resolution values student feedback. The survey is used to gather anonymous feedback about the student conduct process.</p>
+
+        <h3>When to send it</h3>
+        <p>Send the survey after a case has been closed.</p>
+
+        <h3>Survey email format</h3>
+        <div class="reading-subcard">
+          <p>The Office of Student Conduct and Conflict Resolution values your feedback. We have put together an anonymous survey and ask you to participate.</p>
+          <p>This survey has 13 questions and will take less than 2 minutes to complete.</p>
+          <p>You can participate by clicking on the link below.</p>
+          <p><strong>Link:</strong> University Of Hartford Student Conduct Process Survey – Fill out form</p>
+        </div>
+
+        <h3>Form administration</h3>
+        <p>You are the form admin, so the survey form can also be edited or updated when needed.</p>
+      `,
+      quiz: [
+        {
+          q: "When should the survey be sent?",
+          options: ["Before the hearing", "After the case has been closed", "Before creating the case", "Only once per semester"],
+          answer: 1
+        },
+        {
+          q: "Is the survey anonymous?",
+          options: ["Yes", "No"],
+          answer: 0
+        }
+      ]
+    },
+    {
+      key: "socialmedia",
+      title: "Social Media / Awareness",
+      short: "Weekly Instagram posting to spread awareness about handbook policy.",
+      meta: "Phase 09 • Awareness and outreach",
+      body: `
+        <p>This phase explains the weekly awareness role connected to Student Conduct social media.</p>
+
+        <h3>Purpose</h3>
+        <p>Post on Instagram every week to spread awareness about handbook policy and help students understand important expectations.</p>
+
+        <h3>What to focus on</h3>
+        <ul>
+          <li>Handbook policy awareness</li>
+          <li>Student Conduct reminders</li>
+          <li>Educational and professional messaging</li>
+          <li>Consistent weekly posting</li>
+        </ul>
+
+        <div class="reading-callout">
+          <strong>Reminder</strong>
+          <p>Posts should be professional, accurate, and aligned with the purpose of educating students about policy expectations.</p>
+        </div>
+      `,
+      quiz: [
+        {
+          q: "How often should Instagram awareness posts be made?",
+          options: ["Every week", "Only once a year", "Only during orientation", "Only when asked by students"],
+          answer: 0
+        },
+        {
+          q: "What is the goal of these posts?",
+          options: ["Entertainment only", "Spreading awareness about handbook policy", "Replacing hearings", "Tracking sanctions"],
+          answer: 1
         }
       ]
     }
   ];
 
-  const STORAGE_KEY = "ga_training_course_v5";
+  const STORAGE_KEY = "ga_training_course_v6";
   let activeModuleIndex = 0;
   let progressData = loadProgress();
 
