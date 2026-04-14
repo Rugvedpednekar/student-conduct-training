@@ -1,14 +1,78 @@
 {% extends "base.html" %}
+
 {% block content %}
 <section class="dashboard-page">
-  <article class="dashboard-feature-card">
-    <h3>Admin Content Manager</h3>
-    <p>Choose a page to edit sections and publish updates to all users.</p>
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Content Admin</div>
+      <h1 class="dashboard-title">
+        Admin <span>Content Manager</span>
+      </h1>
+      <p class="dashboard-description">
+        Use this area to manage training content, update page sections, and maintain the learning experience
+        for Graduate Assistants across the portal.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Admin Access</span>
+        <strong>Publish Ready</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Choose a page below to edit section titles, body content, and optional metadata used for rendering.
+      </p>
+    </aside>
+  </section>
+
+  <article class="dashboard-feature-card admin-banner">
+    <h3>Manage Training Pages</h3>
+    <p>
+      Select a page to edit its sections. Changes made here should be reviewed carefully before saving,
+      since updates are intended to affect what users see across the training portal.
+    </p>
+  </article>
+
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Editable Pages</h2>
+    </div>
+
     <div class="dashboard-functions-grid admin-manager-grid">
       {% for slug, details in all_pages.items() %}
-      <a class="function-tile" href="/admin/content/{{ slug }}"><div><h4>{{ details.label }}</h4><p>Edit section titles, text, and metadata JSON.</p></div></a>
+        {% if slug not in ['quick-reference', 'escalation'] %}
+          <a class="function-tile" href="/admin/content/{{ slug }}">
+            <div>
+              <h4>{{ details.label }}</h4>
+              <p>Edit section titles, text, structure, and metadata for this page.</p>
+            </div>
+          </a>
+        {% endif %}
       {% endfor %}
     </div>
-  </article>
+  </section>
+
+  <section class="grid">
+    <article class="card col-6">
+      <h3>Admin Reminders</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Review edits for tone, clarity, and accuracy before saving.</li>
+        <li>Keep training content structured and easy for new GAs to follow.</li>
+        <li>Use metadata carefully when a page depends on rendering options.</li>
+        <li>Avoid publishing incomplete placeholder text unless intentional.</li>
+      </ul>
+    </article>
+
+    <article class="card col-6">
+      <h3>Suggested Editing Practice</h3>
+      <p style="margin-top:.75rem;">
+        Update one section at a time, save carefully, and confirm that the final content still matches the
+        intended workflow of the office. Training pages should remain clear, professional, and easy to learn from.
+      </p>
+    </article>
+  </section>
 </section>
 {% endblock %}
