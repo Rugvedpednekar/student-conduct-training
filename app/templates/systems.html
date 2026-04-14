@@ -1,1 +1,181 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Systems</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="/static/css/styles.css"/></head><body><div class="portal-shell" id="portal-shell"></div><script src="/static/js/nav.js"></script><script>document.getElementById('page-title').textContent='Systems';const cards=[['Maxient','Conduct case management system.','Open reports, enter notes, record outcomes, log sanction status.','Case number, dates, outcome coding.'],['Outlook','Official communication and calendar tool.','Send reminders, meeting invites, hearing notices.','Recipients, attachments, FERPA-safe wording.'],['Zoom','Virtual hearing platform.','Set secure links and waiting rooms.','Meeting permissions and attendance capture.'],['Excel / Tracking Sheets','Operational sanction and hold logs.','Monitor due dates and completion evidence.','Formula accuracy and duplicate rows.'],['Vector / Fire Safety','Fire Safety sanction completion system.','Verify assignment and completion records.','Student ID matching and completion timestamps.'],['GIPP Grad Tracking','Graduate intervention completion tracker.','Track submission milestones and completion proof.','Supervisor sign-off and final status.']];document.getElementById('page-content').innerHTML=`<section class='grid'>${cards.map(c=>`<article class='card col-4'><h3>${c[0]}</h3><p><strong>What it is for:</strong> ${c[1]}</p><p><strong>Common tasks:</strong> ${c[2]}</p><p><strong>Double-check:</strong> ${c[3]}</p></article>`).join('')}</section>`;</script><script src="/static/js/app.js"></script></body></html>
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Systems</div>
+      <h1 class="dashboard-title">
+        Office <span>Systems</span>
+      </h1>
+      <p class="dashboard-description">
+        This section explains the major systems used in Student Conduct operations, why each system matters,
+        and how a Graduate Assistant should use them accurately in daily workflow.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Module Focus</span>
+        <strong>Systems Training</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Learn the tools first, because most daily GA tasks depend on Maxient, Outlook, and sanction tracking systems.
+      </p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card col-8">
+      <h2>Maxient</h2>
+      <p style="margin-top:.6rem;">
+        Maxient is the primary case-management platform used by the Office of Student Conduct.
+        It is where reports, case records, hearing-related information, documentation, sanction information,
+        and other conduct workflow details are organized and reviewed.
+      </p>
+
+      <h3 style="margin-top:1rem;">Why We Use Maxient</h3>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li>To keep conduct records organized in one place.</li>
+        <li>To review incident reports and related case information.</li>
+        <li>To document conduct workflow accurately and consistently.</li>
+        <li>To support hearing preparation, outcome tracking, and case follow-up.</li>
+        <li>To maintain an official internal record of conduct-related activity.</li>
+      </ul>
+
+      <h3 style="margin-top:1rem;">How a GA Uses Maxient</h3>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li>Review whether a report or student may already have a related case.</li>
+        <li>Check case details before communication or follow-up.</li>
+        <li>Review notes, status updates, sanctions, and hearing-related workflow information.</li>
+        <li>Help support documentation accuracy before and after hearings.</li>
+        <li>Use Maxient carefully and consistently, since incomplete records can affect later workflow.</li>
+      </ul>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Important Maxient Practice</strong>
+        <p>
+          Before updating anything, confirm you are working on the correct student and the correct case.
+          Always cross-check details carefully and ask for guidance if a record looks unclear, duplicated, or incomplete.
+        </p>
+      </div>
+    </article>
+
+    <article class="card col-4">
+      <h3>Maxient Reminders</h3>
+      <div class="checklist" style="margin-top:.75rem;">
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Check whether a similar or existing case already exists.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Keep documentation accurate and neutral.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Do not guess when something in the record is unclear.
+        </label>
+        <label class="check-item" data-check>
+          <input type="checkbox" />
+          Use the official case record as your reference point for workflow.
+        </label>
+      </div>
+    </article>
+
+    <article class="card col-6">
+      <h3>Outlook</h3>
+      <p style="margin-top:.6rem;">
+        Outlook is used for daily communication in Student Conduct. Much of the GA workflow begins in Outlook,
+        especially when reviewing new messages, Public Safety reports, student questions, hearing communication,
+        and internal office follow-up.
+      </p>
+
+      <h4 style="margin-top:1rem;">How to Use Outlook Well</h4>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li>Check inbox messages regularly throughout the work period.</li>
+        <li>Read messages carefully before responding.</li>
+        <li>Use a professional tone in all student and staff communication.</li>
+        <li>Confirm details before replying to conduct-related questions.</li>
+        <li>Keep subject lines, attachments, and recipients accurate.</li>
+      </ul>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Signature Reminder</strong>
+        <p>
+          Update your Outlook signature so it reflects your own name and role correctly.
+          Do not leave another person’s name or an old signature in your outgoing emails.
+        </p>
+      </div>
+    </article>
+
+    <article class="card col-6">
+      <h3>Outlook Calendar</h3>
+      <p style="margin-top:.6rem;">
+        Outlook Calendar is important for tracking hearings, scheduling meetings, and staying aware of time-sensitive workflow.
+        It helps ensure that hearing logistics, reminders, and office timing stay organized.
+      </p>
+
+      <h4 style="margin-top:1rem;">How to Use Outlook Calendar</h4>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li>Review scheduled hearings and appointments regularly.</li>
+        <li>Confirm dates, times, and participants carefully.</li>
+        <li>Use calendar awareness to avoid missed deadlines or overlaps.</li>
+        <li>Make sure hearing timing and follow-up tasks are aligned with office workflow.</li>
+      </ul>
+    </article>
+
+    <article class="card col-12">
+      <h2>3rd Millennium</h2>
+      <p style="margin-top:.6rem;">
+        3rd Millennium is used for educational sanctions such as online courses and related sanction completion tracking.
+        It helps the office verify whether a student has completed an assigned educational requirement.
+      </p>
+
+      <h3 style="margin-top:1rem;">What It Is Used For</h3>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li>Checking completion of sanctions like Under the Influence or Marijuana 101.</li>
+        <li>Confirming whether a student has completed an assigned online educational module.</li>
+        <li>Supporting sanction follow-up and overdue review workflow.</li>
+      </ul>
+
+      <h3 style="margin-top:1rem;">How to Access It</h3>
+      <p style="margin-top:.65rem;">
+        Access should be provided through the office’s approved process and account setup.
+        Use the official office login or approved access method provided during training.
+        If access is missing or something does not look correct, ask for help instead of trying to work around it.
+      </p>
+
+      <h3 style="margin-top:1rem;">How to Check Whether a Student Completed a Sanction</h3>
+      <ul class="list-clean" style="margin-top:.65rem;">
+        <li><strong>Primary method:</strong> search using the student’s ID.</li>
+        <li><strong>Also usable:</strong> search using the student’s email address.</li>
+        <li><strong>Use name only if needed:</strong> search by student name only when the name is unique enough to avoid confusion.</li>
+      </ul>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Verification Reminder</strong>
+        <p>
+          Do not mark a sanction as complete unless it has been properly verified.
+          If completion is not appearing clearly, double-check the search method and confirm the record carefully before updating anything.
+        </p>
+      </div>
+    </article>
+
+    <article class="card col-12">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <h3>Continue Systems Training</h3>
+          <p style="margin-top:.35rem;">
+            After reviewing these tools, continue the structured learning flow to reinforce how they connect to daily GA work.
+          </p>
+        </div>
+        <a href="/training-flow" class="btn btn-primary">Go to Training Flow</a>
+      </div>
+    </article>
+  </section>
+</section>
+{% endblock %}
