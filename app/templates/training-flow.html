@@ -551,7 +551,8 @@
 
         <h3>What is Student Conduct?</h3>
         <p>The Department of Student Conduct and Conflict Resolution helps uphold community standards at the University. The office supports fairness, accountability, education, and student development through a structured conduct process.</p>
-        <p>Student Conduct is not only about discipline. It is also about helping students understand policy expectations, reflect on their choices, and move through the process in a fair and professional way.</p>
+        <p>Student Conduct is about helping students understand policy expectations, reflect on their choices, and move through the process in a fair and professional way.</p>
+        <p>All necessary documents are located on the lower right shelf. You will also find a password log book there containing credentials for all the systems you’ll be using</p>
 
         <div class="reading-callout">
           <strong>FERPA & Confidentiality Reminder</strong>
@@ -701,9 +702,9 @@
           answer: 1
         },
         {
-          q: "What is the primary method for checking sanction completion in 3rd Millennium?",
-          options: ["Student ID", "Residence hall", "Hearing date", "Nickname"],
-          answer: 0
+          q: "What is the primary Unique keyword for checking sanction completion in 3rd Millennium?",
+          options: ["Student ID", "Student email", "Student name", "Nickname"],
+          answer: 1
         },
         {
           q: "What should you update in Outlook before sending office emails?",
@@ -711,9 +712,9 @@
           answer: 2
         },
         {
-          q: "What is Outlook Calendar used for in this office?",
-          options: ["Meal plan approvals", "Tracking hearings and scheduling", "Student billing", "Printing letters"],
-          answer: 1
+          q: "Where do you get Public Safety reports ?",
+          options: ["Outlook", "Maxient", "gmail", "Personal Email"],
+          answer: 0
         },
         {
           q: "Where can you find important office documents like minimum sanction guidelines?",
@@ -1114,32 +1115,57 @@
         </div>
       `,
       quiz: [
-        {
-          q: "If a Public Safety report is used to create a case, what should the case type be?",
-          options: ["Registrar", "Residential Billing", "Student Conduct", "Parking Services"],
-          answer: 2
-        },
-        {
-          q: "What should you do when multiple reports belong to the same incident?",
-          options: ["Create a new case for each report", "Merge them into the existing case", "Ignore one report", "Delete the first case"],
-          answer: 1
-        },
-        {
-          q: "What is the required notice rule for scheduling a hearing?",
-          options: ["24 business hours", "48 business hours", "72 calendar hours", "Same-day notice is fine"],
-          answer: 1
-        },
-        {
-          q: "What is the normal resolution type for the CRF after the hearing?",
-          options: ["Housing Review", "Administrative Student Conduct Hearing", "Appeal Review", "Informal Mediation"],
-          answer: 1
-        },
-        {
-          q: "What tool can be used when the same resolution is being applied to multiple students in the same case?",
-          options: ["Batch Print", "Rapid Resolve", "Merge Case", "Analytics 53"],
-          answer: 1
-        }
-      ]
+          {
+            "q": "If you notice two separate reports have been filed for the exact same incident, what is the correct procedure to follow in Maxient?",
+            "options": [
+              "Create a new case for each report", 
+              "Merge the additional reports into the one existing case", 
+              "Delete the duplicate reports", 
+              "Wait for Dave to delete the extra reports"
+            ],
+            "answer": 1
+          },
+          {
+            "q": "When creating a case manually from a Public Safety Report, what additional step is required regarding the student's identity?",
+            "options": [
+              "Manually search for the student by Student ID and confirm the identity", 
+              "Type the name in the notes section only", 
+              "Ask the student to email their ID photo", 
+              "No extra steps are required"
+            ],
+            "answer": 0
+          },
+          {
+            "q": "To comply with the 48-hour business notice rule, if a hearing is scheduled for Tuesday at 10:00 AM, when is the latest the notification can be sent?",
+            "options": [
+              "Monday at 10:00 AM", 
+              "Sunday at 10:00 AM", 
+              "The previous Friday at 10:00 AM", 
+              "Tuesday at 8:00 AM"
+            ],
+            "answer": 2
+          },
+          {
+            "q": "When reviewing a student's class schedule in Maxient, what day of the week does the letter 'R' represent?",
+            "options": [
+              "Regular (Monday-Friday)", 
+              "Thursday", 
+              "Saturday/Sunday (Rest days)", 
+              "Tuesday"
+            ],
+            "answer": 1
+          },
+          {
+            "q": "When completing the Case Resolution Form (CRF), how should you determine the due date for assigned sanctions?",
+            "options": [
+              "Set it for the end of the semester", 
+              "Ask the student when they want to finish", 
+              "Set it for exactly 30 days out", 
+              "Set it for normally two weeks after the resolution date"
+            ],
+            "answer": 3
+          }
+        ]
     },
     {
       key: "dailyweekly",
