@@ -1,68 +1,87 @@
 {% extends "base.html" %}
+
 {% block content %}
 <section class="dashboard-page">
-  <article class="dashboard-feature-card admin-banner">
-    <div class="admin-banner-head">
-      <div>
-        <h3>Edit {{ page_label }}</h3>
-        <p>Admin Mode: update content blocks and click Save Section to publish immediately.</p>
-      </div>
-
-      <form method="post" action="/admin/reset-training-progress" class="admin-reset-form">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
-        <button
-          type="submit"
-          class="btn-outline-light admin-reset-btn"
-          title="This will reset training progress for all Graduate Assistants. Completed modules, quiz progress, and training completion status will be cleared."
-          onclick="return confirm('Are you sure you want to reset all GA training progress? This action will affect all users and cannot be undone easily.')"
-        >
-          Reset All Training Modules
-        </button>
-      </form>
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Training Preview Manager</div>
+      <h1 class="dashboard-title">
+        Content <span>Preview Manager</span>
+      </h1>
+      <p class="dashboard-description">
+        Use this area to edit training content and preview how each page will appear to Graduate Assistants
+        before saving or publishing updates across the portal.
+      </p>
     </div>
 
-    <p class="admin-reset-help">
-      Hover over the reset button to see what it does. Use this only when you want to clear all GA training progress and restart module completion tracking.
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Manager View</span>
+        <strong>Preview Enabled</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Select a page below to update its content and review how the final training experience will look
+        before changes are applied.
+      </p>
+    </aside>
+  </section>
+
+  <article class="dashboard-feature-card admin-banner">
+    <h3>Edit and Preview Training Pages</h3>
+    <p>
+      This workspace allows managers to maintain training pages while seeing how updated content will appear
+      in the portal. Review changes carefully to make sure instructions, documentation, and workflow guidance
+      are accurate before publishing.
     </p>
   </article>
 
-  {% for section in sections %}
-  <article class="dashboard-feature-card admin-editor">
-    <form method="post" action="/admin/content/{{ page_name }}/{{ section.section_key }}">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Training Pages</h2>
+      <p>
+        Open any page below to edit section titles, body content, and supporting details, then preview the
+        updated layout as it would appear to a Graduate Assistant using the training portal.
+      </p>
+    </div>
 
-      <h4>Section Key: <code>{{ section.section_key }}</code></h4>
+    <div class="dashboard-functions-grid admin-manager-grid">
+      {% for slug, details in all_pages.items() %}
+        {% if slug not in ['quick-reference', 'escalation'] %}
+          <a class="function-tile" href="/admin/content/{{ slug }}">
+            <div>
+              <h4>{{ details.label }}</h4>
+              <p>
+                Edit content and preview how this training page will appear after updates are made.
+              </p>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
 
-      <label for="title-{{ section.section_key }}">Title</label>
-      <input
-        id="title-{{ section.section_key }}"
-        name="title"
-        maxlength="255"
-        required
-        value="{{ section.title }}"
-      />
+  <section class="grid">
+    <article class="card col-6">
+      <h3>Before You Save</h3>
+      <ul class="list-clean" style="margin-top:.75rem;">
+        <li>Review the preview to confirm formatting and layout look correct.</li>
+        <li>Make sure instructions match the current office workflow.</li>
+        <li>Check for clarity, accuracy, and consistent training language.</li>
+        <li>Remove placeholders or incomplete draft text before publishing.</li>
+      </ul>
+    </article>
 
-      <label for="body-{{ section.section_key }}">Body</label>
-      <textarea
-        id="body-{{ section.section_key }}"
-        name="body"
-        rows="6"
-        required
-      >{{ section.body }}</textarea>
-
-      <label for="metadata-{{ section.section_key }}">Metadata JSON (optional)</label>
-      <textarea
-        id="metadata-{{ section.section_key }}"
-        name="metadata_json"
-        rows="4"
-      >{{ section.metadata_json | tojson if section.metadata_json else '' }}</textarea>
-
-      <div class="admin-buttons">
-        <button class="btn-light" type="submit">Save Section</button>
-        <a class="btn-light" href="/admin/content/{{ page_name }}">Cancel</a>
-      </div>
-    </form>
-  </article>
-  {% endfor %}
+    <article class="card col-6">
+      <h3>Recommended Editing Workflow</h3>
+      <p style="margin-top:.75rem;">
+        Update one section at a time, preview the page, and confirm that the final content looks clear and
+        complete from the learner’s perspective. This helps ensure the training remains accurate, professional,
+        and easy to follow.
+      </p>
+    </article>
+  </section>
 </section>
 {% endblock %}
