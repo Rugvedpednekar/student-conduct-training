@@ -1,87 +1,525 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="dashboard-page">
+<style>
+  .admin-edit-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .admin-edit-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .admin-edit-card,
+  .admin-preview-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e3ebf5;
+    overflow: hidden;
+  }
+
+  .admin-card-head {
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid #e3ebf5;
+    background: #fbfdff;
+  }
+
+  .admin-card-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #1e2d3d;
+  }
+
+  .admin-card-head p {
+    margin: 0.35rem 0 0;
+    color: #6b7f95;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .admin-card-body {
+    padding: 1.25rem;
+  }
+
+  .admin-form-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .admin-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .admin-field label {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #2d4a6b;
+  }
+
+  .admin-field input,
+  .admin-field textarea,
+  .admin-field select {
+    width: 100%;
+    border: 1px solid #d6e1ee;
+    border-radius: 14px;
+    padding: 0.85rem 0.95rem;
+    font: inherit;
+    background: #fff;
+    color: #1e2d3d;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .admin-field input:focus,
+  .admin-field textarea:focus,
+  .admin-field select:focus {
+    outline: none;
+    border-color: #2d4a6b;
+    box-shadow: 0 0 0 3px rgba(45, 74, 107, 0.08);
+  }
+
+  .admin-field textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.65;
+  }
+
+  .admin-hint {
+    font-size: 0.84rem;
+    color: #6b7f95;
+    line-height: 1.6;
+  }
+
+  .section-editor {
+    border: 1px solid #e3ebf5;
+    border-radius: 18px;
+    padding: 1rem;
+    background: #fcfdff;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .section-editor-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .section-editor-head h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #1e2d3d;
+  }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #eef4fb;
+    color: #2d4a6b;
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .admin-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 0.25rem;
+  }
+
+  .admin-actions-left,
+  .admin-actions-right {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .admin-preview-wrap {
+    position: sticky;
+    top: 1rem;
+  }
+
+  .preview-shell {
+    padding: 1.25rem;
+    background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+    min-height: 420px;
+  }
+
+  .preview-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: #e8eef5;
+    color: #2d4a6b;
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .preview-page {
+    background: #fff;
+    border: 1px solid #e3ebf5;
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: 0 10px 26px rgba(26, 43, 73, 0.05);
+  }
+
+  .preview-page h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.8rem;
+    color: #1e2d3d;
+  }
+
+  .preview-page .preview-description {
+    margin: 0 0 1.25rem;
+    color: #5b6b7d;
+    line-height: 1.7;
+    border-bottom: 1px solid #e3ebf5;
+    padding-bottom: 1rem;
+  }
+
+  .preview-section {
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eef3f8;
+  }
+
+  .preview-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .preview-section h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.05rem;
+    color: #243447;
+  }
+
+  .preview-section p {
+    margin: 0;
+    color: #4a5568;
+    line-height: 1.75;
+    white-space: pre-wrap;
+  }
+
+  .admin-note {
+    background: #fff8ec;
+    border: 1px solid #f1d7ad;
+    color: #7a4c10;
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    line-height: 1.65;
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 980px) {
+    .admin-edit-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .admin-preview-wrap {
+      position: static;
+    }
+  }
+</style>
+
+<section class="dashboard-page admin-edit-shell">
   <section class="dashboard-hero">
     <div class="dashboard-hero-main">
-      <div class="dashboard-breadcrumb">Admin Portal › Training Preview Manager</div>
+      <div class="dashboard-breadcrumb">
+        Admin Portal › Content Manager › {{ page.label if page and page.label else "Page Editor" }}
+      </div>
       <h1 class="dashboard-title">
-        Content <span>Preview Manager</span>
+        Edit <span>{{ page.label if page and page.label else "Training Page" }}</span>
       </h1>
       <p class="dashboard-description">
-        Use this area to edit training content and preview how each page will appear to Graduate Assistants
-        before saving or publishing updates across the portal.
+        Update training content on this page and use the live preview to review how it will appear before saving.
+        This editor is designed to make page updates simple, clear, and easy for managers to maintain.
       </p>
     </div>
 
     <aside class="dashboard-progress-card">
       <div class="dashboard-progress-top">
-        <span>Manager View</span>
-        <strong>Preview Enabled</strong>
+        <span>Editing Mode</span>
+        <strong>Live Preview</strong>
       </div>
       <div class="progress">
         <span style="width:100%;"></span>
       </div>
       <p>
-        Select a page below to update its content and review how the final training experience will look
-        before changes are applied.
+        Review layout, headings, and body content before saving so the final page stays accurate and easy for
+        Graduate Assistants to follow.
       </p>
     </aside>
   </section>
 
-  <article class="dashboard-feature-card admin-banner">
-    <h3>Edit and Preview Training Pages</h3>
-    <p>
-      This workspace allows managers to maintain training pages while seeing how updated content will appear
-      in the portal. Review changes carefully to make sure instructions, documentation, and workflow guidance
-      are accurate before publishing.
-    </p>
-  </article>
+  <div class="admin-edit-grid">
+    <form method="POST" class="admin-edit-card">
+      <div class="admin-card-head">
+        <h3>Page Content Editor</h3>
+        <p>Edit the training page content below. Changes update the preview automatically as you type.</p>
+      </div>
 
-  <section class="dashboard-section">
-    <div class="dashboard-section-head">
-      <h2>Training Pages</h2>
-      <p>
-        Open any page below to edit section titles, body content, and supporting details, then preview the
-        updated layout as it would appear to a Graduate Assistant using the training portal.
-      </p>
-    </div>
+      <div class="admin-card-body admin-form-grid">
+        <div class="admin-note">
+          Use short, clear headings and step-by-step content. Review the preview before saving to confirm the final
+          learner experience looks correct.
+        </div>
 
-    <div class="dashboard-functions-grid admin-manager-grid">
-      {% for slug, details in all_pages.items() %}
-        {% if slug not in ['quick-reference', 'escalation'] %}
-          <a class="function-tile" href="/admin/content/{{ slug }}">
-            <div>
-              <h4>{{ details.label }}</h4>
-              <p>
-                Edit content and preview how this training page will appear after updates are made.
-              </p>
+        <input type="hidden" name="slug" value="{{ slug }}">
+
+        <div class="admin-field">
+          <label for="page_title">Page Title</label>
+          <input
+            type="text"
+            id="page_title"
+            name="page_title"
+            value="{{ page_content.title if page_content and page_content.title else '' }}"
+            placeholder="Enter page title"
+          >
+        </div>
+
+        <div class="admin-field">
+          <label for="page_description">Page Description</label>
+          <textarea
+            id="page_description"
+            name="page_description"
+            rows="4"
+            placeholder="Enter a short description for this page"
+          >{{ page_content.description if page_content and page_content.description else '' }}</textarea>
+          <div class="admin-hint">
+            This appears near the top of the page and should explain the purpose of the training section clearly.
+          </div>
+        </div>
+
+        {% set sections = page_content.sections if page_content and page_content.sections else [] %}
+
+        {% if sections %}
+          {% for section in sections %}
+            <div class="section-editor">
+              <div class="section-editor-head">
+                <h4>Section {{ loop.index }}</h4>
+                <span class="section-badge">Editable Content Block</span>
+              </div>
+
+              <input type="hidden" name="section_count" value="{{ sections|length }}">
+              <input type="hidden" name="section_id_{{ loop.index0 }}" value="{{ section.id if section.id is defined else loop.index0 }}">
+
+              <div class="admin-field">
+                <label for="section_title_{{ loop.index0 }}">Section Title</label>
+                <input
+                  type="text"
+                  id="section_title_{{ loop.index0 }}"
+                  name="section_title_{{ loop.index0 }}"
+                  value="{{ section.title if section.title is defined else '' }}"
+                  placeholder="Enter section title"
+                  data-preview-section-title="{{ loop.index0 }}"
+                >
+              </div>
+
+              <div class="admin-field">
+                <label for="section_body_{{ loop.index0 }}">Section Content</label>
+                <textarea
+                  id="section_body_{{ loop.index0 }}"
+                  name="section_body_{{ loop.index0 }}"
+                  rows="6"
+                  placeholder="Enter section content"
+                  data-preview-section-body="{{ loop.index0 }}"
+                >{{ section.body if section.body is defined else '' }}</textarea>
+              </div>
+
+              {% if section.note is defined %}
+                <div class="admin-field">
+                  <label for="section_note_{{ loop.index0 }}">Editor Note / Optional Help Text</label>
+                  <textarea
+                    id="section_note_{{ loop.index0 }}"
+                    name="section_note_{{ loop.index0 }}"
+                    rows="3"
+                    placeholder="Optional note for this section"
+                  >{{ section.note }}</textarea>
+                </div>
+              {% endif %}
             </div>
-          </a>
+          {% endfor %}
+        {% else %}
+          <div class="section-editor">
+            <div class="section-editor-head">
+              <h4>Section 1</h4>
+              <span class="section-badge">Default Block</span>
+            </div>
+
+            <input type="hidden" name="section_count" value="1">
+
+            <div class="admin-field">
+              <label for="section_title_0">Section Title</label>
+              <input
+                type="text"
+                id="section_title_0"
+                name="section_title_0"
+                placeholder="Enter section title"
+                data-preview-section-title="0"
+              >
+            </div>
+
+            <div class="admin-field">
+              <label for="section_body_0">Section Content</label>
+              <textarea
+                id="section_body_0"
+                name="section_body_0"
+                rows="6"
+                placeholder="Enter section content"
+                data-preview-section-body="0"
+              ></textarea>
+            </div>
+          </div>
         {% endif %}
-      {% endfor %}
+
+        <div class="admin-field">
+          <label for="page_meta">Page Metadata (Optional)</label>
+          <textarea
+            id="page_meta"
+            name="page_meta"
+            rows="5"
+            placeholder='Example: {"show_sidebar": true, "theme": "default"}'
+          >{{ page_meta if page_meta else '' }}</textarea>
+          <div class="admin-hint">
+            Use this only if the page depends on rendering options or other display settings.
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <div class="admin-actions-left">
+            <a href="/admin/content" class="btn-light">← Back to Content Manager</a>
+          </div>
+
+          <div class="admin-actions-right">
+            <button type="button" class="btn-light" id="refresh-preview-btn">Refresh Preview</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="admin-preview-wrap">
+      <div class="admin-preview-card">
+        <div class="admin-card-head">
+          <h3>Live Preview</h3>
+          <p>This preview helps your manager see how the updated page will look before saving.</p>
+        </div>
+
+        <div class="preview-shell">
+          <div class="preview-label">Preview Mode</div>
+
+          <div class="preview-page">
+            <h1 id="preview-page-title">
+              {{ page_content.title if page_content and page_content.title else "Page Title Preview" }}
+            </h1>
+
+            <p class="preview-description" id="preview-page-description">
+              {{ page_content.description if page_content and page_content.description else "Page description preview will appear here." }}
+            </p>
+
+            <div id="preview-sections">
+              {% if sections %}
+                {% for section in sections %}
+                  <div class="preview-section" data-preview-index="{{ loop.index0 }}">
+                    <h3 class="preview-section-title">
+                      {{ section.title if section.title is defined and section.title else "Section Title" }}
+                    </h3>
+                    <p class="preview-section-body">
+                      {{ section.body if section.body is defined and section.body else "Section content preview will appear here." }}
+                    </p>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="preview-section" data-preview-index="0">
+                  <h3 class="preview-section-title">Section Title</h3>
+                  <p class="preview-section-body">Section content preview will appear here.</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
-
-  <section class="grid">
-    <article class="card col-6">
-      <h3>Before You Save</h3>
-      <ul class="list-clean" style="margin-top:.75rem;">
-        <li>Review the preview to confirm formatting and layout look correct.</li>
-        <li>Make sure instructions match the current office workflow.</li>
-        <li>Check for clarity, accuracy, and consistent training language.</li>
-        <li>Remove placeholders or incomplete draft text before publishing.</li>
-      </ul>
-    </article>
-
-    <article class="card col-6">
-      <h3>Recommended Editing Workflow</h3>
-      <p style="margin-top:.75rem;">
-        Update one section at a time, preview the page, and confirm that the final content looks clear and
-        complete from the learner’s perspective. This helps ensure the training remains accurate, professional,
-        and easy to follow.
-      </p>
-    </article>
-  </section>
+  </div>
 </section>
+
+<script>
+  function updatePagePreview() {
+    const titleInput = document.getElementById("page_title");
+    const descriptionInput = document.getElementById("page_description");
+    const previewTitle = document.getElementById("preview-page-title");
+    const previewDescription = document.getElementById("preview-page-description");
+
+    if (titleInput && previewTitle) {
+      previewTitle.textContent = titleInput.value.trim() || "Page Title Preview";
+    }
+
+    if (descriptionInput && previewDescription) {
+      previewDescription.textContent =
+        descriptionInput.value.trim() || "Page description preview will appear here.";
+    }
+
+    document.querySelectorAll("[data-preview-section-title]").forEach((input) => {
+      const index = input.getAttribute("data-preview-section-title");
+      const section = document.querySelector(`.preview-section[data-preview-index="${index}"]`);
+      if (!section) return;
+
+      const heading = section.querySelector(".preview-section-title");
+      if (heading) {
+        heading.textContent = input.value.trim() || "Section Title";
+      }
+    });
+
+    document.querySelectorAll("[data-preview-section-body]").forEach((textarea) => {
+      const index = textarea.getAttribute("data-preview-section-body");
+      const section = document.querySelector(`.preview-section[data-preview-index="${index}"]`);
+      if (!section) return;
+
+      const body = section.querySelector(".preview-section-body");
+      if (body) {
+        body.textContent = textarea.value.trim() || "Section content preview will appear here.";
+      }
+    });
+  }
+
+  document.addEventListener("input", function (event) {
+    if (
+      event.target.matches("#page_title") ||
+      event.target.matches("#page_description") ||
+      event.target.matches("[data-preview-section-title]") ||
+      event.target.matches("[data-preview-section-body]")
+    ) {
+      updatePagePreview();
+    }
+  });
+
+  const refreshPreviewBtn = document.getElementById("refresh-preview-btn");
+  if (refreshPreviewBtn) {
+    refreshPreviewBtn.addEventListener("click", updatePagePreview);
+  }
+
+  updatePagePreview();
+</script>
 {% endblock %}
