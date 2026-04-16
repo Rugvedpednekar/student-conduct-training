@@ -38,7 +38,8 @@ PAGES = {
             {"section_key": "case_handling", "title": "Case Handling", "body": "Case prep, documentation quality, and hearing readiness review.", "metadata_json": {"phase": 4}},
             {"section_key": "communication", "title": "Communication", "body": "Professional tone, response SLAs, and FERPA-aware messaging.", "metadata_json": {"phase": 5}},
             {"section_key": "sanctions", "title": "Sanctions", "body": "Assign, track, verify completion, and process hold release logic.", "metadata_json": {"phase": 6}},
-            {"section_key": "independent_readiness", "title": "Independent Readiness", "body": "Final readiness check for independent GA support during office operations.", "metadata_json": {"phase": 7}},
+            {"section_key": "overdue_sanctions", "title": "Overdue Sanctions", "body": "Pull overdue sanctions reports, clean data for follow-up, and prioritize missing contact or deadline fields.", "metadata_json": {"phase": 7}},
+            {"section_key": "independent_readiness", "title": "Independent Readiness", "body": "Final readiness check for independent GA support during office operations.", "metadata_json": {"phase": 8}},
         ],
     },
 }
@@ -49,6 +50,7 @@ for slug, label in [
     ("case-handling", "Case Handling"),
     ("hearing", "Hearing"),
     ("sanctions", "Sanctions"),
+    ("overdue-sanctions", "Overdue Sanctions"),
     ("parent-letters", "Parent Letters"),
     ("ai-chat", "AI Chat"),
     ("escalation", "Escalation"),

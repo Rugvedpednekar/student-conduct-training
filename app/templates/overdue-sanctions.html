@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Sanctions › Overdue Sanctions</div>
+      <h1 class="dashboard-title">Overdue <span>Sanctions</span></h1>
+      <p class="dashboard-description">
+        Use this page to review overdue sanction records from Maxient, clean the spreadsheet for follow-up,
+        and quickly identify missing contact/deadline details before outreach.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Workflow Snapshot</span>
+        <strong>Export → Upload → Download</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Always keep the original Maxient export unchanged. This tool creates a separate cleaned workbook.
+      </p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card col-8">
+      <h2>What overdue sanctions are and why they matter</h2>
+      <p style="margin-top:.7rem;">
+        Overdue sanctions are assigned outcomes that have passed their listed completion deadline and still
+        need follow-up. Timely tracking supports student accountability, hold decisions, and consistent case closure.
+      </p>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Reminder</strong>
+        <p>
+          Review each row carefully before outreach. Some sanctions are time-based, some depend on outside
+          completion confirmation, and some may require supervisor context.
+        </p>
+      </div>
+
+      <h3 style="margin-top:1rem;">Step-by-step: pull the report from Maxient</h3>
+      <ol class="list-clean" style="margin-top:.7rem;">
+        <li>Sign in to Maxient and open the reporting/export area used for sanctions tracking.</li>
+        <li>Run the <strong>Overdue Sanctions</strong> report (or equivalent overdue sanctions export view).</li>
+        <li>Confirm expected fields are present (File ID, names, SID, email, sanctions, deadline fields, hold status).</li>
+        <li>Export the report as <strong>.xlsx</strong> and save locally.</li>
+        <li>Upload that file below, process it, and download the cleaned workbook.</li>
+      </ol>
+
+      <h3 style="margin-top:1rem;">What fields to review first</h3>
+      <ul class="list-clean" style="margin-top:.7rem;">
+        <li>Student identifier quality: Full Name, Student ID, and Email.</li>
+        <li>Assigned Sanctions text (long sanctions should stay readable and wrapped).</li>
+        <li>Next Deadline and Next Deadline Reason for follow-up timing.</li>
+        <li>Hold in Place and File ID for internal tracking/coordination.</li>
+      </ul>
+
+      <h3 style="margin-top:1rem;">Excel helper tool</h3>
+      <p style="margin-top:.7rem;">
+        The helper creates a new workbook with a standardized detail sheet and summary counts.
+        Missing email and missing next-deadline cells are highlighted to support fast triage.
+      </p>
+    </article>
+
+    <article class="card col-4">
+      <div class="notice notice-danger">
+        <strong>Important</strong>
+        <p>
+          This tool only accepts <strong>.xlsx</strong> files exported from Maxient and does not overwrite your original upload.
+        </p>
+      </div>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Quick Checklist</strong>
+        <ul class="list-clean" style="margin-top:.55rem;">
+          <li>Export completed from Maxient today</li>
+          <li>File saved as .xlsx</li>
+          <li>Required headers present (or close match)</li>
+          <li>Review highlights after download</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="dashboard-section">
+    <div class="dashboard-section-head">
+      <h2>Process Overdue Sanctions Report</h2>
+    </div>
+
+    <article class="card col-12">
+      <form id="overdue-form" class="overdue-tool-form">
+        <label for="report-file"><strong>Upload Maxient .xlsx report</strong></label>
+        <input id="report-file" name="file" type="file" accept=".xlsx" required />
+
+        <div class="overdue-tool-actions">
+          <button type="submit" class="btn btn-primary">Process File</button>
+          <a id="download-link" class="btn-light" style="display:none;" download>Download Cleaned File</a>
+        </div>
+
+        <p id="tool-status" class="dashboard-muted" role="status" aria-live="polite" style="margin-top:.75rem;"></p>
+      </form>
+    </article>
+  </section>
+</section>
+
+<script>
+  const form = document.getElementById("overdue-form");
+  const fileInput = document.getElementById("report-file");
+  const statusEl = document.getElementById("tool-status");
+  const downloadLink = document.getElementById("download-link");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    downloadLink.style.display = "none";
+    downloadLink.removeAttribute("href");
+
+    if (!fileInput.files || !fileInput.files.length) {
+      statusEl.textContent = "Please choose a .xlsx file before processing.";
+      return;
+    }
+
+    const uploadFile = fileInput.files[0];
+    statusEl.textContent = "Processing file...";
+
+    try {
+      const formData = new FormData();
+      formData.append("file", uploadFile);
+
+      const response = await fetch("/api/overdue-sanctions/process", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        let message = "The file could not be processed.";
+        try {
+          const payload = await response.json();
+          if (payload && payload.detail) {
+            message = payload.detail;
+          }
+        } catch (_) {
+          message = "The file could not be processed. Please confirm it is a valid Maxient .xlsx export.";
+        }
+        statusEl.textContent = message;
+        return;
+      }
+
+      const blob = await response.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const contentDisposition = response.headers.get("content-disposition") || "";
+      const nameMatch = contentDisposition.match(/filename="?([^\"]+)"?/i);
+      const fileName = nameMatch ? nameMatch[1] : "overdue-sanctions-cleaned.xlsx";
+
+      downloadLink.href = objectUrl;
+      downloadLink.download = fileName;
+      downloadLink.style.display = "inline-flex";
+      statusEl.textContent = "Processing complete. Download the cleaned workbook.";
+    } catch (error) {
+      statusEl.textContent = "Unexpected error while processing file. Please try again.";
+    }
+  });
+</script>
+{% endblock %}

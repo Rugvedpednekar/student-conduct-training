@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from sqlalchemy.orm import Session
 
 from app.auth import get_csrf_token
@@ -10,6 +10,7 @@ from app.dependencies import get_current_user
 from app.models import User
 from app.schemas import ChatRequest
 from app.services.nova_chat import NovaChatService
+from app.services.overdue_sanctions import OverdueSanctionsError, process_overdue_sanctions_workbook
 
 router = APIRouter()
 
@@ -112,6 +113,42 @@ def sanctions(
     user: User = Depends(get_current_user),
 ):
     return render_static_template(request, user, "sanctions.html", "sanctions")
+
+
+@router.get("/overdue-sanctions", response_class=HTMLResponse)
+def overdue_sanctions_page(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "overdue-sanctions.html", "overdue-sanctions")
+
+
+@router.post("/api/overdue-sanctions/process")
+async def process_overdue_sanctions(
+    file: UploadFile = File(...),
+    user: User = Depends(get_current_user),
+):
+    filename = file.filename or "overdue-sanctions.xlsx"
+    if not filename.lower().endswith(".xlsx"):
+        return JSONResponse(status_code=400, content={"detail": "Please upload a .xlsx file exported from Maxient."})
+
+    uploaded_bytes = await file.read()
+    if not uploaded_bytes:
+        return JSONResponse(status_code=400, content={"detail": "Uploaded file is empty."})
+
+    try:
+        cleaned_content = process_overdue_sanctions_workbook(uploaded_bytes)
+    except OverdueSanctionsError as exc:
+        return JSONResponse(status_code=400, content={"detail": str(exc)})
+
+    base_name = filename.rsplit(".", 1)[0]
+    out_name = f"{base_name}-cleaned.xlsx"
+    headers = {"Content-Disposition": f'attachment; filename="{out_name}"'}
+    return Response(
+        content=cleaned_content,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers=headers,
+    )
 
 
 @router.get("/parent-letters", response_class=HTMLResponse)
