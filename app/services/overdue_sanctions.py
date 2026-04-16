@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from datetime import datetime
+from dataclasses import dataclass
+from datetime import date, datetime
 from io import BytesIO
-from typing import Dict, Iterable
+from typing import Dict, Iterable, List
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
@@ -19,16 +20,13 @@ REQUIRED_OUTPUT_FIELDS = [
     "Student ID",
     "Email",
     "Assigned Sanctions",
-]
-
-OPTIONAL_OUTPUT_FIELDS = [
     "Next Deadline",
     "Next Deadline Reason",
-    "Hold in Place",
-    "File ID",
-    "Hearing Date",
-    "Assigned To / Hearing Officer",
+    "Hold",
+    "Send an Email",
 ]
+
+PREVIEW_ROW_LIMIT = 25
 
 HEADER_ALIASES = {
     "file_id": {"fileid", "file_id", "file id", "case id"},
@@ -48,14 +46,20 @@ HEADER_ALIASES = {
     },
     "next_deadline": {"next deadline", "deadline", "upcoming deadline"},
     "next_deadline_reason": {"next deadline reason", "deadline reason", "deadline notes"},
-    "hold_in_place": {"hold in place", "hold", "conduct hold"},
-    "hearing_date": {"hearing date", "resolution date", "meeting date"},
-    "assigned_to": {"assigned to", "hearing officer", "assigned officer", "owner"},
+    "status": {"status", "case status", "student status"},
 }
 
 
 class OverdueSanctionsError(Exception):
     pass
+
+
+@dataclass
+class ProcessedOverdueSanctionsResult:
+    total_rows: int
+    preview_columns: List[str]
+    preview_rows: List[Dict[str, str]]
+    workbook_content: bytes
 
 
 def _normalize_header(value: object) -> str:
@@ -78,6 +82,36 @@ def _safe_cell_text(value: object) -> str:
     if isinstance(value, datetime):
         return value.strftime("%Y-%m-%d")
     return str(value).strip()
+
+
+def _parse_date_value(value: object) -> date | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    if isinstance(value, str):
+        raw = value.strip()
+        if not raw:
+            return None
+        for fmt in ("%Y-%m-%d", "%m/%d/%Y", "%m/%d/%y", "%b %d, %Y", "%B %d, %Y"):
+            try:
+                return datetime.strptime(raw, fmt).date()
+            except ValueError:
+                continue
+    return None
+
+
+def _normalize_phrase(value: str) -> str:
+    return " ".join("".join(ch for ch in value.lower().strip() if ch.isalnum() or ch.isspace()).split())
+
+
+def _is_student_account_hold(status: str) -> bool:
+    normalized = _normalize_phrase(status)
+    return normalized in {"student account hold", "student acct hold"} or (
+        "student" in normalized and "hold" in normalized and ("account" in normalized or "acct" in normalized)
+    )
 
 
 def _find_column_indexes(ws: Worksheet) -> Dict[str, int]:
@@ -108,6 +142,8 @@ def _find_column_indexes(ws: Worksheet) -> Dict[str, int]:
         raise OverdueSanctionsError(
             "Missing student name columns. Include Full Name or both First Name and Last Name in the export."
         )
+    if "status" not in resolved:
+        raise OverdueSanctionsError("Missing required column: Status.")
 
     return resolved
 
@@ -123,6 +159,10 @@ def _build_output_row(row: tuple, columns: Dict[str, int]) -> Dict[str, str]:
     if not full_name:
         full_name = " ".join(part for part in [pick("first_name"), pick("last_name")] if part).strip()
 
+    status_value = pick("status")
+    hold_value = "Yes" if _is_student_account_hold(status_value) else "No"
+    send_email_value = "Yes" if hold_value == "Yes" else "No"
+
     return {
         "Full Name": full_name,
         "Student ID": pick("student_id"),
@@ -130,10 +170,8 @@ def _build_output_row(row: tuple, columns: Dict[str, int]) -> Dict[str, str]:
         "Assigned Sanctions": pick("assigned_sanctions"),
         "Next Deadline": pick("next_deadline"),
         "Next Deadline Reason": pick("next_deadline_reason"),
-        "Hold in Place": pick("hold_in_place"),
-        "File ID": pick("file_id"),
-        "Hearing Date": pick("hearing_date"),
-        "Assigned To / Hearing Officer": pick("assigned_to"),
+        "Hold": hold_value,
+        "Send an Email": send_email_value,
     }
 
 
@@ -154,18 +192,16 @@ def _append_summary_sheet(workbook: Workbook, records: Iterable[Dict[str, str]])
     total_rows = len(records)
     missing_email = sum(1 for item in records if _is_missing(item.get("Email")))
     missing_deadline = sum(1 for item in records if _is_missing(item.get("Next Deadline")))
-    hold_in_place = sum(
-        1
-        for item in records
-        if item.get("Hold in Place", "").strip().lower() in {"yes", "y", "true", "1", "hold", "active"}
-    )
+    hold_yes = sum(1 for item in records if item.get("Hold", "").strip().lower() == "yes")
+    send_email_yes = sum(1 for item in records if item.get("Send an Email", "").strip().lower() == "yes")
 
     rows = [
         ("Metric", "Count"),
         ("Total rows", total_rows),
         ("Missing email", missing_email),
         ("Missing next deadline", missing_deadline),
-        ("Hold in place (flagged)", hold_in_place),
+        ("Hold = Yes", hold_yes),
+        ("Send an Email = Yes", send_email_yes),
     ]
 
     for row in rows:
@@ -179,7 +215,10 @@ def _append_summary_sheet(workbook: Workbook, records: Iterable[Dict[str, str]])
     summary.column_dimensions["B"].width = 14
 
 
-def process_overdue_sanctions_workbook(content: bytes) -> bytes:
+def process_overdue_sanctions_workbook(content: bytes, *, date_from: date, date_to: date) -> ProcessedOverdueSanctionsResult:
+    if date_from > date_to:
+        raise OverdueSanctionsError("Invalid date range. 'From' date cannot be later than 'To' date.")
+
     try:
         source_wb = load_workbook(filename=BytesIO(content), data_only=True)
     except Exception as exc:
@@ -187,16 +226,25 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
 
     source_ws = source_wb.active
     columns = _find_column_indexes(source_ws)
+    if "next_deadline" not in columns:
+        raise OverdueSanctionsError("Missing required column: Next Deadline.")
 
     output_wb = Workbook()
     detail_ws = output_wb.active
     detail_ws.title = "Overdue Sanctions"
 
-    output_headers = REQUIRED_OUTPUT_FIELDS + OPTIONAL_OUTPUT_FIELDS
+    output_headers = REQUIRED_OUTPUT_FIELDS
     detail_ws.append(output_headers)
 
     records = []
     for row in source_ws.iter_rows(min_row=2, values_only=True):
+        deadline_idx = columns["next_deadline"] - 1
+        row_deadline = _parse_date_value(row[deadline_idx] if deadline_idx < len(row) else None)
+        if row_deadline is None:
+            continue
+        if row_deadline < date_from or row_deadline > date_to:
+            continue
+
         mapped = _build_output_row(row, columns)
         if not any(value for value in mapped.values()):
             continue
@@ -204,7 +252,7 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
         detail_ws.append([mapped[header] for header in output_headers])
 
     if not records:
-        raise OverdueSanctionsError("No report rows were found in the uploaded workbook.")
+        raise OverdueSanctionsError("No matching rows were found for the selected date range.")
 
     for cell in detail_ws[1]:
         cell.fill = HEADER_FILL
@@ -214,6 +262,10 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
     sanctions_col = output_headers.index("Assigned Sanctions") + 1
     email_col = output_headers.index("Email") + 1
     deadline_col = output_headers.index("Next Deadline") + 1
+    hold_col = output_headers.index("Hold") + 1
+    send_email_col = output_headers.index("Send an Email") + 1
+    hold_fill = PatternFill(fill_type="solid", fgColor="F8D7DA")
+    send_email_row_fill = PatternFill(fill_type="solid", fgColor="FFF3CD")
 
     for row_idx in range(2, detail_ws.max_row + 1):
         sanctions_cell = detail_ws.cell(row=row_idx, column=sanctions_col)
@@ -227,10 +279,27 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
         if _is_missing(deadline_cell.value):
             deadline_cell.fill = MISSING_DEADLINE_FILL
 
+        hold_cell = detail_ws.cell(row=row_idx, column=hold_col)
+        send_email_cell = detail_ws.cell(row=row_idx, column=send_email_col)
+
+        if str(send_email_cell.value).strip().lower() == "yes":
+            for col_idx in range(1, detail_ws.max_column + 1):
+                detail_ws.cell(row=row_idx, column=col_idx).fill = send_email_row_fill
+
+        if str(hold_cell.value).strip().lower() == "yes":
+            hold_cell.fill = hold_fill
+
     detail_ws.freeze_panes = "A2"
     _set_column_widths(detail_ws)
     _append_summary_sheet(output_wb, records)
 
     stream = BytesIO()
     output_wb.save(stream)
-    return stream.getvalue()
+    preview_columns = output_headers
+    preview_rows = records[:PREVIEW_ROW_LIMIT]
+    return ProcessedOverdueSanctionsResult(
+        total_rows=len(records),
+        preview_columns=preview_columns,
+        preview_rows=preview_rows,
+        workbook_content=stream.getvalue(),
+    )
