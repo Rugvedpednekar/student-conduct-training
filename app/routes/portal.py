@@ -143,9 +143,27 @@ def ai_chat(
     payload: ChatRequest,
     user: User = Depends(get_current_user),
 ):
-    service = BedrockChatService()
-    answer, sources = service.ask(payload.message, [message.model_dump() for message in payload.history])
-    return {"answer": answer, "sources": sources}
+    try:
+        service = BedrockChatService()
+        answer, sources = service.ask(
+            payload.message,
+            [message.model_dump() for message in payload.history],
+        )
+        return JSONResponse(
+            status_code=200,
+            content={"answer": answer, "sources": sources},
+        )
+    except HTTPException as exc:
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"detail": exc.detail},
+        )
+    except Exception as exc:
+        print("AI_CHAT_UNHANDLED_EXCEPTION:", repr(exc))
+        return JSONResponse(
+            status_code=500,
+            content={"detail": f"Internal server error: {str(exc)}"},
+        )
 
 
 # Keep this only for pages that are still driven by database content + page.html
