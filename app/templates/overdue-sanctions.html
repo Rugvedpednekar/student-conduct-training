@@ -543,8 +543,9 @@
 
       <div class="overdue-image-block">
         <img
-          src="{{ url_for('static', path='app/static/images/systems/Maxient_OverdueSanction01.PNG') }}"
+          src="{{ request.url_for('static', path='images/systems/Maxient_OverdueSanction01.PNG') }}"
           alt="Maxient Analytics report setup for Overdue Sanctions"
+          loading="lazy"
         />
         <div class="overdue-image-caption">
           <strong>Image 1:</strong> Maxient Analytics report setup for Overdue Sanctions.
@@ -560,8 +561,9 @@
 
       <div class="overdue-image-block">
         <img
-          src="{{ url_for('static', path='app/static/images/systems/Maxient_OverdueSanction02.PNG') }}"
+          src="{{ request.url_for('static', path='images/systems/Maxient_OverdueSanction02.PNG') }}"
           alt="Sorting by Next Deadline and exporting to Excel"
+          loading="lazy"
         />
         <div class="overdue-image-caption">
           <strong>Image 2:</strong> Sorting by Next Deadline and exporting to Excel.
