@@ -47,9 +47,10 @@ for slug, label in [
     ("systems", "Systems"),
     ("responsibilities", "Responsibilities"),
     ("case-handling", "Case Handling"),
+    ("hearing", "Hearing"),
     ("sanctions", "Sanctions"),
     ("parent-letters", "Parent Letters"),
-    ("templates", "Templates"),
+    ("ai-chat", "AI Chat"),
     ("escalation", "Escalation"),
     ("quick-reference", "Quick Reference"),
 ]:

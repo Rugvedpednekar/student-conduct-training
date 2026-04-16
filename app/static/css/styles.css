@@ -461,6 +461,98 @@ a { text-decoration: none; color: inherit; }
   margin: 0.8rem 0;
 }
 
+.case-subcard {
+  background: #f8fafc;
+  border: 1px solid #e3ebf5;
+  border-radius: 14px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  gap: 0.9rem;
+}
+
+.chat-empty {
+  border: 1px dashed #c8d5e8;
+  border-radius: 12px;
+  padding: 1rem;
+  color: #5d6c84;
+  background: #f8fbff;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-right: 0.25rem;
+}
+
+.chat-bubble {
+  max-width: 90%;
+  border-radius: 14px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+}
+
+.chat-bubble.user {
+  margin-left: auto;
+  background: #eaf0fa;
+}
+
+.chat-bubble.assistant {
+  margin-right: auto;
+  background: #f8fafd;
+}
+
+.chat-bubble p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.chat-input-row textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.chat-actions {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.chat-error {
+  margin: 0;
+}
+
+.chat-sources {
+  margin-top: 0.65rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chat-source-tag {
+  display: inline-flex;
+  background: #e5eefb;
+  color: #2f4a75;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  padding: 0.25rem 0.55rem;
+  font-weight: 600;
+}
+
 /* =========================================================
    Legacy Dashboard / standalone page support
    ========================================================= */

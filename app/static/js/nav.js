@@ -9,7 +9,8 @@
     { label: 'Case Handling', href: '/case-handling', icon: '📁' },
     { label: 'Sanctions', href: '/sanctions', icon: '⚖' },
     { label: 'Parent Letters', href: '/parent-letters', icon: '✉' },
-    { label: 'Templates', href: '/templates', icon: '🗂' }
+    { label: 'Hearing', href: '/hearing', icon: '🧭' },
+    { label: 'AI Chat', href: '/ai-chat', icon: '💬' }
   ];
 
   const shell = document.getElementById('portal-shell');

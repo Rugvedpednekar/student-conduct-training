@@ -7,6 +7,11 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./ga_training.db"
     session_cookie_name: str = "ga_training_session"
     secure_cookies: bool = False
+    nova_api_key: str = ""
+    nova_base_url: str = "https://api.nova.amazon.com/v1"
+    nova_model: str = "amazon.nova-lite-v1:0"
+    handbook_path: str = "app/data/student_handbook.txt"
+    training_content_path: str = "app/templates"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
