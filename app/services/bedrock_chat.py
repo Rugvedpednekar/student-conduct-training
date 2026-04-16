@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 import boto3
@@ -34,14 +35,25 @@ class BedrockChatService:
                 detail="Missing AWS region. Set AWS_REGION or AWS_DEFAULT_REGION.",
             )
         if not self.model_id:
-            raise HTTPException(status_code=500, detail="Missing model ID. Set BEDROCK_MODEL_ID.")
+            raise HTTPException(
+                status_code=500,
+                detail="Missing model ID. Set BEDROCK_MODEL_ID.",
+            )
 
     def _client(self):
         self._validate_config()
+
+        # Allow Railway secret NOVA_API_KEY to work with Bedrock bearer auth
+        if os.getenv("NOVA_API_KEY") and not os.getenv("AWS_BEARER_TOKEN_BEDROCK"):
+            os.environ["AWS_BEARER_TOKEN_BEDROCK"] = os.environ["NOVA_API_KEY"]
+
         try:
             return boto3.client("bedrock-runtime", region_name=self.region)
         except Exception as exc:
-            raise HTTPException(status_code=500, detail=f"Could not initialize Bedrock client: {exc}") from exc
+            raise HTTPException(
+                status_code=500,
+                detail=f"Could not initialize Bedrock client: {exc}",
+            ) from exc
 
     @staticmethod
     def _normalize_history(history: list[dict[str, str]]) -> list[dict[str, Any]]:
@@ -100,13 +112,20 @@ class BedrockChatService:
             output_message = response["output"]["message"]["content"]
             text_parts = [chunk.get("text", "") for chunk in output_message if "text" in chunk]
             answer = "\n".join(part for part in text_parts if part).strip()
+
             if not answer:
                 raise HTTPException(status_code=502, detail="Model returned an empty response.")
+
             return answer, labels
+
         except NoCredentialsError as exc:
             raise HTTPException(
                 status_code=500,
-                detail="AWS credentials are not configured. Set credentials in environment variables.",
+                detail=(
+                    "Bedrock credentials are missing. "
+                    "Set NOVA_API_KEY or AWS_BEARER_TOKEN_BEDROCK, "
+                    "and also set AWS_REGION / AWS_DEFAULT_REGION."
+                ),
             ) from exc
         except (ClientError, BotoCoreError) as exc:
             raise HTTPException(status_code=502, detail=f"Bedrock request failed: {exc}") from exc
