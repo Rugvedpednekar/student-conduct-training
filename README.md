@@ -30,8 +30,9 @@ Create `.env` locally:
 SECRET_KEY=replace-with-long-random-secret
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ga_training
 SECURE_COOKIES=false
-AWS_REGION=us-east-1
-BEDROCK_MODEL_ID=amazon.nova-lite-v1:0
+NOVA_API_KEY=replace-with-your-nova-developer-key
+NOVA_BASE_URL=https://api.nova.amazon.com/v1
+NOVA_MODEL=amazon.nova-lite-v1:0
 HANDBOOK_PATH=app/data/student_handbook.txt
 TRAINING_CONTENT_PATH=app/templates
 ```
@@ -60,6 +61,7 @@ TRAINING_CONTENT_PATH=app/templates
 ## AI Chat Grounding Notes
 - The AI chat page is available at `/ai-chat`.
 - Backend endpoint is `/api/ai-chat` (authenticated session required).
+- Chat authentication is API key based and uses `Authorization: Bearer <NOVA_API_KEY>`.
 - Knowledge grounding loads:
   - training page HTML from `TRAINING_CONTENT_PATH` (defaults to `app/templates`)
   - handbook text from `HANDBOOK_PATH` (supports `.txt`, `.md`, `.pdf` with `pypdf`)
