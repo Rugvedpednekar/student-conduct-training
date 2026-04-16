@@ -138,46 +138,32 @@
       line-height: 1.65;
     }
 
-    .overdue-image-block {
-      margin-top: 1rem;
+    .overdue-instruction-grid {
+      margin-top: 0.95rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .overdue-instruction-card {
       background: #fff;
-      border: 1px solid #e0e9f2;
-      border-radius: 20px;
-      padding: 1rem;
-      box-shadow: 0 12px 24px rgba(18, 33, 56, 0.04);
-    }
-
-    .overdue-image-block img {
-      width: 100%;
-      display: block;
+      border: 1px solid #e3ebf4;
       border-radius: 16px;
-      border: 1px solid #dbe5ef;
-      background: #f8fbff;
+      padding: 0.7rem;
     }
 
-    .overdue-image-caption {
-      margin-top: 0.7rem;
+    .overdue-instruction-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid #d9e4ef;
+    }
+
+    .overdue-instruction-card figcaption {
+      margin-top: 0.55rem;
       color: var(--overdue-muted);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .overdue-email-block {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 18px;
-      background: #f8fbff;
-      border: 1px solid #dfe9f3;
-    }
-
-    .overdue-email-block pre {
-      margin: 0.75rem 0 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: inherit;
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: var(--overdue-text);
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
 
     .overdue-tool-shell {
@@ -558,17 +544,26 @@
         <li>Then click <strong>Excel</strong> to download the file to your local computer.</li>
       </ol>
 
-      <div class="overdue-image-block">
-        <img
-          src="{{ url_for('static', path='static/images/systems/Maxient_OverdueSanction02.png') }}"
-          alt="Sorting by Next Deadline and exporting to Excel"
-        />
-        <div class="overdue-image-caption">
-          <strong>Image 2:</strong> Sorting by Next Deadline and exporting to Excel.
-        </div>
+      <div class="overdue-instruction-grid" aria-label="Maxient overdue sanctions screenshots">
+        <figure class="overdue-instruction-card">
+          <img
+            src="{{ request.url_for('static', path='images/systems/Maxient_OverdueSanction01.png') }}"
+            alt="Maxient overdue sanctions report screen, step 1"
+            loading="lazy"
+          />
+          <figcaption>Step 1: Open the overdue sanctions reporting view in Maxient.</figcaption>
+        </figure>
+        <figure class="overdue-instruction-card">
+          <img
+            src="{{ request.url_for('static', path='images/systems/Maxient_OverdueSanction02.png') }}"
+            alt="Maxient overdue sanctions export screen, step 2"
+            loading="lazy"
+          />
+          <figcaption>Step 2: Confirm fields and export the overdue sanctions report as .xlsx.</figcaption>
+        </figure>
       </div>
 
-      <h3 style="margin-top:1.2rem;">Step 3: Upload the Excel below</h3>
+      <h3 style="margin-top:1.2rem;">What to review first</h3>
       <ul class="overdue-review-list">
         <li>Upload the Excel file downloaded from Maxient into the tool below.</li>
         <li>Select the correct <strong>From</strong> and <strong>To</strong> dates for the overdue review period.</li>
