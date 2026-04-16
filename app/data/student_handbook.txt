@@ -1,0 +1,10 @@
+Student Handbook Reference
+
+Use this file to provide handbook text for AI grounding.
+
+Recommended process:
+1) Export relevant handbook sections to plain text.
+2) Keep headings clear so source references remain useful.
+3) Update this file whenever handbook policy language changes.
+
+The AI assistant should only provide informational guidance and should direct users to Student Conduct staff for official decisions.

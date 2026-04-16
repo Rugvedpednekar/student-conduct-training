@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from sqlalchemy.orm import Session
 
 from app.auth import get_csrf_token
@@ -8,6 +8,8 @@ from app.content_service import get_page_content
 from app.database import get_db
 from app.dependencies import get_current_user
 from app.models import User
+from app.schemas import ChatRequest
+from app.services.bedrock_chat import BedrockChatService
 
 router = APIRouter()
 
@@ -120,12 +122,30 @@ def parent_letters(
     return render_static_template(request, user, "parent-letters.html", "parent-letters")
 
 
-@router.get("/templates", response_class=HTMLResponse)
-def templates_page(
+@router.get("/hearing", response_class=HTMLResponse)
+def hearing_page(
     request: Request,
     user: User = Depends(get_current_user),
 ):
-    return render_static_template(request, user, "templates.html", "templates")
+    return render_static_template(request, user, "hearing.html", "hearing")
+
+
+@router.get("/ai-chat", response_class=HTMLResponse)
+def ai_chat_page(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "ai-chat.html", "ai-chat")
+
+
+@router.post("/api/ai-chat", response_class=JSONResponse)
+def ai_chat(
+    payload: ChatRequest,
+    user: User = Depends(get_current_user),
+):
+    service = BedrockChatService()
+    answer, sources = service.ask(payload.message, [message.model_dump() for message in payload.history])
+    return {"answer": answer, "sources": sources}
 
 
 # Keep this only for pages that are still driven by database content + page.html
