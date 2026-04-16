@@ -20,15 +20,10 @@ REQUIRED_OUTPUT_FIELDS = [
     "Student ID",
     "Email",
     "Assigned Sanctions",
-]
-
-OPTIONAL_OUTPUT_FIELDS = [
     "Next Deadline",
     "Next Deadline Reason",
-    "Hold in Place",
-    "File ID",
-    "Hearing Date",
-    "Assigned To / Hearing Officer",
+    "Hold",
+    "Send an Email",
 ]
 
 PREVIEW_ROW_LIMIT = 25
@@ -51,9 +46,7 @@ HEADER_ALIASES = {
     },
     "next_deadline": {"next deadline", "deadline", "upcoming deadline"},
     "next_deadline_reason": {"next deadline reason", "deadline reason", "deadline notes"},
-    "hold_in_place": {"hold in place", "hold", "conduct hold"},
-    "hearing_date": {"hearing date", "resolution date", "meeting date"},
-    "assigned_to": {"assigned to", "hearing officer", "assigned officer", "owner"},
+    "status": {"status", "case status", "student status"},
 }
 
 
@@ -110,6 +103,17 @@ def _parse_date_value(value: object) -> date | None:
     return None
 
 
+def _normalize_phrase(value: str) -> str:
+    return " ".join("".join(ch for ch in value.lower().strip() if ch.isalnum() or ch.isspace()).split())
+
+
+def _is_student_account_hold(status: str) -> bool:
+    normalized = _normalize_phrase(status)
+    return normalized in {"student account hold", "student acct hold"} or (
+        "student" in normalized and "hold" in normalized and ("account" in normalized or "acct" in normalized)
+    )
+
+
 def _find_column_indexes(ws: Worksheet) -> Dict[str, int]:
     first_row = next(ws.iter_rows(min_row=1, max_row=1, values_only=True), None)
     if not first_row:
@@ -138,6 +142,8 @@ def _find_column_indexes(ws: Worksheet) -> Dict[str, int]:
         raise OverdueSanctionsError(
             "Missing student name columns. Include Full Name or both First Name and Last Name in the export."
         )
+    if "status" not in resolved:
+        raise OverdueSanctionsError("Missing required column: Status.")
 
     return resolved
 
@@ -153,6 +159,10 @@ def _build_output_row(row: tuple, columns: Dict[str, int]) -> Dict[str, str]:
     if not full_name:
         full_name = " ".join(part for part in [pick("first_name"), pick("last_name")] if part).strip()
 
+    status_value = pick("status")
+    hold_value = "Yes" if _is_student_account_hold(status_value) else "No"
+    send_email_value = "Yes" if hold_value == "Yes" else "No"
+
     return {
         "Full Name": full_name,
         "Student ID": pick("student_id"),
@@ -160,10 +170,8 @@ def _build_output_row(row: tuple, columns: Dict[str, int]) -> Dict[str, str]:
         "Assigned Sanctions": pick("assigned_sanctions"),
         "Next Deadline": pick("next_deadline"),
         "Next Deadline Reason": pick("next_deadline_reason"),
-        "Hold in Place": pick("hold_in_place"),
-        "File ID": pick("file_id"),
-        "Hearing Date": pick("hearing_date"),
-        "Assigned To / Hearing Officer": pick("assigned_to"),
+        "Hold": hold_value,
+        "Send an Email": send_email_value,
     }
 
 
@@ -184,18 +192,16 @@ def _append_summary_sheet(workbook: Workbook, records: Iterable[Dict[str, str]])
     total_rows = len(records)
     missing_email = sum(1 for item in records if _is_missing(item.get("Email")))
     missing_deadline = sum(1 for item in records if _is_missing(item.get("Next Deadline")))
-    hold_in_place = sum(
-        1
-        for item in records
-        if item.get("Hold in Place", "").strip().lower() in {"yes", "y", "true", "1", "hold", "active"}
-    )
+    hold_yes = sum(1 for item in records if item.get("Hold", "").strip().lower() == "yes")
+    send_email_yes = sum(1 for item in records if item.get("Send an Email", "").strip().lower() == "yes")
 
     rows = [
         ("Metric", "Count"),
         ("Total rows", total_rows),
         ("Missing email", missing_email),
         ("Missing next deadline", missing_deadline),
-        ("Hold in place (flagged)", hold_in_place),
+        ("Hold = Yes", hold_yes),
+        ("Send an Email = Yes", send_email_yes),
     ]
 
     for row in rows:
@@ -227,7 +233,7 @@ def process_overdue_sanctions_workbook(content: bytes, *, date_from: date, date_
     detail_ws = output_wb.active
     detail_ws.title = "Overdue Sanctions"
 
-    output_headers = REQUIRED_OUTPUT_FIELDS + OPTIONAL_OUTPUT_FIELDS
+    output_headers = REQUIRED_OUTPUT_FIELDS
     detail_ws.append(output_headers)
 
     records = []
@@ -256,6 +262,10 @@ def process_overdue_sanctions_workbook(content: bytes, *, date_from: date, date_
     sanctions_col = output_headers.index("Assigned Sanctions") + 1
     email_col = output_headers.index("Email") + 1
     deadline_col = output_headers.index("Next Deadline") + 1
+    hold_col = output_headers.index("Hold") + 1
+    send_email_col = output_headers.index("Send an Email") + 1
+    hold_fill = PatternFill(fill_type="solid", fgColor="F8D7DA")
+    send_email_row_fill = PatternFill(fill_type="solid", fgColor="FFF3CD")
 
     for row_idx in range(2, detail_ws.max_row + 1):
         sanctions_cell = detail_ws.cell(row=row_idx, column=sanctions_col)
@@ -268,6 +278,16 @@ def process_overdue_sanctions_workbook(content: bytes, *, date_from: date, date_
         deadline_cell = detail_ws.cell(row=row_idx, column=deadline_col)
         if _is_missing(deadline_cell.value):
             deadline_cell.fill = MISSING_DEADLINE_FILL
+
+        hold_cell = detail_ws.cell(row=row_idx, column=hold_col)
+        send_email_cell = detail_ws.cell(row=row_idx, column=send_email_col)
+
+        if str(send_email_cell.value).strip().lower() == "yes":
+            for col_idx in range(1, detail_ws.max_column + 1):
+                detail_ws.cell(row=row_idx, column=col_idx).fill = send_email_row_fill
+
+        if str(hold_cell.value).strip().lower() == "yes":
+            hold_cell.fill = hold_fill
 
     detail_ws.freeze_panes = "A2"
     _set_column_widths(detail_ws)

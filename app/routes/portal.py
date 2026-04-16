@@ -182,8 +182,9 @@ async def process_overdue_sanctions(
     except Exception:
         return JSONResponse(status_code=400, content={"detail": "Spreadsheet parsing error. Please verify the uploaded export format."})
 
-    base_name = filename.rsplit(".", 1)[0]
-    out_name = f"{base_name}-cleaned.xlsx"
+    safe_from = parsed_date_from.strftime("%m-%d-%Y")
+    safe_to = parsed_date_to.strftime("%m-%d-%Y")
+    out_name = f"Overdue Sanctions ({safe_from} - {safe_to}).xlsx"
     temp_dir = tempfile.gettempdir()
     file_id = uuid.uuid4().hex
     temp_path = os.path.join(temp_dir, f"overdue-sanctions-{file_id}.xlsx")
