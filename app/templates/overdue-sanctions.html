@@ -1,167 +1,758 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="dashboard-page">
+<section class="dashboard-page overdue-page">
+  <style>
+    .overdue-page {
+      --overdue-border: #dde6f0;
+      --overdue-surface: #ffffff;
+      --overdue-text: #1f2d3d;
+      --overdue-muted: #6b7c93;
+      --overdue-accent: #2d4a6b;
+      --overdue-accent-soft: #eef4fb;
+      --overdue-success-bg: #edf8f1;
+      --overdue-success-border: #b8e0c5;
+      --overdue-warning-bg: #fff8ec;
+      --overdue-warning-border: #e7cf9a;
+      --overdue-danger-bg: #fff1f1;
+      --overdue-danger-border: #efc0c0;
+      --overdue-shadow: 0 14px 34px rgba(23, 43, 77, 0.08);
+      --overdue-radius-xl: 24px;
+      --overdue-radius-lg: 18px;
+      --overdue-radius-md: 14px;
+    }
+
+    .overdue-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.9fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .overdue-panel,
+    .overdue-tool-shell {
+      background: var(--overdue-surface);
+      border: 1px solid var(--overdue-border);
+      border-radius: var(--overdue-radius-xl);
+      box-shadow: var(--overdue-shadow);
+    }
+
+    .overdue-panel {
+      padding: 1.25rem;
+    }
+
+    .overdue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: var(--overdue-accent-soft);
+      color: var(--overdue-accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .overdue-badge::before {
+      content: "⏱";
+      font-size: 0.9rem;
+    }
+
+    .overdue-step-list,
+    .overdue-review-list,
+    .overdue-check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.8rem 0 0;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .overdue-step-list li,
+    .overdue-review-list li,
+    .overdue-check-list li {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      padding: 0.85rem 0.95rem;
+      background: #f8fbff;
+      border: 1px solid #e4edf6;
+      border-radius: 16px;
+      color: var(--overdue-muted);
+      line-height: 1.65;
+    }
+
+    .overdue-step-list li::before,
+    .overdue-review-list li::before,
+    .overdue-check-list li::before {
+      color: var(--overdue-accent);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-top: 0.05rem;
+      flex-shrink: 0;
+    }
+
+    .overdue-step-list {
+      counter-reset: overdue-steps;
+    }
+
+    .overdue-step-list li::before {
+      counter-increment: overdue-steps;
+      content: counter(overdue-steps);
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--overdue-accent-soft);
+      font-size: 0.8rem;
+    }
+
+    .overdue-review-list li::before,
+    .overdue-check-list li::before {
+      content: "•";
+      font-size: 1.1rem;
+    }
+
+    .overdue-side-note {
+      margin-top: 1rem;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: var(--overdue-warning-bg);
+      border: 1px solid var(--overdue-warning-border);
+    }
+
+    .overdue-side-note strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--overdue-text);
+    }
+
+    .overdue-side-note p {
+      margin: 0;
+      color: #735e32;
+      line-height: 1.65;
+    }
+
+    .overdue-tool-shell {
+      overflow: hidden;
+      margin-top: 1.5rem;
+      background:
+        radial-gradient(circle at top right, rgba(45, 74, 107, 0.05), transparent 26%),
+        linear-gradient(180deg, #fcfdff 0%, #f7faff 100%);
+    }
+
+    .overdue-tool-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--overdue-border);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+    }
+
+    .overdue-tool-title h2 {
+      margin: 0 0 0.3rem;
+      color: var(--overdue-text);
+    }
+
+    .overdue-tool-title p {
+      margin: 0;
+      color: var(--overdue-muted);
+      line-height: 1.65;
+    }
+
+    .overdue-tool-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid #d6e4ef;
+      background: #f8fbfe;
+      color: var(--overdue-accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .overdue-tool-status-pill::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #2f9e63;
+      box-shadow: 0 0 0 4px rgba(47, 158, 99, 0.12);
+    }
+
+    .overdue-tool-body {
+      padding: 1.25rem;
+    }
+
+    .overdue-form-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(180px, 0.8fr));
+      gap: 1rem;
+      align-items: end;
+    }
+
+    .overdue-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .overdue-field label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--overdue-text);
+    }
+
+    .overdue-input,
+    .overdue-file {
+      width: 100%;
+      border: 1px solid #d7e3ef;
+      border-radius: 16px;
+      background: #fff;
+      color: var(--overdue-text);
+      padding: 0.9rem 0.95rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.18s ease;
+    }
+
+    .overdue-input:focus,
+    .overdue-file:focus {
+      border-color: #afc6de;
+      box-shadow: 0 0 0 4px rgba(77, 115, 155, 0.08);
+    }
+
+    .overdue-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .overdue-btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      text-decoration: none;
+    }
+
+    .overdue-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .overdue-btn-primary {
+      background: linear-gradient(135deg, #2d4a6b 0%, #4a7098 100%);
+      color: #fff;
+      box-shadow: 0 14px 24px rgba(45, 74, 107, 0.22);
+    }
+
+    .overdue-btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px rgba(45, 74, 107, 0.26);
+    }
+
+    .overdue-btn-light {
+      background: #edf4fa;
+      color: var(--overdue-accent);
+      border: 1px solid #d8e4ef;
+    }
+
+    .overdue-btn-light:hover {
+      background: #e5eef7;
+    }
+
+    .overdue-status {
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .overdue-status.show {
+      display: block;
+    }
+
+    .overdue-status.info {
+      background: #f6f9fc;
+      border: 1px solid #d9e4ef;
+      color: var(--overdue-muted);
+    }
+
+    .overdue-status.success {
+      background: var(--overdue-success-bg);
+      border: 1px solid var(--overdue-success-border);
+      color: #245c3b;
+    }
+
+    .overdue-status.error {
+      background: var(--overdue-danger-bg);
+      border: 1px solid var(--overdue-danger-border);
+      color: #8b2f2f;
+    }
+
+    .overdue-results {
+      margin-top: 1.25rem;
+      display: none;
+      gap: 1rem;
+    }
+
+    .overdue-results.show {
+      display: grid;
+    }
+
+    .overdue-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .overdue-summary-card {
+      background: #fff;
+      border: 1px solid #e0e9f2;
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: 0 12px 24px rgba(18, 33, 56, 0.04);
+    }
+
+    .overdue-summary-card span {
+      display: block;
+      color: var(--overdue-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .overdue-summary-card strong {
+      display: block;
+      color: var(--overdue-text);
+      font-size: 1.35rem;
+    }
+
+    .overdue-preview-shell {
+      background: #fff;
+      border: 1px solid #e0e9f2;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(18, 33, 56, 0.04);
+    }
+
+    .overdue-preview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1rem 0.85rem;
+      border-bottom: 1px solid #e7eef6;
+      background: #fbfdff;
+    }
+
+    .overdue-preview-head h3 {
+      margin: 0;
+      color: var(--overdue-text);
+    }
+
+    .overdue-preview-head p {
+      margin: 0.2rem 0 0;
+      color: var(--overdue-muted);
+      font-size: 0.9rem;
+    }
+
+    .overdue-preview-wrap {
+      overflow: auto;
+      max-height: 520px;
+    }
+
+    .overdue-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    .overdue-table thead th {
+      position: sticky;
+      top: 0;
+      background: #f5f9fd;
+      color: var(--overdue-text);
+      font-size: 0.83rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      text-align: left;
+      padding: 0.9rem 0.95rem;
+      border-bottom: 1px solid #dfe8f1;
+      z-index: 1;
+    }
+
+    .overdue-table tbody td {
+      padding: 0.9rem 0.95rem;
+      border-bottom: 1px solid #edf2f7;
+      color: #314256;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      vertical-align: top;
+    }
+
+    .overdue-table tbody tr:nth-child(even) {
+      background: #fcfdff;
+    }
+
+    .overdue-table tbody tr:hover {
+      background: #f8fbff;
+    }
+
+    .overdue-table .wrap-col {
+      white-space: normal;
+      min-width: 260px;
+    }
+
+    @media (max-width: 1080px) {
+      .overdue-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overdue-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overdue-summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overdue-panel {
+        position: static;
+      }
+    }
+  </style>
+
   <section class="dashboard-hero">
     <div class="dashboard-hero-main">
       <div class="dashboard-breadcrumb">Admin Portal › Sanctions › Overdue Sanctions</div>
       <h1 class="dashboard-title">Overdue <span>Sanctions</span></h1>
       <p class="dashboard-description">
-        Use this page to review overdue sanction records from Maxient, clean the spreadsheet for follow-up,
-        and quickly identify missing contact/deadline details before outreach.
+        Review overdue sanction records from Maxient, filter them by date range, preview the cleaned output,
+        and download a separate workbook for follow-up.
       </p>
     </div>
 
     <aside class="dashboard-progress-card">
       <div class="dashboard-progress-top">
         <span>Workflow Snapshot</span>
-        <strong>Export → Upload → Download</strong>
+        <strong>Export → Upload → Preview → Download</strong>
       </div>
       <div class="progress">
         <span style="width:100%;"></span>
       </div>
       <p>
-        Always keep the original Maxient export unchanged. This tool creates a separate cleaned workbook.
+        Keep the original Maxient export unchanged. This tool creates a separate cleaned workbook.
       </p>
     </aside>
   </section>
 
-  <section class="grid">
-    <article class="card col-8">
+  <section class="overdue-grid">
+    <article class="overdue-panel">
+      <div class="overdue-badge">Overdue Sanctions Tool</div>
+
       <h2>What overdue sanctions are and why they matter</h2>
-      <p style="margin-top:.7rem;">
-        Overdue sanctions are assigned outcomes that have passed their listed completion deadline and still
-        need follow-up. Timely tracking supports student accountability, hold decisions, and consistent case closure.
+      <p style="margin-top:.7rem; color: var(--overdue-muted); line-height: 1.75;">
+        Overdue sanctions are assigned outcomes that have passed their listed completion deadline and still need follow-up.
+        Tracking them carefully supports outreach, hold decisions, and consistent case closure.
       </p>
 
       <div class="notice" style="margin-top:1rem;">
         <strong>Reminder</strong>
         <p>
-          Review each row carefully before outreach. Some sanctions are time-based, some depend on outside
-          completion confirmation, and some may require supervisor context.
+          Review each row carefully before outreach. Some sanctions depend on outside completion confirmation,
+          some may already be in progress, and some may require supervisor context.
         </p>
       </div>
 
-      <h3 style="margin-top:1rem;">Step-by-step: pull the report from Maxient</h3>
-      <ol class="list-clean" style="margin-top:.7rem;">
-        <li>Sign in to Maxient and open the reporting/export area used for sanctions tracking.</li>
-        <li>Run the <strong>Overdue Sanctions</strong> report (or equivalent overdue sanctions export view).</li>
-        <li>Confirm expected fields are present (File ID, names, SID, email, sanctions, deadline fields, hold status).</li>
-        <li>Export the report as <strong>.xlsx</strong> and save locally.</li>
-        <li>Upload that file below, process it, and download the cleaned workbook.</li>
+      <h3 style="margin-top:1.2rem;">Step-by-step: pull the report from Maxient</h3>
+      <ol class="overdue-step-list">
+        <li>Sign in to Maxient and open the reporting or export area used for sanctions tracking.</li>
+        <li>Run the <strong>Overdue Sanctions</strong> report or the equivalent overdue sanctions export view.</li>
+        <li>Confirm that fields such as File ID, names, SID, email, sanctions, deadline fields, and hold status are present.</li>
+        <li>Export the report as <strong>.xlsx</strong> and save it locally.</li>
+        <li>Upload the file below, choose the date range, review the preview, and download the cleaned workbook.</li>
       </ol>
 
-      <h3 style="margin-top:1rem;">What fields to review first</h3>
-      <ul class="list-clean" style="margin-top:.7rem;">
+      <h3 style="margin-top:1.2rem;">What to review first</h3>
+      <ul class="overdue-review-list">
         <li>Student identifier quality: Full Name, Student ID, and Email.</li>
-        <li>Assigned Sanctions text (long sanctions should stay readable and wrapped).</li>
-        <li>Next Deadline and Next Deadline Reason for follow-up timing.</li>
-        <li>Hold in Place and File ID for internal tracking/coordination.</li>
+        <li>Assigned sanctions text so follow-up remains clear and readable.</li>
+        <li>Next Deadline and Next Deadline Reason for outreach timing.</li>
+        <li>Hold in Place and File ID for internal tracking and coordination.</li>
       </ul>
 
-      <h3 style="margin-top:1rem;">Excel helper tool</h3>
-      <p style="margin-top:.7rem;">
-        The helper creates a new workbook with a standardized detail sheet and summary counts.
-        Missing email and missing next-deadline cells are highlighted to support fast triage.
-      </p>
+      <h3 style="margin-top:1.2rem;">What this tool does</h3>
+      <ul class="overdue-review-list">
+        <li>Filters the uploaded report using your selected <strong>From</strong> and <strong>To</strong> dates.</li>
+        <li>Builds a cleaner output with key fields such as name, ID, email, and assigned sanctions.</li>
+        <li>Shows a preview before download so you can confirm the results.</li>
+        <li>Creates a separate workbook and does not overwrite the original file.</li>
+      </ul>
     </article>
 
-    <article class="card col-4">
+    <aside class="overdue-panel">
       <div class="notice notice-danger">
         <strong>Important</strong>
         <p>
-          This tool only accepts <strong>.xlsx</strong> files exported from Maxient and does not overwrite your original upload.
+          Upload only a valid <strong>.xlsx</strong> Maxient export. The original upload remains unchanged.
         </p>
       </div>
 
-      <div class="notice" style="margin-top:1rem;">
+      <div class="overdue-side-note">
         <strong>Quick Checklist</strong>
-        <ul class="list-clean" style="margin-top:.55rem;">
-          <li>Export completed from Maxient today</li>
-          <li>File saved as .xlsx</li>
-          <li>Required headers present (or close match)</li>
-          <li>Review highlights after download</li>
+        <ul class="overdue-check-list" style="margin-top:.55rem;">
+          <li>Report exported from Maxient today or for the intended review cycle</li>
+          <li>File saved as <strong>.xlsx</strong></li>
+          <li>Date range selected correctly before processing</li>
+          <li>Preview reviewed before download</li>
         </ul>
       </div>
-    </article>
+
+      <div class="overdue-side-note" style="margin-top:1rem;">
+        <strong>Suggested output check</strong>
+        <p>
+          Before download, confirm the preview includes the correct students, the right date range, and readable sanctions text.
+        </p>
+      </div>
+    </aside>
   </section>
 
-  <section class="dashboard-section">
-    <div class="dashboard-section-head">
-      <h2>Process Overdue Sanctions Report</h2>
+  <section class="overdue-tool-shell">
+    <div class="overdue-tool-head">
+      <div class="overdue-tool-title">
+        <h2>Process Overdue Sanctions Report</h2>
+        <p>
+          Upload the Maxient export, select the date range, preview the cleaned rows, and download the updated Excel file.
+        </p>
+      </div>
+      <div class="overdue-tool-status-pill">Ready</div>
     </div>
 
-    <article class="card col-12">
-      <form id="overdue-form" class="overdue-tool-form">
-        <label for="report-file"><strong>Upload Maxient .xlsx report</strong></label>
-        <input id="report-file" name="file" type="file" accept=".xlsx" required />
+    <div class="overdue-tool-body">
+      <form id="overdue-form" enctype="multipart/form-data">
+        <div class="overdue-form-grid">
+          <div class="overdue-field">
+            <label for="report-file">Upload Maxient .xlsx report</label>
+            <input id="report-file" name="file" class="overdue-file" type="file" accept=".xlsx" required />
+          </div>
 
-        <div class="overdue-tool-actions">
-          <button type="submit" class="btn btn-primary">Process File</button>
-          <a id="download-link" class="btn-light" style="display:none;" download>Download Cleaned File</a>
+          <div class="overdue-field">
+            <label for="date-from">From</label>
+            <input id="date-from" name="date_from" class="overdue-input" type="date" required />
+          </div>
+
+          <div class="overdue-field">
+            <label for="date-to">To</label>
+            <input id="date-to" name="date_to" class="overdue-input" type="date" required />
+          </div>
         </div>
 
-        <p id="tool-status" class="dashboard-muted" role="status" aria-live="polite" style="margin-top:.75rem;"></p>
+        <div class="overdue-actions">
+          <button id="process-btn" type="submit" class="overdue-btn overdue-btn-primary">Process File</button>
+          <a id="download-link" class="overdue-btn overdue-btn-light" style="display:none;" download>Download Cleaned Excel</a>
+        </div>
+
+        <div id="tool-status" class="overdue-status info" role="status" aria-live="polite"></div>
       </form>
-    </article>
+
+      <section id="results-section" class="overdue-results">
+        <div class="overdue-summary-grid">
+          <div class="overdue-summary-card">
+            <span>Processed Rows</span>
+            <strong id="summary-count">0</strong>
+          </div>
+          <div class="overdue-summary-card">
+            <span>Date Range</span>
+            <strong id="summary-range">—</strong>
+          </div>
+          <div class="overdue-summary-card">
+            <span>Preview Rows</span>
+            <strong id="summary-preview-count">0</strong>
+          </div>
+        </div>
+
+        <div class="overdue-preview-shell">
+          <div class="overdue-preview-head">
+            <div>
+              <h3>Preview</h3>
+              <p>Review the first rows of the cleaned output before downloading the Excel file.</p>
+            </div>
+          </div>
+
+          <div class="overdue-preview-wrap">
+            <table class="overdue-table">
+              <thead>
+                <tr id="preview-head-row"></tr>
+              </thead>
+              <tbody id="preview-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
   </section>
 </section>
 
 <script>
-  const form = document.getElementById("overdue-form");
-  const fileInput = document.getElementById("report-file");
-  const statusEl = document.getElementById("tool-status");
-  const downloadLink = document.getElementById("download-link");
+  (function initOverdueSanctionsTool() {
+    const form = document.getElementById("overdue-form");
+    const fileInput = document.getElementById("report-file");
+    const fromInput = document.getElementById("date-from");
+    const toInput = document.getElementById("date-to");
+    const processBtn = document.getElementById("process-btn");
+    const statusEl = document.getElementById("tool-status");
+    const downloadLink = document.getElementById("download-link");
 
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    downloadLink.style.display = "none";
-    downloadLink.removeAttribute("href");
+    const resultsSection = document.getElementById("results-section");
+    const summaryCount = document.getElementById("summary-count");
+    const summaryRange = document.getElementById("summary-range");
+    const summaryPreviewCount = document.getElementById("summary-preview-count");
+    const previewHeadRow = document.getElementById("preview-head-row");
+    const previewBody = document.getElementById("preview-body");
 
-    if (!fileInput.files || !fileInput.files.length) {
-      statusEl.textContent = "Please choose a .xlsx file before processing.";
-      return;
+    function setStatus(message, type = "info") {
+      statusEl.textContent = message;
+      statusEl.className = `overdue-status show ${type}`;
     }
 
-    const uploadFile = fileInput.files[0];
-    statusEl.textContent = "Processing file...";
+    function clearPreview() {
+      previewHeadRow.innerHTML = "";
+      previewBody.innerHTML = "";
+      resultsSection.classList.remove("show");
+      summaryCount.textContent = "0";
+      summaryRange.textContent = "—";
+      summaryPreviewCount.textContent = "0";
+      downloadLink.style.display = "none";
+      downloadLink.removeAttribute("href");
+    }
 
-    try {
-      const formData = new FormData();
-      formData.append("file", uploadFile);
+    function renderPreview(columns, rows) {
+      previewHeadRow.innerHTML = "";
+      previewBody.innerHTML = "";
 
-      const response = await fetch("/api/overdue-sanctions/process", {
-        method: "POST",
-        body: formData,
+      columns.forEach((column) => {
+        const th = document.createElement("th");
+        th.textContent = column;
+        previewHeadRow.appendChild(th);
       });
 
-      if (!response.ok) {
-        let message = "The file could not be processed.";
-        try {
-          const payload = await response.json();
-          if (payload && payload.detail) {
-            message = payload.detail;
+      rows.forEach((row) => {
+        const tr = document.createElement("tr");
+
+        columns.forEach((column) => {
+          const td = document.createElement("td");
+          td.textContent = row[column] ?? "";
+          if (String(column).toLowerCase().includes("sanction")) {
+            td.classList.add("wrap-col");
           }
-        } catch (_) {
-          message = "The file could not be processed. Please confirm it is a valid Maxient .xlsx export.";
-        }
-        statusEl.textContent = message;
+          tr.appendChild(td);
+        });
+
+        previewBody.appendChild(tr);
+      });
+
+      resultsSection.classList.add("show");
+    }
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearPreview();
+
+      if (!fileInput.files || !fileInput.files.length) {
+        setStatus("Please choose a .xlsx file before processing.", "error");
         return;
       }
 
-      const blob = await response.blob();
-      const objectUrl = window.URL.createObjectURL(blob);
-      const contentDisposition = response.headers.get("content-disposition") || "";
-      const nameMatch = contentDisposition.match(/filename="?([^\"]+)"?/i);
-      const fileName = nameMatch ? nameMatch[1] : "overdue-sanctions-cleaned.xlsx";
+      if (!fromInput.value || !toInput.value) {
+        setStatus("Please select both From and To dates.", "error");
+        return;
+      }
 
-      downloadLink.href = objectUrl;
-      downloadLink.download = fileName;
-      downloadLink.style.display = "inline-flex";
-      statusEl.textContent = "Processing complete. Download the cleaned workbook.";
-    } catch (error) {
-      statusEl.textContent = "Unexpected error while processing file. Please try again.";
-    }
-  });
+      if (fromInput.value > toInput.value) {
+        setStatus("The From date cannot be later than the To date.", "error");
+        return;
+      }
+
+      processBtn.disabled = true;
+      processBtn.textContent = "Processing...";
+      setStatus("Processing file and building preview...", "info");
+
+      try {
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+        formData.append("date_from", fromInput.value);
+        formData.append("date_to", toInput.value);
+
+        const response = await fetch("/api/overdue-sanctions/process", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          let message = "The file could not be processed.";
+          try {
+            const payload = await response.json();
+            if (payload && payload.detail) {
+              message = payload.detail;
+            }
+          } catch (_) {
+            message = "The file could not be processed. Please confirm it is a valid Maxient .xlsx export.";
+          }
+          setStatus(message, "error");
+          return;
+        }
+
+        const payload = await response.json();
+
+        if (!payload || !payload.download_url) {
+          setStatus("The file was processed, but the download link was not returned.", "error");
+          return;
+        }
+
+        summaryCount.textContent = String(payload.total_rows ?? 0);
+        summaryRange.textContent = `${fromInput.value} to ${toInput.value}`;
+        summaryPreviewCount.textContent = String((payload.preview_rows || []).length);
+
+        renderPreview(payload.preview_columns || [], payload.preview_rows || []);
+
+        downloadLink.href = payload.download_url;
+        downloadLink.download = payload.download_filename || "overdue-sanctions-cleaned.xlsx";
+        downloadLink.style.display = "inline-flex";
+
+        setStatus("Processing complete. Review the preview and download the cleaned workbook.", "success");
+      } catch (error) {
+        setStatus("Unexpected error while processing file. Please try again.", "error");
+      } finally {
+        processBtn.disabled = false;
+        processBtn.textContent = "Process File";
+      }
+    });
+  })();
 </script>
 {% endblock %}
