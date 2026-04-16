@@ -666,8 +666,8 @@
 
     function setLoading(isLoading) {
       sendBtn.disabled = isLoading;
-      clearBtn.disabled = isLoading && history.length === 0;
       input.disabled = isLoading;
+      clearBtn.disabled = isLoading;
       sendBtn.textContent = isLoading ? 'Sending...' : 'Send';
     }
 
@@ -758,6 +758,29 @@
       typingRow = null;
     }
 
+    async function parseApiResponse(response) {
+      const rawText = await response.text();
+      const contentType = response.headers.get('content-type') || '';
+
+      if (contentType.includes('application/json')) {
+        try {
+          return JSON.parse(rawText);
+        } catch {
+          throw new Error('The server returned invalid JSON.');
+        }
+      }
+
+      if (!response.ok) {
+        throw new Error(rawText || 'Unable to get a response right now.');
+      }
+
+      try {
+        return JSON.parse(rawText);
+      } catch {
+        throw new Error('The server returned an unexpected response format.');
+      }
+    }
+
     async function sendMessage(text) {
       clearError();
       addMessage('user', text);
@@ -772,10 +795,10 @@
           body: JSON.stringify({ message: text, history }),
         });
 
-        const payload = await response.json();
+        const payload = await parseApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(payload.detail || 'Unable to get a response right now.');
+          throw new Error(payload.detail || payload.message || 'Unable to get a response right now.');
         }
 
         hideTyping();
@@ -788,7 +811,6 @@
         showError(error.message || 'Unable to get a response right now.');
       } finally {
         setLoading(false);
-        input.disabled = false;
         input.focus();
         autoResizeTextarea();
       }
