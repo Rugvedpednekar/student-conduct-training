@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › AI Chat</div>
+      <h1 class="dashboard-title">
+        AI <span>Chat</span>
+      </h1>
+      <p class="dashboard-description">
+        Ask training and handbook questions for quick informational guidance. This assistant supports students and
+        Student Conduct staff and is grounded in this training site plus Student Handbook content.
+      </p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card col-4">
+      <h3>Who This Helps</h3>
+      <ul class="list-clean" style="margin-top:.7rem;">
+        <li>Students with process and hearing basics questions.</li>
+        <li>Graduate Assistants with training workflow questions.</li>
+        <li>Admins who need quick policy-aware references.</li>
+      </ul>
+
+      <h3 style="margin-top:1.15rem;">Example Prompts</h3>
+      <div class="chips" style="margin-top:.75rem;" id="prompt-chips">
+        <button class="chip" type="button">How do I prepare for a hearing?</button>
+        <button class="chip" type="button">What should I do after completing the CRF?</button>
+        <button class="chip" type="button">What does the handbook say about conduct expectations?</button>
+        <button class="chip" type="button">What forms should be attached to a hearing resolution letter?</button>
+      </div>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Important</strong>
+        <p>
+          This tool is informational only. It does not make official conduct decisions. Final case determinations
+          come from Student Conduct staff.
+        </p>
+      </div>
+    </article>
+
+    <article class="card col-8 chat-card">
+      <div id="chat-empty" class="chat-empty">
+        Start a conversation by asking a question about hearings, sanctions, process steps, or handbook guidance.
+      </div>
+      <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+      <div id="chat-error" class="notice notice-danger chat-error" hidden></div>
+
+      <form id="chat-form" class="chat-input-row">
+        <textarea
+          id="chat-input"
+          rows="2"
+          maxlength="4000"
+          placeholder="Type your question here..."
+          required
+        ></textarea>
+        <div class="chat-actions">
+          <button class="btn btn-soft" id="clear-chat-btn" type="button">Clear</button>
+          <button class="btn btn-primary" id="send-chat-btn" type="submit">Send</button>
+        </div>
+      </form>
+    </article>
+  </section>
+</section>
+
+<script>
+  (function initAiChat() {
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('chat-input');
+    const messagesEl = document.getElementById('chat-messages');
+    const emptyEl = document.getElementById('chat-empty');
+    const errorEl = document.getElementById('chat-error');
+    const sendBtn = document.getElementById('send-chat-btn');
+    const clearBtn = document.getElementById('clear-chat-btn');
+    const chipsContainer = document.getElementById('prompt-chips');
+    const history = [];
+
+    function setLoading(isLoading) {
+      sendBtn.disabled = isLoading;
+      sendBtn.textContent = isLoading ? 'Sending...' : 'Send';
+      input.disabled = isLoading;
+    }
+
+    function showError(message) {
+      errorEl.hidden = false;
+      errorEl.innerHTML = `<strong>Chat Error</strong><p>${message}</p>`;
+    }
+
+    function clearError() {
+      errorEl.hidden = true;
+      errorEl.innerHTML = '';
+    }
+
+    function addMessage(role, content, sources) {
+      emptyEl.style.display = 'none';
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${role}`;
+      const sourceTags = Array.isArray(sources) && sources.length
+        ? `<div class="chat-sources">${sources.map((source) => `<span class="chat-source-tag">${source}</span>`).join('')}</div>`
+        : '';
+      bubble.innerHTML = `<p>${content}</p>${role === 'assistant' ? sourceTags : ''}`;
+      messagesEl.appendChild(bubble);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    async function sendMessage(text) {
+      clearError();
+      addMessage('user', text);
+      history.push({ role: 'user', content: text });
+      setLoading(true);
+
+      try {
+        const response = await fetch('/api/ai-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, history }),
+        });
+        const payload = await response.json();
+        if (!response.ok) {
+          throw new Error(payload.detail || 'Unable to get a response right now.');
+        }
+        const answer = payload.answer || 'No response returned.';
+        addMessage('assistant', answer, payload.sources || []);
+        history.push({ role: 'assistant', content: answer });
+      } catch (error) {
+        showError(error.message || 'Unable to get a response right now.');
+      } finally {
+        setLoading(false);
+        input.focus();
+      }
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      sendMessage(text);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      history.length = 0;
+      messagesEl.innerHTML = '';
+      emptyEl.style.display = '';
+      clearError();
+      input.focus();
+    });
+
+    chipsContainer.addEventListener('click', (event) => {
+      const chip = event.target.closest('.chip');
+      if (!chip) return;
+      input.value = chip.textContent.trim();
+      input.focus();
+    });
+  })();
+</script>
+{% endblock %}

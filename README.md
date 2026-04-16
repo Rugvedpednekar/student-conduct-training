@@ -30,6 +30,10 @@ Create `.env` locally:
 SECRET_KEY=replace-with-long-random-secret
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ga_training
 SECURE_COOKIES=false
+AWS_REGION=us-east-1
+BEDROCK_MODEL_ID=amazon.nova-lite-v1:0
+HANDBOOK_PATH=app/data/student_handbook.txt
+TRAINING_CONTENT_PATH=app/templates
 ```
 
 > On Railway, use Railway Variables UI to set `SECRET_KEY` and let Railway PostgreSQL provide `DATABASE_URL`.
@@ -52,6 +56,15 @@ SECURE_COOKIES=false
    uvicorn app.main:app --reload
    ```
 5. Open `http://127.0.0.1:8000`.
+
+## AI Chat Grounding Notes
+- The AI chat page is available at `/ai-chat`.
+- Backend endpoint is `/api/ai-chat` (authenticated session required).
+- Knowledge grounding loads:
+  - training page HTML from `TRAINING_CONTENT_PATH` (defaults to `app/templates`)
+  - handbook text from `HANDBOOK_PATH` (supports `.txt`, `.md`, `.pdf` with `pypdf`)
+- Responses include source labels such as `Training: Hearing` and `Student Handbook`.
+- The assistant is informational only and does not make official conduct decisions.
 
 ## Seeded Users
 - Admin username: `DAVE`

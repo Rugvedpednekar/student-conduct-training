@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-page">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-main">
+      <div class="dashboard-breadcrumb">Admin Portal › Hearing</div>
+      <h1 class="dashboard-title">
+        Hearing <span>Preparation</span>
+      </h1>
+      <p class="dashboard-description">
+        Use this section to prepare for Student Conduct hearings in a consistent, professional, and policy-aware
+        way. The goal is to ensure each student receives fair notice, a well-organized process, and accurate
+        case documentation.
+      </p>
+    </div>
+
+    <aside class="dashboard-progress-card">
+      <div class="dashboard-progress-top">
+        <span>Module Focus</span>
+        <strong>Pre-Hearing Readiness</strong>
+      </div>
+      <div class="progress">
+        <span style="width:100%;"></span>
+      </div>
+      <p>
+        Confirm case details early so the hearing can proceed on time and without avoidable issues.
+      </p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card col-8">
+      <h2>Pre-Hearing Workflow</h2>
+      <p style="margin-top:.5rem;">
+        Complete the following checks before the student arrives. This sequence supports procedural fairness and
+        keeps hearing operations organized.
+      </p>
+
+      <div class="notice" style="margin-top:1rem;">
+        <strong>Professional Standard</strong>
+        <p>
+          Be prepared, objective, and confidential at every stage. If a detail is unclear, pause and ask
+          Dave or your supervisor before moving forward.
+        </p>
+      </div>
+
+      <div class="case-subcard">
+        <h3>1) Review the Full Case File</h3>
+        <ul class="list-clean" style="margin-top:.7rem;">
+          <li>Review the incident report and related documents in Maxient.</li>
+          <li>Confirm that all relevant supporting materials are attached and legible.</li>
+          <li>Identify missing details that may require clarification before the hearing.</li>
+        </ul>
+      </div>
+
+      <div class="case-subcard">
+        <h3>2) Confirm Charges, History, and Process Details</h3>
+        <ul class="list-clean" style="margin-top:.7rem;">
+          <li>Confirm each charge or issue listed in the case is accurate and aligned to the report.</li>
+          <li>Review prior student conduct history only when appropriate for the case process.</li>
+          <li>Verify hearing date/time against the student schedule when feasible.</li>
+          <li>Confirm that proper notice requirements were met before the hearing.</li>
+        </ul>
+      </div>
+
+      <div class="case-subcard">
+        <h3>3) Verify Logistics Before Meeting Start</h3>
+        <ul class="list-clean" style="margin-top:.7rem;">
+          <li>Confirm hearing location (or virtual details) and ensure the space is ready.</li>
+          <li>Prepare notes, question prompts, and key facts to guide the conversation.</li>
+          <li>Review minimum sanctioning guidelines reference material before the meeting.</li>
+          <li>Keep all records organized and confidential during and after the hearing.</li>
+        </ul>
+      </div>
+
+      <div class="notice notice-danger" style="margin-top:1rem;">
+        <strong>Do Not Skip Verification</strong>
+        <p>
+          Missing notice, inaccurate charges, or incomplete documentation can delay hearings and create avoidable
+          process concerns. Verify details first, then proceed.
+        </p>
+      </div>
+    </article>
+
+    <aside class="card col-4">
+      <h3>Hearing Prep Checklist</h3>
+      <p style="margin-top:.5rem;">Use this quick checklist before each hearing.</p>
+      <div class="checklist" style="margin-top:.85rem;">
+        <label class="check-item" data-check><input type="checkbox" /> Incident report and related documents reviewed</label>
+        <label class="check-item" data-check><input type="checkbox" /> Charges/issues confirmed</label>
+        <label class="check-item" data-check><input type="checkbox" /> Prior history reviewed when appropriate</label>
+        <label class="check-item" data-check><input type="checkbox" /> Student schedule and hearing time confirmed</label>
+        <label class="check-item" data-check><input type="checkbox" /> Notice timing and delivery verified</label>
+        <label class="check-item" data-check><input type="checkbox" /> Hearing location confirmed and ready</label>
+        <label class="check-item" data-check><input type="checkbox" /> Notes/questions prepared</label>
+        <label class="check-item" data-check><input type="checkbox" /> Sanctions guideline references open</label>
+        <label class="check-item" data-check><input type="checkbox" /> Questions escalated to Dave/supervisor if needed</label>
+      </div>
+    </aside>
+  </section>
+</section>
+{% endblock %}
