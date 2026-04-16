@@ -1,4 +1,9 @@
-from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
+import os
+import tempfile
+import uuid
+from datetime import datetime, timedelta
+
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from sqlalchemy.orm import Session
 
@@ -13,6 +18,25 @@ from app.services.nova_chat import NovaChatService
 from app.services.overdue_sanctions import OverdueSanctionsError, process_overdue_sanctions_workbook
 
 router = APIRouter()
+_DOWNLOAD_TTL = timedelta(hours=1)
+_generated_downloads: dict[str, dict[str, str | datetime]] = {}
+
+
+def _cleanup_expired_downloads() -> None:
+    now = datetime.utcnow()
+    expired_ids = [
+        file_id
+        for file_id, metadata in _generated_downloads.items()
+        if isinstance(metadata.get("expires_at"), datetime) and metadata["expires_at"] < now
+    ]
+    for file_id in expired_ids:
+        metadata = _generated_downloads.pop(file_id, None)
+        path = metadata.get("path") if metadata else None
+        if isinstance(path, str) and os.path.exists(path):
+            try:
+                os.remove(path)
+            except OSError:
+                pass
 
 
 def render_dynamic_page(request: Request, page_name: str, db: Session, user: User):
@@ -126,6 +150,8 @@ def overdue_sanctions_page(
 @router.post("/api/overdue-sanctions/process")
 async def process_overdue_sanctions(
     file: UploadFile = File(...),
+    date_from: str = Form(...),
+    date_to: str = Form(...),
     user: User = Depends(get_current_user),
 ):
     filename = file.filename or "overdue-sanctions.xlsx"
@@ -137,15 +163,74 @@ async def process_overdue_sanctions(
         return JSONResponse(status_code=400, content={"detail": "Uploaded file is empty."})
 
     try:
-        cleaned_content = process_overdue_sanctions_workbook(uploaded_bytes)
+        parsed_date_from = datetime.strptime(date_from, "%Y-%m-%d").date()
+        parsed_date_to = datetime.strptime(date_to, "%Y-%m-%d").date()
+    except ValueError:
+        return JSONResponse(status_code=400, content={"detail": "Invalid date format. Use YYYY-MM-DD."})
+
+    if parsed_date_from > parsed_date_to:
+        return JSONResponse(status_code=400, content={"detail": "Invalid date range. 'From' date cannot be later than 'To' date."})
+
+    try:
+        processed = process_overdue_sanctions_workbook(
+            uploaded_bytes,
+            date_from=parsed_date_from,
+            date_to=parsed_date_to,
+        )
     except OverdueSanctionsError as exc:
         return JSONResponse(status_code=400, content={"detail": str(exc)})
+    except Exception:
+        return JSONResponse(status_code=400, content={"detail": "Spreadsheet parsing error. Please verify the uploaded export format."})
 
     base_name = filename.rsplit(".", 1)[0]
     out_name = f"{base_name}-cleaned.xlsx"
-    headers = {"Content-Disposition": f'attachment; filename="{out_name}"'}
+    temp_dir = tempfile.gettempdir()
+    file_id = uuid.uuid4().hex
+    temp_path = os.path.join(temp_dir, f"overdue-sanctions-{file_id}.xlsx")
+    with open(temp_path, "wb") as output_file:
+        output_file.write(processed.workbook_content)
+
+    _cleanup_expired_downloads()
+    _generated_downloads[file_id] = {
+        "path": temp_path,
+        "filename": out_name,
+        "expires_at": datetime.utcnow() + _DOWNLOAD_TTL,
+    }
+
+    return JSONResponse(
+        status_code=200,
+        content={
+            "total_rows": processed.total_rows,
+            "preview_columns": processed.preview_columns,
+            "preview_rows": processed.preview_rows,
+            "download_url": f"/api/overdue-sanctions/download/{file_id}",
+            "download_filename": out_name,
+        },
+    )
+
+
+@router.get("/api/overdue-sanctions/download/{file_id}")
+def download_overdue_sanctions_file(
+    file_id: str,
+    user: User = Depends(get_current_user),
+):
+    _cleanup_expired_downloads()
+    file_info = _generated_downloads.get(file_id)
+    if not file_info:
+        return JSONResponse(status_code=404, content={"detail": "Download file not found or expired. Please process the report again."})
+
+    path = file_info.get("path")
+    filename = file_info.get("filename", "overdue-sanctions-cleaned.xlsx")
+    if not isinstance(path, str) or not os.path.exists(path):
+        _generated_downloads.pop(file_id, None)
+        return JSONResponse(status_code=404, content={"detail": "Download file not found or expired. Please process the report again."})
+
+    with open(path, "rb") as file_stream:
+        content = file_stream.read()
+
+    headers = {"Content-Disposition": f'attachment; filename="{filename}"'}
     return Response(
-        content=cleaned_content,
+        content=content,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers=headers,
     )

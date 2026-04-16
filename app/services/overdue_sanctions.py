@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from datetime import datetime
+from dataclasses import dataclass
+from datetime import date, datetime
 from io import BytesIO
-from typing import Dict, Iterable
+from typing import Dict, Iterable, List
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
@@ -29,6 +30,8 @@ OPTIONAL_OUTPUT_FIELDS = [
     "Hearing Date",
     "Assigned To / Hearing Officer",
 ]
+
+PREVIEW_ROW_LIMIT = 25
 
 HEADER_ALIASES = {
     "file_id": {"fileid", "file_id", "file id", "case id"},
@@ -58,6 +61,14 @@ class OverdueSanctionsError(Exception):
     pass
 
 
+@dataclass
+class ProcessedOverdueSanctionsResult:
+    total_rows: int
+    preview_columns: List[str]
+    preview_rows: List[Dict[str, str]]
+    workbook_content: bytes
+
+
 def _normalize_header(value: object) -> str:
     text = "" if value is None else str(value)
     lowered = " ".join(text.strip().lower().replace("_", " ").split())
@@ -78,6 +89,25 @@ def _safe_cell_text(value: object) -> str:
     if isinstance(value, datetime):
         return value.strftime("%Y-%m-%d")
     return str(value).strip()
+
+
+def _parse_date_value(value: object) -> date | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    if isinstance(value, str):
+        raw = value.strip()
+        if not raw:
+            return None
+        for fmt in ("%Y-%m-%d", "%m/%d/%Y", "%m/%d/%y", "%b %d, %Y", "%B %d, %Y"):
+            try:
+                return datetime.strptime(raw, fmt).date()
+            except ValueError:
+                continue
+    return None
 
 
 def _find_column_indexes(ws: Worksheet) -> Dict[str, int]:
@@ -179,7 +209,10 @@ def _append_summary_sheet(workbook: Workbook, records: Iterable[Dict[str, str]])
     summary.column_dimensions["B"].width = 14
 
 
-def process_overdue_sanctions_workbook(content: bytes) -> bytes:
+def process_overdue_sanctions_workbook(content: bytes, *, date_from: date, date_to: date) -> ProcessedOverdueSanctionsResult:
+    if date_from > date_to:
+        raise OverdueSanctionsError("Invalid date range. 'From' date cannot be later than 'To' date.")
+
     try:
         source_wb = load_workbook(filename=BytesIO(content), data_only=True)
     except Exception as exc:
@@ -187,6 +220,8 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
 
     source_ws = source_wb.active
     columns = _find_column_indexes(source_ws)
+    if "next_deadline" not in columns:
+        raise OverdueSanctionsError("Missing required column: Next Deadline.")
 
     output_wb = Workbook()
     detail_ws = output_wb.active
@@ -197,6 +232,13 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
 
     records = []
     for row in source_ws.iter_rows(min_row=2, values_only=True):
+        deadline_idx = columns["next_deadline"] - 1
+        row_deadline = _parse_date_value(row[deadline_idx] if deadline_idx < len(row) else None)
+        if row_deadline is None:
+            continue
+        if row_deadline < date_from or row_deadline > date_to:
+            continue
+
         mapped = _build_output_row(row, columns)
         if not any(value for value in mapped.values()):
             continue
@@ -204,7 +246,7 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
         detail_ws.append([mapped[header] for header in output_headers])
 
     if not records:
-        raise OverdueSanctionsError("No report rows were found in the uploaded workbook.")
+        raise OverdueSanctionsError("No matching rows were found for the selected date range.")
 
     for cell in detail_ws[1]:
         cell.fill = HEADER_FILL
@@ -233,4 +275,11 @@ def process_overdue_sanctions_workbook(content: bytes) -> bytes:
 
     stream = BytesIO()
     output_wb.save(stream)
-    return stream.getvalue()
+    preview_columns = output_headers
+    preview_rows = records[:PREVIEW_ROW_LIMIT]
+    return ProcessedOverdueSanctionsResult(
+        total_rows=len(records),
+        preview_columns=preview_columns,
+        preview_rows=preview_rows,
+        workbook_content=stream.getvalue(),
+    )
