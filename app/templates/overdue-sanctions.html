@@ -138,6 +138,48 @@
       line-height: 1.65;
     }
 
+    .overdue-image-block {
+      margin-top: 1rem;
+      background: #fff;
+      border: 1px solid #e0e9f2;
+      border-radius: 20px;
+      padding: 1rem;
+      box-shadow: 0 12px 24px rgba(18, 33, 56, 0.04);
+    }
+
+    .overdue-image-block img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      border: 1px solid #dbe5ef;
+      background: #f8fbff;
+    }
+
+    .overdue-image-caption {
+      margin-top: 0.7rem;
+      color: var(--overdue-muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .overdue-email-block {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid #dfe9f3;
+    }
+
+    .overdue-email-block pre {
+      margin: 0.75rem 0 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--overdue-text);
+    }
+
     .overdue-tool-shell {
       overflow: hidden;
       margin-top: 1.5rem;
@@ -441,10 +483,6 @@
       .overdue-summary-grid {
         grid-template-columns: 1fr;
       }
-
-      .overdue-panel {
-        position: static;
-      }
     }
   </style>
 
@@ -453,21 +491,21 @@
       <div class="dashboard-breadcrumb">Admin Portal › Sanctions › Overdue Sanctions</div>
       <h1 class="dashboard-title">Overdue <span>Sanctions</span></h1>
       <p class="dashboard-description">
-        Review overdue sanction records from Maxient, filter them by date range, preview the cleaned output,
-        and download a separate workbook for follow-up.
+        Use this page to pull the overdue sanctions report from Maxient, export it to Excel, upload it into the tool below,
+        review the cleaned output, email students who need follow-up, and save the updated file in the GA shared drive.
       </p>
     </div>
 
     <aside class="dashboard-progress-card">
       <div class="dashboard-progress-top">
         <span>Workflow Snapshot</span>
-        <strong>Export → Upload → Preview → Download</strong>
+        <strong>Analytics → Excel → Upload → Preview → Download</strong>
       </div>
       <div class="progress">
         <span style="width:100%;"></span>
       </div>
       <p>
-        Keep the original Maxient export unchanged. This tool creates a separate cleaned workbook.
+        Keep the original Maxient export unchanged. This tool creates a separate cleaned workbook for follow-up.
       </p>
     </aside>
   </section>
@@ -476,43 +514,89 @@
     <article class="overdue-panel">
       <div class="overdue-badge">Overdue Sanctions Tool</div>
 
-      <h2>What overdue sanctions are and why they matter</h2>
+      <h2>What this section is for</h2>
       <p style="margin-top:.7rem; color: var(--overdue-muted); line-height: 1.75;">
-        Overdue sanctions are assigned outcomes that have passed their listed completion deadline and still need follow-up.
-        Tracking them carefully supports outreach, hold decisions, and consistent case closure.
+        Use this section to review overdue sanctions from Maxient, identify students who need follow-up,
+        prepare outreach, and save the updated file for the GA shared drive.
       </p>
 
       <div class="notice" style="margin-top:1rem;">
         <strong>Reminder</strong>
         <p>
-          Review each row carefully before outreach. Some sanctions depend on outside completion confirmation,
-          some may already be in progress, and some may require supervisor context.
+          Review each row carefully before outreach. Some sanctions may already be in progress,
+          some may need confirmation, and some may require supervisor review before communication is sent.
         </p>
       </div>
 
-      <h3 style="margin-top:1.2rem;">Step-by-step: pull the report from Maxient</h3>
+      <h3 style="margin-top:1.2rem;">Step 1: Open Analytics in Maxient</h3>
       <ol class="overdue-step-list">
-        <li>Sign in to Maxient and open the reporting or export area used for sanctions tracking.</li>
-        <li>Run the <strong>Overdue Sanctions</strong> report or the equivalent overdue sanctions export view.</li>
-        <li>Confirm that fields such as File ID, names, SID, email, sanctions, deadline fields, and hold status are present.</li>
-        <li>Export the report as <strong>.xlsx</strong> and save it locally.</li>
-        <li>Upload the file below, choose the date range, review the preview, and download the cleaned workbook.</li>
+        <li>Open the <strong>Analytics</strong> section in Maxient.</li>
+        <li>In <strong>Choose your report</strong>, enter <strong>53</strong>.</li>
+        <li>Set the report filters as follows:
+          <br><strong>Date Range:</strong> current academic year (example: 2026–2027)
+          <br><strong>Choose the date of reference:</strong> Reported Date
+          <br><strong>Case Type:</strong> Student Conduct
+          <br><strong>Limit results to:</strong> Student Conduct
+        </li>
+        <li>Click <strong>Run this report</strong>.</li>
       </ol>
 
-      <h3 style="margin-top:1.2rem;">What to review first</h3>
+      <div class="overdue-image-block">
+        <img
+          src="{{ url_for('static', path='images/systems/Maxient_OverdueSanction01.png') }}"
+          alt="Maxient Analytics report setup for Overdue Sanctions"
+        />
+        <div class="overdue-image-caption">
+          <strong>Image 1:</strong> Maxient Analytics report setup for Overdue Sanctions.
+        </div>
+      </div>
+
+      <h3 style="margin-top:1.2rem;">Step 2: Sort the report and export to Excel</h3>
+      <ol class="overdue-step-list">
+        <li>After the report loads and all cases appear, sort the report by <strong>Next Deadline</strong>.</li>
+        <li>Click on <strong>Next Deadline</strong> so the most recent cases are easier to review.</li>
+        <li>Then click <strong>Excel</strong> to download the file to your local computer.</li>
+      </ol>
+
+      <div class="overdue-image-block">
+        <img
+          src="{{ url_for('static', path='images/systems/Maxient_OverdueSanction02.png') }}"
+          alt="Sorting by Next Deadline and exporting to Excel"
+        />
+        <div class="overdue-image-caption">
+          <strong>Image 2:</strong> Sorting by Next Deadline and exporting to Excel.
+        </div>
+      </div>
+
+      <h3 style="margin-top:1.2rem;">Step 3: Upload the Excel below</h3>
       <ul class="overdue-review-list">
-        <li>Student identifier quality: Full Name, Student ID, and Email.</li>
-        <li>Assigned sanctions text so follow-up remains clear and readable.</li>
-        <li>Next Deadline and Next Deadline Reason for outreach timing.</li>
-        <li>Hold in Place and File ID for internal tracking and coordination.</li>
+        <li>Upload the Excel file downloaded from Maxient into the tool below.</li>
+        <li>Select the correct <strong>From</strong> and <strong>To</strong> dates for the overdue review period.</li>
+        <li>Process the file and review the cleaned preview carefully before downloading.</li>
       </ul>
 
-      <h3 style="margin-top:1.2rem;">What this tool does</h3>
+      <h3 style="margin-top:1.2rem;">Step 4: Email students who need follow-up</h3>
+      <p style="margin-top:.7rem; color: var(--overdue-muted); line-height: 1.75;">
+        After you get the updated Excel, email students who need outreach in Outlook using the approved format below.
+      </p>
+
+      <div class="overdue-email-block">
+        <strong>Email Format</strong>
+        <pre>Hi,
+
+This is a reminder that you have one or more overdue sanctions with the Office of Student Conduct and Conflict Resolution.
+
+To review the details of your assigned sanctions and instructions for completing them, please refer to the hearing resolution letter sent to your email. To locate these communications quickly, search for the term “Maxient” in your inbox.
+
+Please note that unresolved sanctions may result in a hold being placed on your student account.
+
+If you are unable to locate your letter, have difficulty completing your sanctions, believe this notification was sent in error, or have any other concerns, please don’t hesitate to contact us at stconduct@hartford.edu.</pre>
+      </div>
+
+      <h3 style="margin-top:1.2rem;">Step 5: Save the updated file</h3>
       <ul class="overdue-review-list">
-        <li>Filters the uploaded report using your selected <strong>From</strong> and <strong>To</strong> dates.</li>
-        <li>Builds a cleaner output with key fields such as name, ID, email, and assigned sanctions.</li>
-        <li>Shows a preview before download so you can confirm the results.</li>
-        <li>Creates a separate workbook and does not overwrite the original file.</li>
+        <li>After outreach is complete, update the Excel as needed.</li>
+        <li>Save the final file in the <strong>GA Shared Drive</strong> under the <strong>Overdue Sanctions</strong> folder.</li>
       </ul>
     </article>
 
@@ -520,24 +604,33 @@
       <div class="notice notice-danger">
         <strong>Important</strong>
         <p>
-          Upload only a valid <strong>.xlsx</strong> Maxient export. The original upload remains unchanged.
+          Upload only a valid <strong>.xlsx</strong> file exported from Maxient. The original export stays unchanged.
         </p>
       </div>
 
       <div class="overdue-side-note">
         <strong>Quick Checklist</strong>
         <ul class="overdue-check-list" style="margin-top:.55rem;">
-          <li>Report exported from Maxient today or for the intended review cycle</li>
-          <li>File saved as <strong>.xlsx</strong></li>
-          <li>Date range selected correctly before processing</li>
-          <li>Preview reviewed before download</li>
+          <li>Analytics report code <strong>53</strong> used in Maxient</li>
+          <li>Current academic year selected</li>
+          <li><strong>Reported Date</strong> chosen as date reference</li>
+          <li><strong>Student Conduct</strong> selected for Case Type and Limit results to</li>
+          <li>Sorted by <strong>Next Deadline</strong> before export</li>
+          <li>Excel downloaded and uploaded below</li>
         </ul>
       </div>
 
       <div class="overdue-side-note" style="margin-top:1rem;">
-        <strong>Suggested output check</strong>
+        <strong>Before sending outreach</strong>
         <p>
-          Before download, confirm the preview includes the correct students, the right date range, and readable sanctions text.
+          Review the cleaned output, confirm the date range, check hold-related information, and make sure the email list is accurate.
+        </p>
+      </div>
+
+      <div class="overdue-side-note" style="margin-top:1rem;">
+        <strong>Final file reminder</strong>
+        <p>
+          After follow-up is complete, save the updated Excel in the GA shared drive for Overdue Sanctions so the team has the most current version.
         </p>
       </div>
     </aside>
