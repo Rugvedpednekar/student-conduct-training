@@ -253,6 +253,16 @@ def hearing_page(
     return render_static_template(request, user, "hearing.html", "hearing")
 
 
+
+
+@router.get("/about", response_class=HTMLResponse)
+def about_page(
+    request: Request,
+    user: User = Depends(get_current_user),
+):
+    return render_static_template(request, user, "about.html", "about")
+
+
 @router.get("/ai-chat", response_class=HTMLResponse)
 def ai_chat_page(
     request: Request,
