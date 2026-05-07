@@ -53,6 +53,7 @@ for slug, label in [
     ("overdue-sanctions", "Overdue Sanctions"),
     ("parent-letters", "Parent Letters"),
     ("ai-chat", "AI Chat"),
+    ("about", "About"),
     ("escalation", "Escalation"),
     ("quick-reference", "Quick Reference"),
 ]:
