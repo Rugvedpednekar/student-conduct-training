@@ -30,16 +30,54 @@
 
   <section class="grid">
     <article class="card col-8">
+      <style>
+        .about-image-block {
+          margin-top: 1rem;
+          background: #fff;
+          border: 1px solid #e0e9f2;
+          border-radius: 20px;
+          padding: 1rem;
+          box-shadow: 0 12px 24px rgba(18, 33, 56, 0.04);
+        }
+
+        .about-image-block img {
+          width: 100%;
+          display: block;
+          border-radius: 16px;
+          border: 1px solid #dbe5ef;
+          background: #f8fbff;
+        }
+
+        .about-image-caption {
+          margin-top: 0.7rem;
+          color: #6b7c93;
+          font-size: 0.9rem;
+          line-height: 1.55;
+          text-align: center;
+        }
+      </style>
+
       <h2>A Message to the Next Student Conduct GA</h2>
       <p style="margin-top:.7rem;">
         Hi, Rugved here.
       </p>
       <p style="margin-top:.7rem;">
         I was the Graduate Assistant in Student Conduct during the 2025–2026 academic year.
-        First of all, congratulations on your new role and your new office. Take time to settle in, make yourself comfortable,
-        and get to know the people around you. Meet your colleagues across DSS, because you will be spending a lot of time
-        working with them, learning from them, and growing with them.
+        First of all, congratulations on your new role and your new office. Take time to settle in,
+        make yourself comfortable, and get to know the people around you. Meet your colleagues across DSS,
+        because you will be spending a lot of time working with them, learning from them, and growing with them.
       </p>
+
+      <div class="about-image-block">
+        <img
+          src="{{ request.url_for('static', path='images/systems/Rugved_dave.jfif') }}"
+          alt="Rugved and Dave"
+          loading="lazy"
+        />
+        <div class="about-image-caption">
+          A memory from my time in Student Conduct.
+        </div>
+      </div>
 
       <div class="case-subcard">
         <h3>Why I Created This Website</h3>
@@ -91,9 +129,10 @@
       </p>
 
       <div class="notice" style="margin-top:1rem;">
-        <strong>Photo Section</strong>
+        <strong>Student-Services Commitment</strong>
         <p>
-          You can add an image of me and Dave here as a memory and dedication to the office.
+          The purpose of this website is to support training, continuity, and a smoother learning experience for future
+          Student Conduct Graduate Assistants.
         </p>
       </div>
 
