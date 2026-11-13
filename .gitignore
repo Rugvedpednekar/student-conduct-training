@@ -1,4 +1,10 @@
 __pycache__/
 *.py[cod]
 .env
-ga_training.db
+.env.*
+!.env.example
+*.db
+*.db-journal
+.pytest_cache/
+.venv/
+venv/
