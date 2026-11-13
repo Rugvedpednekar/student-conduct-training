@@ -3,10 +3,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = "GA Training Portal"
-    secret_key: str = "change-me-in-production"
+    secret_key: str = ""
     database_url: str = "sqlite:///./ga_training.db"
     session_cookie_name: str = "ga_training_session"
     secure_cookies: bool = False
+    initial_admin_username: str = ""
+    initial_admin_password: str = ""
+    initial_user_username: str = ""
+    initial_user_password: str = ""
     nova_api_key: str = ""
     nova_base_url: str = "https://api.nova.amazon.com/v1"
     nova_model: str = "amazon.nova-lite-v1:0"

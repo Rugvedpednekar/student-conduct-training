@@ -14,6 +14,8 @@ from app.seed import seed_roles_users_and_content
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if len(settings.secret_key) < 32 or settings.secret_key == "change-me-in-production":
+        raise RuntimeError("Set SECRET_KEY to a random value of at least 32 characters before starting")
     Base.metadata.create_all(bind=engine)
     with SessionLocal() as db:
         seed_roles_users_and_content(db)
@@ -35,6 +37,11 @@ app.state.templates = templates
 app.include_router(auth.router)
 app.include_router(admin.router)
 app.include_router(portal.router)
+
+
+@app.get("/healthz", include_in_schema=False)
+def healthz():
+    return {"status": "ok"}
 
 
 @app.exception_handler(HTTPException)
