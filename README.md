@@ -1,6 +1,6 @@
 # GA Training Portal (FastAPI + PostgreSQL)
 
-Production-ready role-based Student Conduct training portal with editable content, secure login, and Railway deployment support.
+Role-based Student Conduct training portal with editable content and a FastAPI backend. For free Render + Neon deployment, see [DEPLOYMENT.md](DEPLOYMENT.md). Do not use real student data on an unapproved public demo.
 
 ## Features
 - FastAPI server-rendered portal (Jinja2).
@@ -27,17 +27,17 @@ Production-ready role-based Student Conduct training portal with editable conten
 Create `.env` locally:
 
 ```env
-SECRET_KEY=replace-with-long-random-secret
+SECRET_KEY=generate-a-unique-random-key-with-at-least-32-characters
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ga_training
 SECURE_COOKIES=false
-NOVA_API_KEY=replace-with-your-nova-developer-key
+NOVA_API_KEY=
 NOVA_BASE_URL=https://api.nova.amazon.com/v1
 NOVA_MODEL=amazon.nova-lite-v1:0
 HANDBOOK_PATH=app/data/student_handbook.txt
 TRAINING_CONTENT_PATH=app/templates
 ```
 
-> On Railway, use Railway Variables UI to set `SECRET_KEY` and let Railway PostgreSQL provide `DATABASE_URL`.
+> On Render, follow [DEPLOYMENT.md](DEPLOYMENT.md) and set the Neon PostgreSQL `DATABASE_URL`. For other hosts, provide a strong `SECRET_KEY`, database URL, and secure-cookie configuration.
 
 ## Local Run
 1. Install dependencies:
@@ -52,7 +52,7 @@ TRAINING_CONTENT_PATH=app/templates
    ```bash
    python scripts/seed.py
    ```
-4. Start app:
+4. Set a strong `SECRET_KEY` and optional `INITIAL_ADMIN_USERNAME` / `INITIAL_ADMIN_PASSWORD` in `.env`, then start app:
    ```bash
    uvicorn app.main:app --reload
    ```
@@ -68,11 +68,11 @@ TRAINING_CONTENT_PATH=app/templates
 - Responses include source labels such as `Training: Hearing` and `Student Handbook`.
 - The assistant is informational only and does not make official conduct decisions.
 
-## Seeded Users
-- Admin username: `DAVE`
-- User username: `Stconduct`
+## First-run accounts
 
-Passwords are stored hashed only; credentials are seeded server-side, never in frontend code.
+There are no hardcoded default usernames or passwords. Set `INITIAL_ADMIN_USERNAME` and `INITIAL_ADMIN_PASSWORD` in the host environment before the first startup, with an optional `INITIAL_USER_USERNAME` / `INITIAL_USER_PASSWORD` pair. Passwords must be at least 12 characters and are hashed in the database. These values only create missing users; they do not reset existing passwords.
+
+The former demo credentials committed to Git history must be considered compromised and rotated wherever they were used.
 
 ## Railway Deployment
 1. Push this repo to GitHub.
